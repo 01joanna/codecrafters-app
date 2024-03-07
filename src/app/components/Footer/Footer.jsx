@@ -1,4 +1,5 @@
 import Image from 'next/image'
+import Button from '../Button/Button'
 
 export default function Footer() {
     return (
@@ -31,10 +32,22 @@ export default function Footer() {
                         <p>Privacy Policy</p>
                     </div>
                 </div>
-                <div id="membership-flag">Are you already a member?</div>
+                <div id="membership-flag" className='flex flex-col h-[7rem] gap-4'>
+                    <p className='text-2xl text-center'>Are you already a member?</p>
+                    <Button className="bg-customdark px-20 text-xs py-2.5 rounded-2xl text-white" text="Create an event"/>
+                    <div className='flex gap-2 font-light text-xs justify-center text-center'> 
+                        <Image
+                        src="/img/spain-flag.svg"
+                        alt='Spanish flag'
+                        width={20}
+                        height={20}
+                        />
+                        <p>Barcelona, SP</p>
+                    </div>
+                </div>
                 <div id="footer-navbar" className="flex gap-4">
-                    <h1>./m</h1>
-                    <ul>
+                    <h1 className='text-3xl'>./m</h1>
+                    <ul className='text-xs flex flex-col gap-3'>
                         <li>Home</li>
                         <li>Events</li>
                         <li>Sign Up</li>
@@ -42,7 +55,7 @@ export default function Footer() {
                 </div>
             </section>
             <aside>
-                <p className='text-center -mt-28 text-[300px] '>./moge</p>
+                <p className='absolute right-44 top-11 text-center text-[300px] '>./moge</p>
             </aside>
         </footer>
 )
