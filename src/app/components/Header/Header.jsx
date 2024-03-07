@@ -5,12 +5,12 @@ export default function Header() {
     return (
         <header className="bg-white text-black flex justify-between h-[4rem] px-12">
             <div id="logo" className="flex items-center">
-                <Image
+                {/* <Image
                     src=""
                     alt="Logo"
                     width={100}
                     height={100}
-                />
+                /> */}
                 <div className="text-xs">
                     <ul>
                         <li>Events</li>
