@@ -14,11 +14,11 @@ import Footer from "./components/Footer/Footer.jsx";
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <Header />
-      <body 
-      // className={inter.className}
-      >{children}</body>
-      <Footer />
+      <body>
+        <Header />
+          {children}
+        <Footer />
+      </body>
     </html>
   );
 }
