@@ -1,4 +1,5 @@
 import Image from "next/image"
+import Link from "next/link"
 import Searchbar from "../Searchbar/Searchbar"
 
 export default function Header() {
@@ -13,7 +14,7 @@ export default function Header() {
                 /> */}
                 <div className="text-xs">
                     <ul>
-                        <li>Events</li>
+                    <Link href="/events">Browse all events</Link>
                     </ul>
                 </div>
             </div>

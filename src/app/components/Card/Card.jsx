@@ -1,17 +1,46 @@
+"use client"
 import Image from "next/image";
+import React, { useEffect } from "react";
+import { FaUsers } from "react-icons/fa6";
+import { IoEarthSharp } from "react-icons/io5";
+import { restapi } from '@/services/RestApi.jsx';
+
 
 export default function Card() {
+
+    // Llamar al servicio
+    // Almacenamos esa respuesta dentro de un estado
+    // Renderizar el resultado
+
+    const service = restapi();
+
+    useEffect(() => {
+        service.getAll().then(response => {
+            console.log(response.data.data);
+        })
+    }, [service])
+
     return (
         <div className="bg-white">
             <Image 
             src="/img/rectangle.png"
             alt="Event picture"
-            width={150}
-            height={150}
+            width={250}
+            height={250}
             />
-            <div className="w-[150px]">
-                <h1 className="text-xl">Lorem ipsum dolor sit!</h1>
-                <p className="text-[11px]">Lorem ipsum dolor sit amet consectetur. Mauris at massa tincidunt diam velit duis et. Sed consequat in facilisis pulvinar donec nibh.</p>
+            <div id="card-text" className="text-black flex flex-col gap-1 w-[170px]">
+                <div className="flex gap-3 items-center">
+                    <h1 className="text-lg">Event name</h1>
+                    <IoEarthSharp />
+                </div>
+                <div className="flex gap-3 text-xs uppercase">
+                    <h2 className="text-gray-400">18:00h</h2>
+                    <h3>OCT 13, 24 | BCN</h3>
+                </div>
+                <span className="flex gap-2 items-center text-xs">
+                    <FaUsers />
+                    <h6>10 assistants</h6>
+                </span>
             </div>
         </div>
     )
