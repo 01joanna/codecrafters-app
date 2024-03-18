@@ -12,13 +12,16 @@ export default function Card() {
     // Almacenamos esa respuesta dentro de un estado
     // Renderizar el resultado
 
-    const service = restapi();
+    // const service = restapi();
 
     useEffect(() => {
+        const service = restapi();
         service.getAll().then(response => {
-            console.log(response.data.data);
+            console.log(response);
+        }).catch(error => {
+            console.log(error);
         })
-    }, [service])
+    })
 
     return (
         <div className="bg-white">
