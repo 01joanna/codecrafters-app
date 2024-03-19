@@ -30,4 +30,12 @@ body {
   .text-balance {
     text-wrap: balance;
   }
+
+  #event-details-h3{
+    @apply text-sm font-semibold;
+  }
+
+  #event-details-text{
+    @apply text-xs;
+  }
 }
