@@ -50,4 +50,12 @@ body {
   h2 {
     @apply text-4xl font-bold text-black;
   }
+
+  input {
+    @apply bg-lightmayonnaise py-2 px-8 rounded-lg w-full m-1;
+  }
+
+  #profile-form-label {
+    @apply text-xs font-semibold uppercase;
+  }
 }
