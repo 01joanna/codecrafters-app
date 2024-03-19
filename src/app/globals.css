@@ -30,4 +30,32 @@ body {
   .text-balance {
     text-wrap: balance;
   }
+
+  main {
+    @apply bg-white text-black;
+  
+  }
+
+  #event-details-h3{
+    @apply text-sm font-semibold;
+  }
+
+  #event-details-text{
+    @apply text-xs;
+  }
+
+  h1 {
+    @apply text-6xl font-bold text-black;
+  }
+  h2 {
+    @apply text-4xl font-bold text-black;
+  }
+
+  input {
+    @apply bg-lightmayonnaise py-2 px-8 rounded-lg w-full m-1;
+  }
+
+  #profile-form-label {
+    @apply text-xs font-semibold uppercase;
+  }
 }
