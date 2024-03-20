@@ -48,9 +48,9 @@ export default function Footer() {
                 <div id="footer-navbar" className="flex gap-4">
                     <h1 className='text-3xl'>./m</h1>
                     <ul className='text-xs flex flex-col gap-3'>
-                        <li>Home</li>
-                        <li>Events</li>
-                        <li>Sign Up</li>
+                        <li><a href="/">Home</a></li>
+                        <li><a href="/events">Events</a></li>
+                        <li><a href="/signup">Sign Up</a></li>
                     </ul>
                 </div>
             </section>
