@@ -3,7 +3,7 @@ import Button from '../Button/Button'
 
 export default function Footer() {
     return (
-        <footer className="bg-yellow h-[300px] pt-5">
+        <footer className="bg-yellow h-[300px] p-5 relative overflow-hidden">
             <section className="flex w-full justify-around">
                 <div id="social-terms">
                     <div className='flex gap-2'>
@@ -54,8 +54,8 @@ export default function Footer() {
                     </ul>
                 </div>
             </section>
-            <aside>
-                <p className='absolute right-44 top-11 text-center text-[300px] '>./moge</p>
+            <aside className='absolute bottom-[-8rem] left-[15rem]'>
+                <p className='text-[300px] '>./moge</p>
             </aside>
         </footer>
 )
