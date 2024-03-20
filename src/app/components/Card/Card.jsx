@@ -13,16 +13,15 @@ export default function Card() {
     // Renderizar el resultado
 
     // const service = restapi();
-
     useEffect(() => {
         const service = restapi();
         service.getAll().then(response => {
-            console.log(response);
+          console.log(response);
         }).catch(error => {
-            console.log(error);
-        })
-    })
-
+          console.log(error);
+        });
+     }, []);
+     
     return (
         <div className="bg-white">
             <Image 
@@ -37,8 +36,8 @@ export default function Card() {
                     <IoEarthSharp />
                 </div>
                 <div className="flex gap-3 text-xs uppercase">
-                    <h2 className="text-gray-400">18:00h</h2>
-                    <h3>OCT 13, 24 | BCN</h3>
+                    <h5 className="text-gray-400">18:00h</h5>
+                    <h5>OCT 13, 24 | BCN</h5>
                 </div>
                 <span className="flex gap-2 items-center text-xs">
                     <FaUsers />

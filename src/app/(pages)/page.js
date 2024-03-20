@@ -1,7 +1,7 @@
 "use client"
 import Image from "next/image";
-import Button from "./components/Button/Button";
-import Card from "./components/Card/Card";
+import Button from "../components/Button/Button";
+import Card from "../components/Card/Card";
 
 const imageLanding = "https://placehold.co/1400x625";
 

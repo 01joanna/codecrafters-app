@@ -1,8 +1,8 @@
 "use client"
 import { Inter } from "next/font/google";
-import "./globals.css";
-import Header from "./components/Header/Header.jsx";
-import Footer from "./components/Footer/Footer.jsx";
+import "../globals.css";
+import Header from "../components/Header/Header";
+import Footer from "../components/Footer/Footer";
 import {NextUIProvider} from "@nextui-org/react";
 
 // const inter = Inter({ subsets: ["latin"] });
