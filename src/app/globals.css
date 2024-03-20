@@ -52,10 +52,14 @@ body {
   }
 
   input {
-    @apply bg-lightmayonnaise py-2 px-8 rounded-lg text-[11px] w-auto m-1;
+    @apply bg-lightmayonnaise py-2 px-8 rounded-lg text-[11px] text-black w-auto m-1;
   }
 
-  #profile-form-label {
+  textarea {
+    @apply bg-gray-200 py-2 px-8 rounded-lg text-[11px] text-black w-[400px] h-[200px] m-1;
+  }
+
+  #profile-form-label, #event-form-label {
     @apply text-xs font-semibold uppercase;
   }
 

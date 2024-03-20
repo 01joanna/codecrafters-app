@@ -9,7 +9,7 @@ const imageLanding = "https://placehold.co/1400x625";
 export default function Home() {
 
   return (
-    <div className="bg-white flex flex-col gap-8">
+    <main className="bg-white flex flex-col gap-8 pb-20">
       <section className="flex flex-col gap-4 items-center">
         <div>
           <Image 
@@ -42,6 +42,6 @@ export default function Home() {
           />
         </div>
       </aside>
-    </div>
+    </main>
   );
 }
