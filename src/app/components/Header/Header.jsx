@@ -24,13 +24,13 @@ export default function Header() {
                     <ul className="flex gap-6 text-xs">
                         <li className="font-bold">Your events</li>
                         <li>Create an event</li>
-                        <li className="flex gap-2">
+                        <Link href="/signup" className="flex gap-2">
                             <Image
                             src="/img/account-icon.svg"
                             alt="Account Icon"
                             width={20}
                             height={20}/>
-                            Sign Up</li>
+                            Sign Up</Link>
                     </ul>
                 </nav>
             </div>
