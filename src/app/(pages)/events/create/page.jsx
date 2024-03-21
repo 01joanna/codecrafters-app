@@ -2,7 +2,7 @@ export default function Page() {
     return (
         <main className="flex flex-col items-center gap-8 pt-8 pb-16">
             <h2 className="text-[50px] font-light">Add a new event</h2>
-            <form action="/create" method="post" className="border border-yellow px-12 py-8 items-center rounded-xl flex flex-col justify-center gap-20">
+            <form action="/create" method="post" className="border border-yellow px-12 py-8 items-center rounded-xl flex flex-col justify-center gap-20 md:mx-10">
                 <fieldset>
                     <div className="mb-5">
                         <label id="event-form-label" for="title">Title:</label><br/>
@@ -10,7 +10,7 @@ export default function Page() {
                     </div>
                     <hr/>
                     <br/>
-                    <div id="event-form-fillables" className="flex gap-12">
+                    <div id="event-form-fillables" className="flex lg:flex-row md:flex-col gap-12">
                         <div id="event-form-part1" className="flex flex-col gap-5">
                             <div id="event-form-date">
                                 <label id="event-form-label" for="date">Date:</label><br/>
