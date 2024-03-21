@@ -2,10 +2,17 @@
 @tailwind components;
 @tailwind utilities;
 
+@import url('https://fonts.cdnfonts.com/css/valverde?styles=137784,137785');
+
+@font-face {
+  font-family: "Valverde";
+  src: url("../../public/Valverde-CondensedSemibold.otf");
+}
+
 :root {
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+  --background-end-rgb: 214, 219, 220;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -29,5 +36,45 @@ body {
 @layer utilities {
   .text-balance {
     text-wrap: balance;
+  }
+
+  main {
+    @apply bg-white text-black;
+  
+  }
+
+  #event-details-h3{
+    @apply text-sm font-semibold;
+  }
+
+  #event-details-text{
+    @apply text-xs;
+  }
+
+  h1 {
+    @apply text-6xl font-bold text-black;
+  }
+  h2 {
+    @apply text-4xl font-bold text-black;
+  }
+
+  input {
+    @apply bg-lightmayonnaise py-2 px-8 rounded-lg text-[11px] text-black w-auto m-1;
+  }
+
+  textarea {
+    @apply bg-gray-200 py-2 px-8 rounded-lg text-[11px] text-black w-[400px] h-[200px] m-1;
+  }
+
+  #profile-form-label, #event-form-label {
+    @apply text-xs font-semibold uppercase;
+  }
+
+  #signup-label {
+    @apply text-xs font-semibold uppercase;
+  }
+
+  #signup-part-1, #signup-part-2 {
+    @apply flex flex-col gap-7;
   }
 }
