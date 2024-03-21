@@ -12,7 +12,7 @@ export default function Header() {
                     width={100}
                     height={100}
                 /> */}
-                <div className="text-xs">
+                <div className="text-xs lg:visible lg:flex md:hidden">
                     <ul>
                     <Link href="/events">Browse all events</Link>
                     </ul>
@@ -21,7 +21,7 @@ export default function Header() {
             <div className="flex items-center gap-4">
                 <Searchbar />
                 <nav>
-                    <ul className="flex gap-6 text-xs">
+                    <ul className="flex gap-6 text-xs md:hidden lg:flex">
                         <Link 
                         href="/events/CAMBIAR_RUTA"
                         // {`"/events/${id}"`} 
@@ -35,6 +35,7 @@ export default function Header() {
                             height={20}/>
                             Sign Up</Link>
                     </ul>
+                    {/* CREAR MENU HAMBURGUESA */}
                 </nav>
             </div>
         </header>
