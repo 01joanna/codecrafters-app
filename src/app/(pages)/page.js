@@ -9,7 +9,7 @@ const imageLanding = "https://placehold.co/1400x625";
 export default function Home() {
 
   return (
-    <div className="bg-white flex flex-col gap-8">
+    <main className="bg-white flex flex-col gap-8 pb-20">
       <section className="flex flex-col gap-4 items-center">
         <div>
           <Image 
@@ -19,12 +19,12 @@ export default function Home() {
           height={625}
           className="px-4"
           />
-          <div className="lg:visible md:hidden lg:absolute lg:top-[20rem] lg:left-[4rem] bg-white w-[390px] text-black px-12 py-6 rounded-3xl">
-            <h1 className="text-2xl mb-1">Lorem ipsum dolor sit!</h1>
-            <p className="text-[11px] mb-4">Lorem ipsum dolor sit amet consectetur. Mauris at massa tincidunt diam velit duis et. Sed consequat in facilisis pulvinar donec nibh.</p>
-          <Button text={"Lorem ipsum"} className="bg-lightmayonnaise py-2 px-8 text-xs rounded-md" /></div>
+          <div className="lg:visible md:hidden lg:absolute lg:top-[20rem] lg:left-[4rem] bg-white w-[460px] text-black px-12 py-6 rounded-3xl">
+            <h1 className="text-2xl mb-1">Connecting minds, creating technological futures.</h1>
+            <p className="text-[11px] mb-4">Connecting like-minded individuals effortlessly. Let us do the searching for you, and experience the ease of connecting with others who share your interests. Join our web platform today and unlock a world of possibilities with just one click!</p>
+          <Button text={"Join us!"} className="bg-lightmayonnaise py-2 px-8 text-xs rounded-md" /></div>
         </div>
-          <p className="bg-lightmayonnaise text-sm text-black rounded-xl px-6 py-4 mx-8">Lorem ipsum dolor sit amet consectetur. Sit hendrerit risus netus quisque varius augue aliquet in mattis. Viverra lacinia faucibus lobortis at tempor nibh nibh purus. Porttitor purus volutpat mattis interdum aliquam quis phasellus. In turpis ultrices urna a.</p>
+          <p className="bg-lightmayonnaise text-sm text-black rounded-xl px-6 py-4 mx-8">Explore with us the fascinating world of technology. On our website, we provide you with a careful selection of technological events designed to keep you up to date with the latest trends and developments in this exciting field. Join a community committed to technological advancement and innovation, where each member has the opportunity to learn, share, and grow in an inclusive and collaborative environment.</p>
       </section>
       <aside className="flex flex-col gap-16">
         <h2 className="text-6xl font-bold pl-36 text-black">Weekly events</h2>
@@ -42,6 +42,6 @@ export default function Home() {
           />
         </div>
       </aside>
-    </div>
+    </main>
   );
 }

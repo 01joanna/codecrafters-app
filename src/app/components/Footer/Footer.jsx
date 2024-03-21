@@ -34,7 +34,9 @@ export default function Footer() {
                 </div>
                 <div id="membership-flag" className='md:hidden lg:visible lg:flex lg:flex-col lg:h-[7rem] lg:gap-4'>
                     <p className='text-2xl text-center'>Are you already a member?</p>
-                    <Button className="bg-customdark px-20 text-xs py-2.5 rounded-2xl text-white" text="Create an event"/>
+                    <Button 
+                    to="/login"
+                    className="bg-customdark px-20 text-xs py-2.5 rounded-2xl text-white" text="Create an event"/>
                     <div className='flex gap-2 font-light text-xs justify-center text-center'> 
                         <Image
                         src="/img/spain-flag.svg"
@@ -48,9 +50,9 @@ export default function Footer() {
                 <div id="footer-navbar" className="flex gap-4">
                     <h1 className='text-3xl'>./m</h1>
                     <ul className='text-xs md:hidden lg:visible lg:flex lg:flex-col gap-3'>
-                        <li>Home</li>
-                        <li>Events</li>
-                        <li>Sign Up</li>
+                        <li><a href="/">Home</a></li>
+                        <li><a href="/events">Events</a></li>
+                        <li><a href="/signup">Sign Up</a></li>
                     </ul>
                 </div>
             </section>

@@ -22,8 +22,11 @@ export default function Header() {
                 <Searchbar />
                 <nav>
                     <ul className="flex gap-6 text-xs md:hidden lg:flex">
-                        <li className="font-bold">Your events</li>
-                        <li>Create an event</li>
+                        <Link 
+                        href="/events/CAMBIAR_RUTA"
+                        // {`"/events/${id}"`} 
+                        className="font-bold">Your events</Link>
+                        <Link href="/events/create">Create an event</Link>
                         <Link href="/signup" className="flex gap-2">
                             <Image
                             src="/img/account-icon.svg"
