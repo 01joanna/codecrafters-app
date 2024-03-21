@@ -34,7 +34,9 @@ export default function Footer() {
                 </div>
                 <div id="membership-flag" className='flex flex-col h-[7rem] gap-4'>
                     <p className='text-2xl text-center'>Are you already a member?</p>
-                    <Button className="bg-customdark px-20 text-xs py-2.5 rounded-2xl text-white" text="Create an event"/>
+                    <Button 
+                    to="/login"
+                    className="bg-customdark px-20 text-xs py-2.5 rounded-2xl text-white" text="Create an event"/>
                     <div className='flex gap-2 font-light text-xs justify-center text-center'> 
                         <Image
                         src="/img/spain-flag.svg"
