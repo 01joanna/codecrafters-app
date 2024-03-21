@@ -19,7 +19,7 @@ export default function Home() {
           height={625}
           className="px-4"
           />
-          <div className="lg:visible md:hidden lg:absolute lg:top-[20rem] lg:left-[4rem] bg-white w-[460px] text-black px-12 py-6 rounded-3xl">
+          <div className="lg:visible absolute lg:top-[20rem] lg:left-[4rem] bg-white lg:w-[460px] text-black px-12 py-6 rounded-3xl">
             <h1 className="text-2xl mb-1">Connecting minds, creating technological futures.</h1>
             <p className="text-[11px] mb-4">Connecting like-minded individuals effortlessly. Let us do the searching for you, and experience the ease of connecting with others who share your interests. Join our web platform today and unlock a world of possibilities with just one click!</p>
           <Button text={"Join us!"} className="bg-lightmayonnaise py-2 px-8 text-xs rounded-md" /></div>
