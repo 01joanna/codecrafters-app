@@ -1,5 +1,8 @@
-/** @type {import('next').NextConfig} */
+// next.config.js
 const nextConfig = {
+    images: {
+        domains: [''], // Agrega el hostname aquí
+    },
     async headers() {
         return [
             {
