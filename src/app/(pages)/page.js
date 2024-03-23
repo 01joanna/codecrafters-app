@@ -31,9 +31,6 @@ export default function Home() {
         <div className="flex flex-col justify-center items-center gap-20">
         <div className="lg:w-[500px] md:w-auto flex md:flex-col lg:flex-row md:justify-center md:items-center justify-evenly gap-20">
           <Card />
-          <Card />
-          <Card />
-          <Card />
         </div>
         <Button 
           text="Browse all events" 
