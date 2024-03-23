@@ -22,35 +22,48 @@ export default function Card() {
         });
     }, []);
 
+    // Función para dividir los eventos en grupos de 5
+    const chunkEvents = (array, size) => {
+        const chunkedArray = [];
+        for (let i = 0; i < array.length; i += size) {
+            chunkedArray.push(array.slice(i, i + size));
+        }
+        return chunkedArray;
+    };
+
     return (
-        <div>
-        {events.map((event) => (
-            <div key={event.id} className="bg-white">
-            <Image
-                // src={event.image}
-                alt="Event picture"
-                width={250}
-                height={250}
-            />
-            <div
-                id="card-text"
-                className="text-black flex flex-col gap-1 w-[170px]"
-            >
-                <div className="flex gap-3 items-center">
-                <h1 className="text-lg">{event.title}</h1>
-                <IoEarthSharp />
+      <div>
+        {chunkEvents(events, 5).map((group, index) => (
+          <div key={index} className="flex  gap-4">
+            {group.map((event) => (
+              <div key={event.id} className="bg-white flex flex-col gap-4">
+                <Image
+                  // src={event.image} esto da error
+                  alt="Event picture"
+                  width={250}
+                  height={250}
+                />
+                <div
+                  id="card-text"
+                  className="text-black flex flex-col gap-1 w-[170px]"
+                >
+                  <div className="flex gap-3 items-center">
+                    <h1 className="text-lg">{event.title}</h1>
+                    <IoEarthSharp />
+                  </div>
+                  <div className="flex gap-3 text-xs uppercase">
+                    <h2 className="text-gray-400 text-xs">{event.date}</h2>
+                    <h3>{event.location}</h3>
+                  </div>
+                  <span className="flex gap-2 items-center text-xs">
+                    <FaUsers />
+                    <h6>{event.attendees_count} assistants</h6>
+                  </span>
                 </div>
-                <div className="flex gap-3 text-xs uppercase">
-                <h2 className="text-gray-400">{event.date}</h2>
-                <h3>{event.location}</h3>
-                </div>
-                <span className="flex gap-2 items-center text-xs">
-                <FaUsers />
-                <h6>{event.attendees_count} assistants</h6>
-                </span>
-            </div>
-            </div>
+              </div>
+            ))}
+          </div>
         ))}
-        </div>
+      </div>
     );
 }

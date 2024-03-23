@@ -7,7 +7,7 @@ axios.defaults.withCredentials = true;
 axios.defaults.withXSRFToken = true;
 
 const restapi = () => ({
-    // Auth routes
+  // Auth routes
     register: async (userData) => {
         try {
         const response = await axios.post("/register", userData);
@@ -145,7 +145,26 @@ const restapi = () => ({
         throw error;
         }
     },
-    });
+
+    // //Funcion para filtrar eventos
+    // filterEvents: async (name, category) => {
+    //     try {
+    //     // Obtener todos los eventos
+    //     const response = await axios.get("/events");
+    //     // Filtrar los eventos por nombre y categoría
+    //     const filteredEvents = response.data.filter((event) => {
+    //         const nameMatch = event.title.toLowerCase().includes(name.toLowerCase());
+    //         const categoryMatch = event.category_id === category || category === "";
+    //         return nameMatch && categoryMatch;
+    //     });
+    //     return filteredEvents;
+    //     } catch (error) {
+    //     throw error;
+    //     }
+    // },
+});
+
+
 
 
 

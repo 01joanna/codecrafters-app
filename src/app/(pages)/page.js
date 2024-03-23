@@ -6,7 +6,7 @@ import Card from "../components/Card/Card";
 const imageLanding = "https://placehold.co/1400x625";
 
 
-export default function Home() {
+export default function Home({ onSearch }) {
 
   return (
     <main className="bg-white flex flex-col gap-8 pb-20">
@@ -30,10 +30,7 @@ export default function Home() {
         <h2 className="text-6xl font-bold pl-36 text-black">Weekly events</h2>
         <div className="flex flex-col justify-center items-center gap-20">
         <div className="lg:w-[500px] md:w-auto flex md:flex-col lg:flex-row md:justify-center md:items-center justify-evenly gap-20">
-          <Card />
-          <Card />
-          <Card />
-          <Card />
+            <Card onSearch={onSearch} />
         </div>
         <Button 
           text="Browse all events" 
