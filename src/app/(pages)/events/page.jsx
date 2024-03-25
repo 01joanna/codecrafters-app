@@ -7,9 +7,9 @@ import Card from '../../components/Card/Card';
 export default function Page() {
 
     const [events, setEvents] = useState([]);
-    // const [searchResults, setSearchResults] = useState([]);
-    //Llamada a la API para que muestre todos los eventos 
+    // const [searchTerm, setSearchTerm] = useState("");
 
+    //Llamada a la API para que muestre todos los eventos 
     useEffect(() => {
     const service = restapi();
     service
@@ -23,14 +23,6 @@ export default function Page() {
         });
     }, []);
 
-
-    // const handleSearch = (searchTerm) => {
-    //     // Aquí deberías realizar la lógica para buscar los resultados
-    //     // Puedes hacer una llamada a tu API aquí para obtener los resultados
-    //     // Por simplicidad, vamos a simular algunos resultados de búsqueda
-    //     const results = events.filter(event => event.name.toLowerCase().includes(searchTerm.toLowerCase()));
-    //     setSearchResults(results);
-    // };
 
     return (
         <main className='bg-white'>
