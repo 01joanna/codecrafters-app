@@ -7,10 +7,6 @@ import restapi from "../../services/RestApi";
 
 const imageLanding = "https://placehold.co/1400x625";
 
-<<<<<<< HEAD
-
-export default function Home({ onSearch }) {
-=======
 export default function Home() {
   const [events, setEvents] = useState([]);
 
@@ -34,7 +30,6 @@ export default function Home() {
     }
     return chunkedArray;
   };
->>>>>>> 62e59da (events in events page renderized)
 
   return (
     <main className="bg-white flex flex-col gap-8 pb-20">
