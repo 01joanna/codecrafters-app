@@ -2,6 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
+@import url('https://fonts.cdnfonts.com/css/valverde?styles=137784,137785');
+
+@font-face {
+  font-family: "Valverde";
+  src: url("../../public/Valverde-CondensedSemibold.otf");
+}
+
 :root {
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
@@ -52,10 +59,14 @@ body {
   }
 
   input {
-    @apply bg-lightmayonnaise py-2 px-8 rounded-lg w-auto m-1;
+    @apply bg-lightmayonnaise py-2 px-8 rounded-lg text-[11px] text-black w-auto m-1;
   }
 
-  #profile-form-label {
+  textarea {
+    @apply bg-gray-200 py-2 px-8 rounded-lg text-[11px] text-black w-[400px] h-[200px] m-1;
+  }
+
+  #profile-form-label, #event-form-label {
     @apply text-xs font-semibold uppercase;
   }
 
