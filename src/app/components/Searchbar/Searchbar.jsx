@@ -2,11 +2,24 @@
 "use client";
 
 import Image from "next/image";
-import { useRouter } from "next/navigation";
-import React, { useState , useEffect} from "react";
+import { useRouter, useSearchParams, usePathname } from "next/navigation";
 import restapi from "../../../services/RestApi";
 
 export default function Searchbar() {
+
+    const SearchParams = useSearchParams();
+    const Pathname = usePathname();
+    const {replace} = useRouter();
+
+    const handleSearch = (searchTerm) => {
+        const params = new URLSearchParams(SearchParams);
+        if (searchTerm) {
+            params.set('query', searchTerm);
+        } else {
+            params.delete('query');
+        }
+        replace(`${Pathname}?${params.toString()}`);
+    }
 
     return (
         <form 
@@ -25,8 +38,10 @@ export default function Searchbar() {
                 className='bg-customdark w-full h-8 rounded-lg text-customgray text-[12px] 
                 px-3'
                 placeholder="Search for events..." 
-                // value={search}
-                // onChange={(e) => handleChange(e.target.value)}
+                defaultValue={SearchParams.get('query')?.toString()}
+                onChange={(e) => {
+                    handleSearch(e.target.value)
+                }}
                 />
             </div>
         </form>

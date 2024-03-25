@@ -1,13 +1,16 @@
 "use client"
 import React, { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import restapi from '../../../services/RestApi';
-import Card from '../../components/Card/Card';
+import EventsList from '@/app/components/EventsList/EventsList';
 
 
-export default function Page() {
+const Page = ({ searchParams }) => {
+
+    const router = useRouter();
+    const query = searchParams?.query || '';
 
     const [events, setEvents] = useState([]);
-    // const [searchTerm, setSearchTerm] = useState("");
 
     //Llamada a la API para que muestre todos los eventos 
     useEffect(() => {
@@ -22,6 +25,11 @@ export default function Page() {
         console.log("No puede recibir los datos de la api", error);
         });
     }, []);
+
+    useEffect(() => {
+        console.log("Valor actual del parámetro de consulta:", query);
+    }, [query]);
+    
 
 
     return (
@@ -38,21 +46,12 @@ export default function Page() {
                 //         </ul>
                 //     </div>
                 // ): (
-                    <div>
-                    {/* // logica con todos los eventos normales */}
-                        <h1 className='text-bold text-[80px] text-black pl-12'>All events</h1>
-                        <div className="flex flex-wrap justify-center gap-4 py-8">
-                        {events.length > 0 ? (
-                            events.map(event => (
-                                <Card key={event.id} event={event}/>
-                            ))
-                        ) : (
-                            <p>No hay eventos disponibles.</p>
-                        )}
-                        </div> 
-                    </div>
+                    <EventsList  query={query}/>
                 // )
             }        
         </main>
     )
 }
+
+
+export default Page
