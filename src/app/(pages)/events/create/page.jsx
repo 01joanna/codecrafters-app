@@ -38,11 +38,11 @@ export default function Page() {
                                 <fieldset>
                                     <legend>Select a category</legend>
                                     <div>
-                                        <input type="radio" id="online" name="category" value="music" />
+                                        <input type="radio" id="online" name="category" value="online" />
                                         <label for="online">Online</label>
                                     </div>
                                     <div>
-                                        <input type="radio" id="in-person" name="category" value="sports" />
+                                        <input type="radio" id="in-person" name="category" value="in-person" />
                                         <label for="in-person">In-person</label>
                                     </div>
                                 </fieldset>
@@ -52,6 +52,10 @@ export default function Page() {
                                 <input type="file" id="image" name="image" placeholder="Event image" />
                             </div>
                         </div>
+                    </div>
+                    <div className="flex gap-4 text-sm pt-12 justify-center items-center">
+                        <button type="submit" className="px-16 py-2 bg-lightmayonnaise font-light justify-center rounded-xl">Send</button>
+                        <button type="submit" className="px-16 py-2 bg-lightmayonnaise font-light justify-center rounded-xl">Go Back</button>
                     </div>
                 </fieldset>
             </form>
