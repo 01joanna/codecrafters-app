@@ -17,9 +17,6 @@ import {NextUIProvider} from "@nextui-org/react";
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <Head>
-      <link href="https://fonts.cdnfonts.com/css/valverde?styles=137784,137785" rel="stylesheet"></link>
-      </Head>
       <body>
       <NextUIProvider>
         <Header />

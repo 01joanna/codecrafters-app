@@ -4,6 +4,7 @@
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
+<<<<<<< HEAD
 
 export default function Searchbar() {
 
@@ -21,6 +22,24 @@ export default function Searchbar() {
         router.push(`/?query=${e.target.value}`);
     };
 
+=======
+
+export default function Searchbar({ onSearch }) {
+
+    const [search, setSearch] = useState("");
+    const router = useRouter()
+
+    const handleSearch = (e) => {
+        e.preventDefault(); 
+        router.push(`/?query=${search}`); 
+        setSearch('')
+    }
+    const handleChange = (e) => {
+        setSearch(e.target.value);
+        router.push(`/?query=${e.target.value}`);
+    };
+
+>>>>>>> 62e59da (events in events page renderized)
     return (
         <form onSubmit={handleSearch}>
             <div className='flex lg:w-[500px] md:w-[300px] pr-5'>

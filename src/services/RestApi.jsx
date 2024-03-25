@@ -7,7 +7,11 @@ axios.defaults.withCredentials = true;
 axios.defaults.withXSRFToken = true;
 
 const restapi = () => ({
+<<<<<<< HEAD
   // Auth routes
+=======
+    // Auth routes
+>>>>>>> 62e59da (events in events page renderized)
     register: async (userData) => {
         try {
         const response = await axios.post("/register", userData);
@@ -145,6 +149,7 @@ const restapi = () => ({
         throw error;
         }
     },
+<<<<<<< HEAD
 
     // //Funcion para filtrar eventos
     // filterEvents: async (name, category) => {
@@ -165,6 +170,9 @@ const restapi = () => ({
 });
 
 
+=======
+    });
+>>>>>>> 62e59da (events in events page renderized)
 
 
 
