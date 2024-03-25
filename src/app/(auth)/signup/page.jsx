@@ -8,10 +8,10 @@ export default function Page() {
                 </div>
                 <div id="signup-form" className="shadow-xl">
                     <form action="/signup" method="post" className="flex flex-col items-center px-8">
-                        <legend className="font-light text-4xl my-8">Create a new account</legend>
+                        <legend className="font-light md:text-xl lg:text-4xl my-8">Create a new account</legend>
 
                         <div id="form-images-button" className="flex flex-col items-center">
-                            <div id="form-fillables" className="flex gap-8 mb-7">
+                            <div id="form-fillables" className="flex lg:flex-row md:flex-col gap-8 mb-7">
                             <div id="signup-part-1">
                                 <div>
                                     <label id="signup-label" for="name">NAME:</label><br/>
