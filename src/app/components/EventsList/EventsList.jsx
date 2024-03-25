@@ -14,7 +14,7 @@ const EventsList = ({ query }) => {
     service
         .getAllEvents()
         .then((response) => {
-        console.log("response", response.data);
+        console.log("Se ha recibido la data");
           setEvents(response.data); // Almacena los eventos en el estado local
         })
         .catch((error) => {

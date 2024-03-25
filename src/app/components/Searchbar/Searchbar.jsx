@@ -15,6 +15,10 @@ export default function Searchbar() {
         const params = new URLSearchParams(SearchParams);
         if (searchTerm) {
             params.set('query', searchTerm);
+        } else if (searchTerm.trim() !== "") {
+            params.set('query', searchTerm);
+            // router.push(`/events?query=${searchTerm}`);
+            // router.push(`${Pathname}?${params.toString()}`);
         } else {
             params.delete('query');
         }
