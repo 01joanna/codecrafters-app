@@ -30,9 +30,10 @@ export default function Page() {
                     <div id='event-users'>
                         <div id='event-user-owner' className='flex gap-4 items-center'>
                             <Owner text={"Lorem Ipsum"}/>
+                        </div>
+                        <div id='users-registered'>
                             <Assistants />
                         </div>
-                        <div id='users-registered'></div>
                     </div>
                 </div>
                 <div id='event-details' className='w-[350px]'>
