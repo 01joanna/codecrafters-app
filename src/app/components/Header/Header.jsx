@@ -3,6 +3,7 @@ import Link from "next/link"
 import Searchbar from "../Searchbar/Searchbar"
 
 export default function Header() {
+
     return (
         <header className="bg-white text-black flex justify-between h-[4rem] px-12">
             <div id="logo" className="flex items-center">
@@ -19,7 +20,9 @@ export default function Header() {
                 </div>
             </div>
             <div className="flex items-center gap-4">
-                <Searchbar />
+                <Searchbar 
+                // onSearch={onSearch}
+                />
                 <nav>
                     <ul className="flex gap-6 text-xs md:hidden lg:flex">
                         <Link 
