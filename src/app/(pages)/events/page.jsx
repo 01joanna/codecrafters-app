@@ -4,10 +4,8 @@ import restapi from '../../../services/RestApi';
 import Card from '../../components/Card/Card';
 
 
-export default function Page() {
-
+export default function Page({}) {
     const [events, setEvents] = useState([]);
-    // const [searchTerm, setSearchTerm] = useState("");
 
     //Llamada a la API para que muestre todos los eventos 
     useEffect(() => {
@@ -44,7 +42,8 @@ export default function Page() {
                         <div className="flex flex-wrap justify-center gap-4 py-8">
                         {events.length > 0 ? (
                             events.map(event => (
-                                <Card key={event.id} event={event}/>
+                                <Card key={event.id} event={event}
+                                />
                             ))
                         ) : (
                             <p>No hay eventos disponibles.</p>
