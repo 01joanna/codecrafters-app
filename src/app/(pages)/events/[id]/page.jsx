@@ -31,7 +31,8 @@ export default function Page() {
                         <div id='event-user-owner'>
                             <Owner text={"Lorem Ipsum"}/>
                         </div>
-                        <div id='users-registered'>                            <Assistants />
+                        <div id='users-registered'>
+                            <Assistants />
                         </div>
                     </div>
                 </div>
