@@ -26,7 +26,7 @@ export default function Page() {
                         
                         <div id="submit-login" className="flex flex-col gap-2 my-10">
                             <Button type="submit" text="Sign in" classname="px-20"/>
-                            <p className="text-xs font-light">Not a member yet? <a href="/signup" className="text-blue">Sign up</a></p>
+                            <p className="text-xs font-light">Not a member yet? <a href="/register" className="text-blue">Sign up</a></p>
                         </div>
                         </div>
                     </form>

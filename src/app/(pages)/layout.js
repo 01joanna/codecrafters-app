@@ -5,6 +5,7 @@ import "../globals.css";
 import Header from "../components/Header/Header";
 import Footer from "../components/Footer/Footer";
 import {NextUIProvider} from "@nextui-org/react";
+import {AuthProvider} from "../../contexts/AuthContext.js";
 
 // const inter = Inter({ subsets: ["latin"] });
 
@@ -18,10 +19,12 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body>
-      <NextUIProvider>
-        <Header />
-          {children}
-        <Footer />
+        <NextUIProvider>
+          <AuthProvider> {/* Envuelve tu componente con el AuthProvider */}
+            <Header />
+            {children}
+            <Footer />
+          </AuthProvider>
         </NextUIProvider>
       </body>
     </html>
