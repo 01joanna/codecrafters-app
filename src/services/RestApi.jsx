@@ -7,7 +7,7 @@ axios.defaults.headers.post["Accept"] = "application/json";
 axios.defaults.withCredentials = true;
 axios.defaults.withXSRFToken = true;
 
-axios.defaults.headers.common["X-CSRF-Token"] = token;
+// axios.defaults.headers.common["X-CSRF-Token"] = token;
 
 
 

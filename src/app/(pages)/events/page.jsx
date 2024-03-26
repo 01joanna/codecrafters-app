@@ -1,7 +1,7 @@
 "use client"
 import React, { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import EventsList from '@/app/components/EventsList/EventsList';
+import EventsList from '../../components/EventsList/EventsList';
 
 
 const Page = ({ searchParams }) => {
