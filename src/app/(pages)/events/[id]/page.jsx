@@ -2,9 +2,42 @@ import Image from 'next/image'
 import Button from '../../../components/Button/Button'
 import Owner from '../../../components/Owner/Owner'
 import Assistants from '../../../components/Assistants/Assistants'
+import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
 
 
 export default function Page() {
+
+    const router = useRouter();
+ const { id } = router.query;
+ const [event, setEvent] = useState(null);
+
+ useEffect(() => {
+    const service = restapi();
+    service
+      .getAllEvents()
+      .then((response) => {
+        setEvents(response.data); // Almacena los eventos en el estado local
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
+
+ useEffect(() => {
+    if (id) {
+      fetch(`https://your-api-endpoint/events/${id}`)
+        .then((res) => res.json())
+        .then((data) => setEvent(data));
+    }
+ }, [id]);
+
+ if (!event) {
+    return <div>Loading...</div>;
+ }
+
+ console.log('event:', event);
+
     return (
         <main className='bg-white text-black flex flex-col gap-10 pb-20'>
             <section>
