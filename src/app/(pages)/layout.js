@@ -1,9 +1,9 @@
 "use client"
 import "../globals.css";
-import Header from "../components/Header/Header";
-import Footer from "../components/Footer/Footer";
+import Header from "../components/Header/Header.jsx";
+import Footer from "../components/Footer/Footer.jsx";
 import {NextUIProvider} from "@nextui-org/react";
-
+import AuthContextProvider  from "../../contexts/AuthContext";
 
 // const inter = Inter({ subsets: ["latin"] });
 
