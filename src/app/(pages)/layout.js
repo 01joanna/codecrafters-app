@@ -1,7 +1,4 @@
 "use client"
-import Head from 'next/head'
-import { Inter } from "next/font/google";
-import AuthContextProvider from '@/contexts/AuthContext';
 import "../globals.css";
 import Header from "../components/Header/Header";
 import Footer from "../components/Footer/Footer";
