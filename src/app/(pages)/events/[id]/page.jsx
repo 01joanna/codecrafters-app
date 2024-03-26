@@ -30,17 +30,10 @@ export default function Page() {
                     <div id='event-users' className='flex lg:flex-row md:flex-col-reverse gap-4 lg:items-center md:items-start w-auto'>
                         <div id='event-user-owner'>
                             <Owner text={"Lorem Ipsum"}/>
-<<<<<<< HEAD
                         </div>
                         <div id='users-registered'>
                             <Assistants />
                         </div>
-=======
-                        </div>
-                        <div id='users-registered'>
-                            <Assistants />
-                        </div>
->>>>>>> 62e59da (events in events page renderized)
                     </div>
                 </div>
                 <div id='event-details' className='w-[350px] flex flex-col lg:items-start md:items-center'>
