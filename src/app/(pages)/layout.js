@@ -1,11 +1,9 @@
 "use client"
-import Head from 'next/head'
-import { Inter } from "next/font/google";
 import "../globals.css";
 import Header from "../components/Header/Header";
 import Footer from "../components/Footer/Footer";
 import {NextUIProvider} from "@nextui-org/react";
-import { AuthContextProvider } from "../../../context/authContext"
+
 
 // const inter = Inter({ subsets: ["latin"] });
 
@@ -20,13 +18,10 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body>
       <NextUIProvider>
-        <AuthContextProvider>
         <Header />
           {children}
         <Footer />
-        </AuthContextProvider>
         </NextUIProvider>
-
       </body>
     </html>
   );
