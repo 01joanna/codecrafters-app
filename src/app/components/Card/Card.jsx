@@ -26,14 +26,14 @@ export default function Card() {
   const chunkEvents = (array, size) => {
     const chunkedArray = [];
     for (let i = 0; i < array.length; i += size) {
-      chunkedArray.push(array.slice(i, i + size));
+      chunkedArray.push(array.slice(i, + size));
     }
     return chunkedArray;
   };
 
   return (
     <div>
-      {chunkEvents(events, 5).map((group, index) => (
+      {chunkEvents(events, 3).map((group, index) => (
         <div key={index} className="flex  gap-4">
           {group.map((event) => (
             <div key={event.id} className="bg-white flex flex-col gap-4">

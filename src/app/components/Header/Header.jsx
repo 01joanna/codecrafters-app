@@ -27,7 +27,7 @@ export default function Header() {
                         // {`"/events/${id}"`} 
                         className="font-bold">Your events</Link>
                         <Link href="/events/create">Create an event</Link>
-                        <Link href="/signup" className="flex gap-2">
+                        <Link href="/register" className="flex gap-2">
                             <Image
                             src="/img/account-icon.svg"
                             alt="Account Icon"
