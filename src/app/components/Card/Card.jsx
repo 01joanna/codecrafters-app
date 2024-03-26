@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import { FaUsers } from "react-icons/fa6";
 import { IoEarthSharp } from "react-icons/io5";
 
-import restapi from "@/services/RestApi.jsx";
+
 
 
 export default function Card({ event, className }) {
