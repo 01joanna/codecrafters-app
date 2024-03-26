@@ -1,11 +1,12 @@
 "use client"
 import Head from 'next/head'
 import { Inter } from "next/font/google";
+import AuthContextProvider from '@/contexts/AuthContext';
 import "../globals.css";
 import Header from "../components/Header/Header";
 import Footer from "../components/Footer/Footer";
 import {NextUIProvider} from "@nextui-org/react";
-import {AuthProvider} from "../../contexts/AuthContext.js";
+
 
 // const inter = Inter({ subsets: ["latin"] });
 
@@ -18,14 +19,15 @@ import {AuthProvider} from "../../contexts/AuthContext.js";
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
+      {/* <meta name="csrf-token" content="{{ csrf_token() }}"></meta> */}
       <body>
-        <NextUIProvider>
-          <AuthProvider> {/* Envuelve tu componente con el AuthProvider */}
-            <Header />
-            {children}
-            <Footer />
-          </AuthProvider>
-        </NextUIProvider>
+        
+        <AuthContextProvider>
+          <Header />
+          {children}
+          <Footer />
+        </AuthContextProvider>
+        
       </body>
     </html>
   );
