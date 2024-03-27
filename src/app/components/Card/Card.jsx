@@ -1,11 +1,9 @@
 'use client'
 import Image from "next/image";
 import React from "react";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { FaUsers } from "react-icons/fa6";
 import { IoEarthSharp } from "react-icons/io5";
-
-import restapi from "@/services/RestApi.jsx";
 
 
 export default function Card({ event, className }) {

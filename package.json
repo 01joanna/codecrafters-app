@@ -11,7 +11,7 @@
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.5.1",
     "@nextui-org/react": "^2.2.10",
-    "axios": "^1.6.7",
+    "axios": "^1.6.8",
     "cors": "^2.8.5",
     "date-fns": "^3.6.0",
     "framer-motion": "^11.0.20",

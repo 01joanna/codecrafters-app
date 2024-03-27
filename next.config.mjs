@@ -1,7 +1,7 @@
 // next.config.js
 const nextConfig = {
     images: {
-        domains: [''], // Agrega el hostname aquí
+        domains: ["localhost"],
     },
     async headers() {
         return [

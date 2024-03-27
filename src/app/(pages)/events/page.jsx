@@ -3,7 +3,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import EventsList from '@/app/components/EventsList/EventsList';
 import Pagination from '@/app/components/Pagination/Pagination';
-import restapi from '../../../services/RestApi';
+import { getAllEvents } from '../../../services/RestApi';
 
 const Page = ({ searchParams }) => {
     const router = useRouter();
@@ -23,7 +23,7 @@ const Page = ({ searchParams }) => {
     const loadEvents = async (page) => {
         setLoading(true);
         try {
-            const events = await restapi().getAllEvents(currentPage);
+            const events = await getAllEvents(currentPage);
             const eventsData = events.data;
             const paginationData = {
                 currentPage: events.current_page,

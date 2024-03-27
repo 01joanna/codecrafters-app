@@ -1,9 +1,9 @@
 "use client"
 import "../globals.css";
-import Header from "../components/Header/Header";
-import Footer from "../components/Footer/Footer";
+import Header from "../components/Header/Header.jsx";
+import Footer from "../components/Footer/Footer.jsx";
 import {NextUIProvider} from "@nextui-org/react";
-
+import AuthContextProvider  from "../../contexts/AuthContext";
 
 // const inter = Inter({ subsets: ["latin"] });
 
@@ -16,12 +16,15 @@ import {NextUIProvider} from "@nextui-org/react";
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
+      {/* <meta name="csrf-token" content="{{ csrf_token() }}"></meta> */}
       <body>
-      <NextUIProvider>
-        <Header />
+        
+        <AuthContextProvider>
+          <Header />
           {children}
-        <Footer />
-        </NextUIProvider>
+          <Footer />
+        </AuthContextProvider>
+        
       </body>
     </html>
   );

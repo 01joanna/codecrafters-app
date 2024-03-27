@@ -1,42 +1,49 @@
+'use client'
 import Image from 'next/image'
 import Button from '../../../components/Button/Button'
 import Owner from '../../../components/Owner/Owner'
 import Assistants from '../../../components/Assistants/Assistants'
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
+
+const getEventById = async (id) => {
+    try {
+       const response = await axios.get(`/events/${id}`);
+       return response.data;
+    } catch (error) {
+       console.error("Error fetching event details:", error);
+       throw error; // Ensure to throw the error to be caught in the catch block
+    }
+   };
 
 
 export default function Page() {
 
-    const router = useRouter();
- const { id } = router.query;
- const [event, setEvent] = useState(null);
+    const router = useRouter(); // Extract the event ID from the URL
+ const [eventDetails, setEventDetails] = useState(null);
 
  useEffect(() => {
-    const service = restapi();
-    service
-      .getAllEvents()
-      .then((response) => {
-        setEvents(response.data); // Almacena los eventos en el estado local
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, []);
+    // Check if the router is ready
+    if (!router.isReady) return;
 
- useEffect(() => {
+    const { id } = router.query; // Extract the event ID from the URL
     if (id) {
-      fetch(`https://your-api-endpoint/events/${id}`)
-        .then((res) => res.json())
-        .then((data) => setEvent(data));
+    const getEvent = async () => {
+        try {
+          const response = await getEventById(id); // Assuming getEventById is a function that takes an ID and returns a promise
+        setEventDetails(response.data);
+        } catch (error) {
+        console.error("Error fetching event details:", error);
+        }
+    };
+
+    getEvent();
     }
- }, [id]);
+ }, [router.isReady, router.query])
 
- if (!event) {
-    return <div>Loading...</div>;
+ if (!eventDetails) {
+    return <div>Loading event details...</div>;
  }
-
- console.log('event:', event);
 
     return (
         <main className='bg-white text-black flex flex-col gap-10 pb-20'>
