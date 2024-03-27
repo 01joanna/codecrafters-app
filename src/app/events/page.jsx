@@ -53,6 +53,7 @@ const Page = ({ searchParams }) => {
         const filtered = eventsData.filter(event => 
             event.title?.toLowerCase().includes(query.toLowerCase()) ||
             event.description?.toLowerCase().includes(query.toLowerCase()) ||
+            event.date?.toLowerCase().includes(query.toLowerCase()) ||
             // event.category?.toLowerCase().includes(query.toLowerCase()) ||
             event.location?.toLowerCase().includes(query.toLowerCase())
         );

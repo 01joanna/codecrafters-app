@@ -1,14 +1,14 @@
 'use client'
 import Image from "next/image";
-import React, { useEffect, useState } from "react";
+import React from "react";
+import { useRouter } from "next/navigation";
 import { FaUsers } from "react-icons/fa6";
 import { IoEarthSharp } from "react-icons/io5";
 
 
-
-
 export default function Card({ event, className }) {
 
+  const router = useRouter();
   const defaultCSS = "bg-white flex flex-col gap-4"
   return (
     <div className={`${className} ${defaultCSS}`}>
@@ -31,6 +31,9 @@ export default function Card({ event, className }) {
           <FaUsers />
           <h6>{event.attendees_count} assistants</h6>
         </span>
+        <button 
+        className="bg-lightmayonnaise text-black text-[9px] py-1 px-2 rounded-md mt-4"
+        onClick={() => router.push(`/events/${event.id}`)}>View Event Details</button>
       </div>
     </div>
   );
