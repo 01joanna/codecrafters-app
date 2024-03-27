@@ -25,7 +25,7 @@ export default function Logout() {
             // Si no hay token de autenticación, simplemente redirecciona al inicio
             router.push("/");
         }
-    }, []);
+    }, [ ]);
 
     return null; // Puedes devolver cualquier cosa aquí o dejar el componente vacío
 }

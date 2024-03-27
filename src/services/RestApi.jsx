@@ -51,16 +51,16 @@ const getCSRFToken = async () => {
     }
 };
 
-// Rutas de autenticación
-export const register = async (userData) => {
-    try {
-        // Realizar la solicitud POST incluyendo el token CSRF
-        const response = await postWithCSRF("/register", userData);
-        return response;
-    } catch (error) {
-        throw error;
-    }
-};
+// // Rutas de autenticación
+// export const register = async (userData) => {
+//     try {
+//         // Realizar la solicitud POST incluyendo el token CSRF
+//         const response = await postWithCSRF("/register", userData);
+//         return response;
+//     } catch (error) {
+//         throw error;
+//     }
+// };
 
 // export const loginApi = async (userData) => {
 //     try {
@@ -73,15 +73,15 @@ export const register = async (userData) => {
 // };
 
 
-// // Auth routes
-// export const register = async (userData) => {
-//     try {
-//         const response = await axios.post("/register", userData);
-//         return response.data;
-//     } catch (error) {
-//         throw error;
-//     }
-//     };
+// Auth routes
+export const register = async (userData) => {
+    try {
+        const response = await axios.post("/register", userData);
+        return response.data;
+    } catch (error) {
+        throw error;
+    }
+    };
 
     export const loginApi = async (userData) => {
     try {
