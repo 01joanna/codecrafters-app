@@ -1,7 +1,7 @@
 import Image from 'next/image'
-import Button from '../../../components/Button/Button'
-import Owner from '../../../components/Owner/Owner'
-import Assistants from '../../../components/Assistants/Assistants'
+import Button from '../../components/Button/Button'
+import Owner from '../../components/Owner/Owner'
+import Assistants from '../../components/Assistants/Assistants'
 
 
 export default function Page() {

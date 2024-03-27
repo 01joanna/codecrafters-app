@@ -1,9 +1,9 @@
 "use client"
-import "../globals.css";
-import Header from "../components/Header/Header.jsx";
-import Footer from "../components/Footer/Footer.jsx";
+import "../app/globals.css";
+import Header from "./components/Header/Header.jsx";
+import Footer from "./components/Footer/Footer.jsx";
 import {NextUIProvider} from "@nextui-org/react";
-import AuthContextProvider  from "../../contexts/AuthContext";
+import AuthContextProvider  from "../contexts/AuthContext";
 
 // const inter = Inter({ subsets: ["latin"] });
 
@@ -16,7 +16,7 @@ import AuthContextProvider  from "../../contexts/AuthContext";
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      {/* <meta name="csrf-token" content="{{ csrf_token() }}"></meta> */}
+      <meta name="csrf-token" content="{{ csrf_token() }}"></meta>
       <body>
         
         <AuthContextProvider>

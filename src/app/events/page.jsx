@@ -3,7 +3,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import EventsList from '@/app/components/EventsList/EventsList';
 import Pagination from '@/app/components/Pagination/Pagination';
-import { getAllEvents } from '../../../services/RestApi';
+import { getAllEvents } from '../../services/RestApi';
 
 const Page = ({ searchParams }) => {
     const router = useRouter();

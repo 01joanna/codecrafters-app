@@ -1,9 +1,9 @@
 "use client"
 import Image from "next/image";
-import Button from "../components/Button/Button";
-import Card from "../components/Card/Card";
+import Button from "./components/Button/Button";
+import Card from "./components/Card/Card";
 import { useEffect, useState } from "react";
-import { getAllEvents } from "../../services/RestApi";
+import { getAllEvents } from "../services/RestApi";
 
 const imageLanding = "https://placehold.co/1400x625";
 

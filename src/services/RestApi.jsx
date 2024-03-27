@@ -1,27 +1,89 @@
 //Restapi.jsx
 import axios from "axios";
 
-axios.defaults.baseURL = "http://127.0.0.1:8000/api/";
+axios.defaults.baseURL = "http://127.0.0.1:8000/api";
 axios.defaults.headers.post["Content-Type"] = "application/json";
 axios.defaults.headers.post["Accept"] = "application/json";
 axios.defaults.withCredentials = true;
 axios.defaults.withXSRFToken = true;
 
-// axios.defaults.headers.common["X-CSRF-Token"] = token;
+// axios.defaults.headers.common["X-CSRF-Token"] = true;
 
+// export const getCSRFToken = async () => {
+//     try {
+//         const response = await axios.get("sanctum/csrf-cookie");
+//         console.log("CSRF cookie configurada correctamente", response);
+//         return response.data;
+//     } catch (error) {
+//         console.error("Error al configurar la cookie CSRF:", error);
+//         throw error;
+//     }
+// };
 
-
-// Auth routes
-export const register = async (userData) => {
+const postWithCSRF = async (url, data) => {
     try {
-        const response = await axios.post("/register", userData);
+        // Obtener el token CSRF
+        const csrfToken = await getCSRFToken();
+
+        // Realizar la solicitud POST incluyendo el token CSRF en el encabezado
+        const response = await axios.post(url, data, {
+            headers: {
+                "X-CSRF-TOKEN": csrfToken
+            }
+        });
+
         return response.data;
     } catch (error) {
         throw error;
     }
-    };
+};
 
-    export const login = async (userData) => {
+// Función para obtener el token CSRF
+const getCSRFToken = async () => {
+    try {
+        // Realizar una solicitud GET para obtener el token CSRF
+        const response = await axios.get("/sanctum/csrf-cookie");
+        // Suponiendo que el token CSRF se devuelve como csrf_token en la respuesta
+        return response.data.csrf_token;
+    } catch (error) {
+        console.error("Error al obtener el token CSRF:", error);
+        throw error;
+    }
+};
+
+// Rutas de autenticación
+export const register = async (userData) => {
+    try {
+        // Realizar la solicitud POST incluyendo el token CSRF
+        const response = await postWithCSRF("/register", userData);
+        return response;
+    } catch (error) {
+        throw error;
+    }
+};
+
+// export const loginApi = async (userData) => {
+//     try {
+//         // Realizar la solicitud POST incluyendo el token CSRF
+//         const response = await postWithCSRF("/login", userData);
+//         return response;
+//     } catch (error) {
+//         throw error;
+//     }
+// };
+
+
+// // Auth routes
+// export const register = async (userData) => {
+//     try {
+//         const response = await axios.post("/register", userData);
+//         return response.data;
+//     } catch (error) {
+//         throw error;
+//     }
+//     };
+
+    export const loginApi = async (userData) => {
     try {
         const response = await axios.post("/login", userData);
         return response.data;
@@ -32,7 +94,7 @@ export const register = async (userData) => {
 
     export const logout = async () => {
     try {
-        const response = await axios.get("/logout");
+        const response = await axios.get("logout");
         return response.data;
     } catch (error) {
         throw error;

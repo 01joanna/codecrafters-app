@@ -1,7 +1,8 @@
 'use client'
 import React, { useState } from "react";
-import Button from "../../components/Button/Button";
-import { register } from "../../../services/RestApi"; // Assuming register function is exported from RestApi module
+import Button from "../components/Button/Button";
+import axios from "axios";
+import { register } from "../../services/RestApi"; // Assuming register function is exported from RestApi module
 
 export default function Page() {
     const [formData, setFormData] = useState({
@@ -17,7 +18,7 @@ export default function Page() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-        // Call the register function with formData
+            await axios.get('http://127.0.0.1:8000/sanctum/csrf-cookie', { withCredentials: true });
         await register(formData);
         setSuccess(true);
         setError(null);
