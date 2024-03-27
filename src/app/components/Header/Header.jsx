@@ -29,7 +29,7 @@ export default function Header() {
                         href="/events/CAMBIAR_RUTA"
                         // {`"/events/${id}"`} 
                         className="font-bold">Your events</Link>
-                        <Link href="/events/create">Create an event</Link>
+                        <Link href="admin/events/create">Create an event</Link>
                         <Link href="/register" className="flex gap-2">
                             <Image
                             src="/img/account-icon.svg"
