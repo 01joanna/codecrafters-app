@@ -4,11 +4,13 @@ import Button from "./components/Button/Button";
 import Card from "./components/Card/Card";
 import { useEffect, useState } from "react";
 import { getAllEvents } from "../services/RestApi";
+import { useAuthContext } from "../contexts/AuthContext";
 
 const imageLanding = "https://placehold.co/1400x625";
 
 export default function Home() {
   const [events, setEvents] = useState([]);
+  const { getAuthToken } = useAuthContext(); // Obtén la función para obtener el token de autenticación del contexto
 
   useEffect(() => {
     const service = getAllEvents();
@@ -31,8 +33,15 @@ export default function Home() {
     return chunkedArray;
   };
 
+  // Verifica si el usuario está logueado al obtener el token de autenticación
+  const authToken = getAuthToken();
   return (
     <main className="bg-white flex flex-col gap-8 pb-20">
+      {authToken ? ( // Si hay un token de autenticación (usuario logueado)
+        <p>Datos del usuario logueado: {JSON.stringify(authToken)}</p>
+      ) : ( // Si no hay token de autenticación (usuario no logueado)
+        <p>No hay ningún login</p>
+      )}
       <section className="flex flex-col gap-4 items-center">
         <div>
           <Image

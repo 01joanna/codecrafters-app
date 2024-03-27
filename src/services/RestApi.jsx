@@ -92,9 +92,9 @@ export const register = async (userData) => {
     }
     };
 
-    export const logout = async () => {
+    export const logoutApi = async () => {
     try {
-        const response = await axios.get("logout");
+        const response = await axios.get("/logout");
         return response.data;
     } catch (error) {
         throw error;
