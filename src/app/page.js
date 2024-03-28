@@ -37,11 +37,11 @@ export default function Home() {
   const authToken = getAuthToken();
   return (
     <main className="bg-white flex flex-col gap-8 pb-20">
-      {authToken ? ( // Si hay un token de autenticación (usuario logueado)
+      {/* {authToken ? ( // Si hay un token de autenticación (usuario logueado)
         <p>Datos del usuario logueado: {JSON.stringify(authToken)}</p>
       ) : ( // Si no hay token de autenticación (usuario no logueado)
         <p>No hay ningún login</p>
-      )}
+      )} */}
       <section className="flex flex-col gap-4 items-center">
         <div>
           <Image

@@ -29,7 +29,7 @@ export default function Login() {
         loginApi(formInput).then(response => {
           console.log(response);
           login(response.data.access_token);
-          router.push('/auth/');
+          router.push('/auth/dashboard');
           router.refresh();
         }), error => {
           console.error('Login failed:', error);
