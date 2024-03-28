@@ -21,23 +21,26 @@ export default function Login() {
   const { login } = useAuthContext();
   const router = useRouter();
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    try {
-      await axios.get('http://127.0.0.1:8000/sanctum/csrf-cookie').then(response => {
-        console.log(response);
-        loginApi(formInput).then(response => {
-          console.log(response);
-          login(response.data.access_token);
-          router.push('/auth/dashboard');
-          router.refresh();
-        }), error => {
-          console.error('Login failed:', error);
-        }
-      })} catch (err) {
-        console.error('Login failed:', err);
-      }
-  }
+    axios.get('http://127.0.0.1:8000/sanctum/csrf-cookie')
+      .then(() => {
+        loginApi(formInput)
+          .then(({ accessToken, user }) => {
+            console.log("Elementos", user);
+            console.log("Elementos de token", accessToken);
+            login(accessToken);
+            router.push('/auth/dashboard');
+            router.refresh();
+          })
+          .catch(error => {
+            console.error('Login failed:', error);
+          });
+      })
+      .catch(error => {
+        console.error('Fetching CSRF cookie failed:', error);
+      });
+  };
   //     const loginResponse = await api.post('api/login', formInput);
   //     if (loginResponse.data.error) {
   //       console.log(loginResponse.data.error);
