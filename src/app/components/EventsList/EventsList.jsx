@@ -27,12 +27,14 @@ const EventsList = ({ events }) => {
     return (
         <div>
             <h1 className='text-bold text-[80px] text-black pl-12'>All events</h1>
-            <div className="flex flex-wrap justify-center gap-4 py-8">
+            <div className='flex justify-center pt-10'>
+            <div className="flex w-[70%] flex-wrap items-center justify-center gap-12 py-8">
                     {Array.isArray(events) ? events.map(event => (
                         <Card key={event.id} event={event}/>
                     )) : (
                         <div>No events found</div>
                     )}
+            </div>
             </div> 
         </div>
     )
