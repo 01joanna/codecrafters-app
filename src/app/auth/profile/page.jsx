@@ -1,13 +1,13 @@
+'use client'
+import { useState, useEffect } from 'react';
+import React from 'react';
 import Image from 'next/image';
 import Button from '../Button/Button';
-import { useAuthContext } from "../../../contexts/AuthContext";
 import { getUserProfile, updateUserProfile, deleteUserProfile } from "../../../services/RestApi"
+import { useAuthContext } from "../../../contexts/AuthContext";
 
 
-
-export default function Profile() {
-
-
+const ProfilePage = () => {
     const [userData, setUserData] = useState(null);
     const [isEditing, setIsEditing] = useState(false);
     const [formData, setFormData] = useState({
@@ -107,3 +107,4 @@ export default function Profile() {
         </div>
     );
 }
+export default ProfilePage;
