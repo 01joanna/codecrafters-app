@@ -9,6 +9,10 @@ import { IoEarthSharp } from "react-icons/io5";
 export default function Card({ event, className }) {
 
   const router = useRouter();
+  const HandleViewDetails = () => {
+    router.push(`/events/${event.id}`);
+  }
+  
   const defaultCSS = "bg-white flex flex-col gap-4"
   return (
     <div className={`${className} ${defaultCSS}`}>
@@ -33,7 +37,7 @@ export default function Card({ event, className }) {
         </span>
         <button 
         className="bg-lightmayonnaise text-black text-[9px] py-1 px-2 rounded-md mt-4"
-        onClick={() => router.push(`/events/${event.id}`)}>View Event Details</button>
+        onClick={HandleViewDetails}>View Event Details</button>
       </div>
     </div>
   );

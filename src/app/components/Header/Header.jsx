@@ -1,46 +1,42 @@
-import Image from "next/image"
-import Link from "next/link"
-import Searchbar from "../Searchbar/Searchbar"
+import Image from "next/image";
+import Link from "next/link";
+import Searchbar from "../Searchbar/Searchbar";
+import { useAuthContext } from "@/contexts/AuthContext";
+import { MdOutlineManageAccounts } from "react-icons/md";
+import { IoLogOutOutline } from "react-icons/io5";
 
 export default function Header() {
+    const { getAuthToken, getUserData } = useAuthContext();
+    const token = getAuthToken();
+    const user = getUserData();
+    const userId = user?.id
 
     return (
         <header className="bg-white text-black flex justify-between h-[4rem] px-12">
             <div id="logo" className="flex items-center">
-                {/* <Image
-                    src=""
-                    alt="Logo"
-                    width={100}
-                    height={100}
-                /> */}
                 <div className="text-xs lg:visible lg:flex md:hidden">
                     <ul>
-                    <Link href="/events">Browse all events</Link>
+                        <li><Link href="/events">Browse all events</Link></li>
                     </ul>
                 </div>
             </div>
             <div className="flex items-center gap-4">
-                <Searchbar 
-                // onSearch={onSearch}
-                />
+                <Searchbar />
                 <nav>
-                    <ul className="flex gap-6 text-xs md:hidden lg:flex">
-                        <Link 
-                        href="/events/CAMBIAR_RUTA"
-                        // {`"/events/${id}"`} 
-                        className="font-bold">Your events</Link>
-                        <Link href="admin/events/create">Create an event</Link>
-                        <Link href="/register" className="flex gap-2">
-                            <Image
-                            src="/img/account-icon.svg"
-                            alt="Account Icon"
-                            width={20}
-                            height={20}/>
-                            Sign Up</Link>
-                    </ul>
-                    {/* CREAR MENU HAMBURGUESA */}
+                        <ul className="flex gap-6 text-xs md:hidden lg:flex">
+                            <li>Your events</li>
+                            <li>Create an event</li>
+                            {token ? (
+                                <>
+                                    <li><MdOutlineManageAccounts /> <a href={`${userId}/profile`}>My Account</a></li>
+                                    <li><IoLogOutOutline /><a  href="/logout">Log Out</a></li>
+                                </>
+                            ) : (
+                                <li><MdOutlineManageAccounts /><a href="/register">Sign up</a></li>
+                            )}
+                        </ul>
                 </nav>
             </div>
         </header>
-    )
+    );
 }
