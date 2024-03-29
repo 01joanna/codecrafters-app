@@ -1,8 +1,9 @@
+
 export default function Page() {
     return (
         <main className="flex flex-col items-center gap-8 pt-8 pb-16">
-            <h2 className="text-[50px] font-light">Add a new event</h2>
-            <form action="/create" method="post" className="border border-yellow px-12 py-8 items-center rounded-xl flex flex-col justify-center gap-20">
+            <h2 className="text-[50px] font-light">Edit your created event</h2>
+            <form action="/${id}/edit" method="put" className="border border-yellow px-12 py-8 items-center rounded-xl flex flex-col justify-center gap-20 md:mx-10">
                 <fieldset>
                     <div className="mb-5">
                         <label id="event-form-label" for="title">Title:</label><br/>
@@ -10,7 +11,7 @@ export default function Page() {
                     </div>
                     <hr/>
                     <br/>
-                    <div id="event-form-fillables" className="flex gap-12">
+                    <div id="event-form-fillables" className="flex lg:flex-row md:flex-col gap-12">
                         <div id="event-form-part1" className="flex flex-col gap-5">
                             <div id="event-form-date">
                                 <label id="event-form-label" for="date">Date:</label><br/>
@@ -38,11 +39,11 @@ export default function Page() {
                                 <fieldset>
                                     <legend>Select a category</legend>
                                     <div>
-                                        <input type="radio" id="online" name="category" value="music" />
+                                        <input type="radio" id="online" name="category" value="online" />
                                         <label for="online">Online</label>
                                     </div>
                                     <div>
-                                        <input type="radio" id="in-person" name="category" value="sports" />
+                                        <input type="radio" id="in-person" name="category" value="in-person" />
                                         <label for="in-person">In-person</label>
                                     </div>
                                 </fieldset>
@@ -52,6 +53,10 @@ export default function Page() {
                                 <input type="file" id="image" name="image" placeholder="Event image" />
                             </div>
                         </div>
+                    </div>
+                    <div className="flex gap-4 text-sm pt-12 justify-center items-center">
+                        <button type="submit" className="px-16 py-2 bg-lightmayonnaise font-light justify-center rounded-xl">Send</button>
+                        <button type="submit" className="px-16 py-2 bg-lightmayonnaise font-light justify-center rounded-xl">Go Back</button>
                     </div>
                 </fieldset>
             </form>

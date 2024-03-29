@@ -2,27 +2,33 @@
 "use client";
 
 import Image from "next/image";
-import { useRouter } from "next/navigation";
-import React, { useState } from "react";
+import { useRouter, useSearchParams, usePathname } from "next/navigation";
+import restapi from "../../../services/RestApi";
 
 export default function Searchbar() {
 
-    const [search, setSearch] = useState("");
+    const SearchParams = useSearchParams();
+    const Pathname = usePathname();
+    const {replace} = useRouter();
 
-    const router = useRouter()
-
-    const handleSearch = (e) => {
-        e.preventDefault(); 
-        router.push(`/?query=${search}`); 
-        setSearch('')
+    const handleSearch = (searchTerm) => {
+        const params = new URLSearchParams(SearchParams);
+        if (searchTerm) {
+            params.set('query', searchTerm);
+        } else if (searchTerm.trim() !== "") {
+            params.set('query', searchTerm);
+            // router.push(`/events?query=${searchTerm}`);
+            // router.push(`${Pathname}?${params.toString()}`);
+        } else {
+            params.delete('query');
+        }
+        replace(`${Pathname}?${params.toString()}`);
     }
-    const handleChange = (e) => {
-        setSearch(e.target.value);
-        router.push(`/?query=${e.target.value}`);
-    };
 
     return (
-        <form onSubmit={handleSearch}>
+        <form 
+        // onSubmit={handleSearch}
+        >
             <div className='flex lg:w-[500px] md:w-[300px] pr-5'>
                 <Image
                 src="/img/search-icon.svg"
@@ -36,10 +42,12 @@ export default function Searchbar() {
                 className='bg-customdark w-full h-8 rounded-lg text-customgray text-[12px] 
                 px-3'
                 placeholder="Search for events..." 
-                value={search}
-                onChange={handleChange}
+                defaultValue={SearchParams.get('query')?.toString()}
+                onChange={(e) => {
+                    handleSearch(e.target.value)
+                }}
                 />
             </div>
         </form>
     )
-}
+    }

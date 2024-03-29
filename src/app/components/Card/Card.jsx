@@ -1,49 +1,40 @@
-"use client"
+'use client'
 import Image from "next/image";
-import React, { useEffect } from "react";
+import React from "react";
+import { useRouter } from "next/navigation";
 import { FaUsers } from "react-icons/fa6";
 import { IoEarthSharp } from "react-icons/io5";
-import { restapi } from '@/services/RestApi.jsx';
 
 
-export default function Card() {
+export default function Card({ event, className }) {
 
-    // Llamar al servicio
-    // Almacenamos esa respuesta dentro de un estado
-    // Renderizar el resultado
-
-    // const service = restapi();
-    useEffect(() => {
-        const service = restapi();
-        service.getAll().then(response => {
-          console.log(response);
-        }).catch(error => {
-          console.log(error);
-        });
-     }, []);
-     
-    return (
-        <div className="bg-white">
-            <Image 
-            src="/img/rectangle.png"
-            alt="Event picture"
-            width={250}
-            height={250}
-            />
-            <div id="card-text" className="text-black flex flex-col gap-1 w-[170px]">
-                <div className="flex gap-3 items-center">
-                    <h1 className="text-lg">Event name</h1>
-                    <IoEarthSharp />
-                </div>
-                <div className="flex gap-3 text-xs uppercase">
-                    <h5 className="text-gray-400">18:00h</h5>
-                    <h5>OCT 13, 24 | BCN</h5>
-                </div>
-                <span className="flex gap-2 items-center text-xs">
-                    <FaUsers />
-                    <h6>10 assistants</h6>
-                </span>
-            </div>
+  const router = useRouter();
+  const defaultCSS = "bg-white flex flex-col gap-4"
+  return (
+    <div className={`${className} ${defaultCSS}`}>
+      {/* <Image
+        src={event.image}
+        alt="Event picture"
+        width={250}
+        height={250}
+      /> */}
+      <div id="card-text" className="text-black flex flex-col gap-1 w-[170px]">
+        <div className="flex gap-3 items-center">
+          <h1 className="text-lg">{event.title}</h1>
+          <IoEarthSharp />
         </div>
-    )
+        <div className="flex gap-3 text-xs uppercase">
+          <h2 className="text-gray-400 text-xs">{event.date}</h2>
+          <h3>{event.location}</h3>
+        </div>
+        <span className="flex gap-2 items-center text-xs">
+          <FaUsers />
+          <h6>{event.attendees_count} assistants</h6>
+        </span>
+        <button 
+        className="bg-lightmayonnaise text-black text-[9px] py-1 px-2 rounded-md mt-4"
+        onClick={() => router.push(`/events/${event.id}`)}>View Event Details</button>
+      </div>
+    </div>
+  );
 }

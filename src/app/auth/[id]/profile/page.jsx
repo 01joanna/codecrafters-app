@@ -1,14 +1,14 @@
-import Button from '../../../components/Button/Button'
+import Button from '../../../components/Button/Button   '
 import Image from 'next/image';
 
 export default function Page() {
     return (
-        <main className='flex flex-col justify-around h-full'>
-            <div className="flex gap-20 justify-center my-10">
+        <main className='flex flex-col lg:justify-around lg:h-full md:h-[1100px]'>
+            <div className="flex lg:flex-row md:flex-col md:gap-10 lg:gap-20 justify-center items-center lg:my-10 md:my-0 md:mt-10">
                 <h1>Your profile</h1>
                 <Button text="Check all your events"/>
             </div>
-            <div className='flex gap-32 justify-center h-[500px]'>
+            <div className='flex lg:flex-row md:flex-col md:gap-10 lg:gap-32 md:items-center justify-center h-[500px] md:pt-[27rem] lg:pt-0'>
                 <section id="profile-picture" className='flex flex-col gap-3 items-center'>
                     <Image 
                     src="/public/img/large-image.png"
