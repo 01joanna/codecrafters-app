@@ -34,8 +34,6 @@ export default function Home() {
     return chunkedArray;
   };
 
-  // Verifica si el usuario está logueado al obtener el token de autenticación
-  const authToken = getAuthToken();
   return (
     <main className="bg-white flex flex-col gap-8 pb-20">
       {userData ? (

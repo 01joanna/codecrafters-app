@@ -6,8 +6,10 @@ import { MdOutlineManageAccounts } from "react-icons/md";
 import { IoLogOutOutline } from "react-icons/io5";
 
 export default function Header() {
-    const { getAuthToken } = useAuthContext();
+    const { getAuthToken, getUserData } = useAuthContext();
     const token = getAuthToken();
+    const user = getUserData();
+    const userId = user?.id
 
     return (
         <header className="bg-white text-black flex justify-between h-[4rem] px-12">
@@ -26,11 +28,11 @@ export default function Header() {
                             <li>Create an event</li>
                             {token ? (
                                 <>
-                                    <li><MdOutlineManageAccounts />My Account</li>
-                                    <li href="/logout"><IoLogOutOutline />Logout</li>
+                                    <li><MdOutlineManageAccounts /> <a href={`${userId}/profile`}>My Account</a></li>
+                                    <li><IoLogOutOutline /><a  href="/logout">Log Out</a></li>
                                 </>
                             ) : (
-                                <li href="/register"><MdOutlineManageAccounts /> Sign Up</li>
+                                <li><MdOutlineManageAccounts /><a href="/register">Sign up</a></li>
                             )}
                         </ul>
                 </nav>

@@ -1,9 +1,11 @@
-import Button from '../../../components/Button/Button   '
 import Image from 'next/image';
+import Button from '../Button/Button';
+import { useAuthContext } from "../../../contexts/AuthContext";
 
-export default function Page() {
+export default function Profile() {
+
     return (
-        <main className='flex flex-col lg:justify-around lg:h-full md:h-[1100px]'>
+        <div className='flex flex-col lg:justify-around lg:h-full md:h-[1100px]'>
             <div className="flex lg:flex-row md:flex-col md:gap-10 lg:gap-20 justify-center items-center lg:my-10 md:my-0 md:mt-10">
                 <h1>Your profile</h1>
                 <Button text="Check all your events"/>
@@ -48,6 +50,6 @@ export default function Page() {
 
                         </aside>
                         </div>
-        </main>
-    )
+        </div>
+    );
 }
