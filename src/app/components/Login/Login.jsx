@@ -15,7 +15,7 @@ export default function Login() {
 
 
   const { login } = useAuthContext();
-  const {  getUserData } = useAuthContext();
+  const { getUserData } = useAuthContext();
   const router = useRouter();
   const [error, setError ] = useState(null);
 
@@ -30,16 +30,9 @@ export default function Login() {
       .then(() => {
         loginApi(formInput)
           .then(({ accessToken, user }) => {
-
-            const userCookies = JSON.stringify(Cookies.get("user"));
-            user = JSON.parse(userCookies);
-            console.log("Prueba", user);
-            Cookies.set("user", user);
-            
-            console.log("Elementos", user);
-            console.log("Elementos de token", accessToken);
-
             login(accessToken, user);
+            getUserData(user); 
+            console.log("success:", accessToken, user);
             router.push('/');
             router.refresh();
           })
@@ -51,19 +44,6 @@ export default function Login() {
         console.error('Fetching CSRF cookie failed:', error);
       });
   };
-  //     const loginResponse = await api.post('api/login', formInput);
-  //     if (loginResponse.data.error) {
-  //       console.log(loginResponse.data.error);
-  //     } else {
-  //       console.log("Success:", loginResponse.data);
-  //       login(loginResponse.data.access_token);
-  //       router.push('/');
-  //       router.refresh();
-  //     }}
-  //   } .catch(error) {
-  //     console.error('Login failed:', error);
-  //   }
-  // };
 
   return (
     <div>

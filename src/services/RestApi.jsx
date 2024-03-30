@@ -169,9 +169,16 @@ export const register = async (userData) => {
     };
 
     // Event routes
-    export const createEvent = async (eventData) => {
+    export const createEvent = async (eventData, authToken) => {
     try {
-        const response = await axios.post("/events/create", eventData);
+        const response = await axios.post("/events/create", eventData, {
+            headers: {
+                Authorization: `Bearer ${authToken}`,
+                "Content-Type": "multipart/form-data"
+            }
+        
+        });
+        console.log("response", response);
         return response.data;
     } catch (error) {
         throw error;
