@@ -35,7 +35,7 @@ export default function RegisterPage() {
         try {
             // Configuración de Axios para obtener la cookie CSRF
             await axios.get('http://127.0.0.1:8000/sanctum/csrf-cookie', { withCredentials: true })
-            register(formData).then(response => {
+            register(formData).then(async response => {
                     console.log(response);
 
                     setSuccess(true);

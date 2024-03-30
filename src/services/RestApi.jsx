@@ -113,6 +113,15 @@ export const register = async (userData) => {
     }
     };
 
+export const getUserProfile = async () => {
+    try {
+        const response = await axios.get("/user/profile");
+        return response.data;
+    } catch (error) {
+        throw error;
+    }
+};
+
     export const deleteUser = async (id) => {
         try {
             const response = await axios.delete(`/${id}/delete`);

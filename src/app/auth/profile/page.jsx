@@ -2,7 +2,7 @@
 import { useState, useEffect } from 'react';
 import React from 'react';
 import Image from 'next/image';
-import Button from '../Button/Button';
+import Button from '../../components/Button/Button';
 import { getUserProfile, updateUserProfile, deleteUserProfile } from "../../../services/RestApi"
 import { useAuthContext } from "../../../contexts/AuthContext";
 
@@ -60,6 +60,8 @@ const ProfilePage = () => {
             setError("Failed to delete user profile.");
         }
     };
+
+    
 
     return (
         <div className='flex flex-col lg:justify-around lg:h-full md:h-[1100px]'>
