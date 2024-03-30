@@ -29,7 +29,7 @@ export default function Header() {
                             {token ? (
                                 <>
                                     <li><MdOutlineManageAccounts /> <a href={`${userId}/profile`}>My Account</a></li>
-                                    <li><IoLogOutOutline /><a  href="/logout">Log Out</a></li>
+                                    <li><IoLogOutOutline /><a href="/auth/logout">Log Out</a></li>
                                 </>
                             ) : (
                                 <li><MdOutlineManageAccounts /><a href="/register">Sign up</a></li>
