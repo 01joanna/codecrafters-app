@@ -1,58 +1,46 @@
 "use client";
-
-import {
-    createContext,
-    useCallback,
-    useContext,
-    useMemo,
-
-} from "react";
+import React, { createContext, useCallback, useContext, useMemo, useState } from "react";
 import Cookies from "js-cookie";
 
 export const AuthContext = createContext({
-    login: (authTokens, user) => { },
-    logout: () => { },
+    login: (authTokens, user) => {},
+    logout: () => {},
     getAuthToken: () => null,
     getUserData: () => null,
-    
 });
 
 export default function AuthContextProvider({ children }) {
-    
+    const [currentUser, setCurrentUser] = useState(null);
 
-    const login = useCallback(function (authTokens, user) {
+    const login = useCallback((authTokens, user) => {
         Cookies.set("authTokens", authTokens);
-        Cookies.set("user", user);
+        Cookies.set("user", JSON.stringify(user));
+        setCurrentUser(user); // Establecer el usuario actual
     }, []);
-    
 
-    const logout = useCallback(function () {
-
+    const logout = useCallback(() => {
         Cookies.remove("authTokens");
-        Cookies.remove("user"); 
-        
+        Cookies.remove("user"); // Remover la cookie del usuario
+        setCurrentUser(null); // Establecer el usuario actual como nulo
     }, []);
 
     const getAuthToken = useCallback(() => {
-        const authTokens = Cookies.get("authTokens");
-        return authTokens ? authTokens : null;
+        return Cookies.get("authTokens");
     }, []);
 
     const getUserData = useCallback(() => {
-        const user = Cookies.get("user");
-        return user ? JSON.parse(user) : null;
-    }
-    , []);
+        const userString = Cookies.get("user");
+        return userString ? JSON.parse(userString) : null;
+    }, []);
 
     const value = useMemo(
         () => ({
-            
             login,
             logout,
             getAuthToken,
-            getUserData
+            getUserData,
         }),
-        [ login, logout, getAuthToken, getUserData]
+        [login, logout, getAuthToken, getUserData]
     );
 
     return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

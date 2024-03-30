@@ -5,6 +5,7 @@ import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useAuthContext } from "../../../contexts/AuthContext";
 import { loginApi } from "../../../services/RestApi";
+import Cookies from "js-cookie";
 
 export default function Login() {
   const [formInput, setFormInput] = useState({
@@ -12,14 +13,16 @@ export default function Login() {
     password: '',
   });
 
+
+  const { login } = useAuthContext();
+  const {  getUserData } = useAuthContext();
+  const router = useRouter();
+  const [error, setError ] = useState(null);
+
   const updateFormInput = (e) => {
     e.persist();
     setFormInput((prevState) => ({ ...prevState, [e.target.name]: e.target.value}));
-    console.log(formInput)
   };
-
-  const { login } = useAuthContext();
-  const router = useRouter();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -27,10 +30,17 @@ export default function Login() {
       .then(() => {
         loginApi(formInput)
           .then(({ accessToken, user }) => {
+
+            const userCookies = JSON.stringify(Cookies.get("user"));
+            user = JSON.parse(userCookies);
+            console.log("Prueba", user);
+            Cookies.set("user", user);
+            
             console.log("Elementos", user);
             console.log("Elementos de token", accessToken);
-            login(accessToken);
-            router.push('/auth/dashboard');
+
+            login(accessToken, user);
+            router.push('/');
             router.refresh();
           })
           .catch(error => {
@@ -67,10 +77,10 @@ export default function Login() {
           className="flex flex-col items-center px-20"
           onSubmit={handleSubmit}
         >
-          @csrf
           <legend className="font-light text-4xl my-8">Sign in</legend>
 
           <div id="form-images-button" className="flex flex-col items-center">
+          {error && <p className="text-red-500">{error}</p>}
             <div id="form-fillables" className="">
               <div className="flex flex-col gap-2">
                 <div>
