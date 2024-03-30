@@ -1,5 +1,10 @@
-"use client";
-import React, { createContext, useCallback, useContext, useMemo, useState } from "react";
+"use client"
+import React, { 
+    createContext, 
+    useCallback, 
+    useContext, 
+    useMemo, 
+    useState } from "react";
 import Cookies from "js-cookie";
 
 export const AuthContext = createContext({
@@ -15,23 +20,24 @@ export default function AuthContextProvider({ children }) {
     const login = useCallback((authTokens, user) => {
         Cookies.set("authTokens", authTokens);
         Cookies.set("user", JSON.stringify(user));
-        setCurrentUser(user); // Establecer el usuario actual
+        setCurrentUser(user);
     }, []);
 
     const logout = useCallback(() => {
         Cookies.remove("authTokens");
-        Cookies.remove("user"); // Remover la cookie del usuario
-        setCurrentUser(null); // Establecer el usuario actual como nulo
+        Cookies.remove("user");
+        setCurrentUser(null);
     }, []);
 
     const getAuthToken = useCallback(() => {
         return Cookies.get("authTokens");
     }, []);
 
+
     const getUserData = useCallback(() => {
-        const userString = Cookies.get("user");
-        return userString ? JSON.parse(userString) : null;
-    }, []);
+        return setCurrentUser;
+        // console.log("user:", setCurrentUser);
+    }, [setCurrentUser]);
 
     const value = useMemo(
         () => ({
