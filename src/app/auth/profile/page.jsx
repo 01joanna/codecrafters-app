@@ -2,7 +2,7 @@
 import { useState, useEffect } from 'react';
 import React from 'react';
 import Image from 'next/image';
-import Button from '../Button/Button';
+import Button from '../../components/Button/Button';
 import { getUserProfile, updateUserProfile, deleteUserProfile } from "../../../services/RestApi"
 import { useAuthContext } from "../../../contexts/AuthContext";
 
