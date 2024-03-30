@@ -25,11 +25,11 @@ export default function Header() {
                 <nav>
                         <ul className="flex gap-6 text-xs md:hidden lg:flex">
                             <li>Your events</li>
-                            <li>Create an event</li>
+                            <li><a href="/auth/events/create">Create an event</a></li>
                             {token ? (
                                 <>
                                     <li><MdOutlineManageAccounts /> <a href={`${userId}/profile`}>My Account</a></li>
-                                    <li><IoLogOutOutline /><a  href="/logout">Log Out</a></li>
+                                    <li><IoLogOutOutline /><a href="/auth/logout">Log Out</a></li>
                                 </>
                             ) : (
                                 <li><MdOutlineManageAccounts /><a href="/register">Sign up</a></li>
