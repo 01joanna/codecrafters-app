@@ -131,9 +131,15 @@ export const register = async (userData) => {
     }
     };
 
-    export const updateEvent = async (id, eventData) => {
+    export const updateEvent = async (id, eventData, authToken) => {
     try {
-        const response = await axios.put(`/events/${id}/edit`, eventData);
+        console.log("id", id)
+        const response = await axios.put(`/events/${id}/edit`, eventData, {
+            headers: {
+                Authorization: `Bearer ${authToken}`,
+                "Content-Type": "multipart/form-data"
+            }
+        });
         return response.data;
     } catch (error) {
         throw error;

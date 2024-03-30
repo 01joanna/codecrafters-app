@@ -41,7 +41,6 @@ export default function EventPage() {
             {event ? (
                 <>
                 <EventDetails event={event} />
-                {userData && event && userData.id === event.user_id && <EventsEdit />}
                 </>
             ) : (
                 <p>Loading...</p>

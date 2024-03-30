@@ -1,7 +1,7 @@
 "use client"
 import React, { useState } from 'react';
 import { useAuthContext } from '../../../contexts/AuthContext';
-import { createEvent } from '../../../services/RestApi';
+import { createEvent, updateEvent } from '../../../services/RestApi';
 import { useRouter } from 'next/navigation';
 
 // export const updateEvent = async (id, eventData) => {
@@ -14,19 +14,20 @@ import { useRouter } from 'next/navigation';
 //     };
 
 
-export default function EventsEdit() {
+export default function EventsEdit( { event, eventId }) {
     const { getAuthToken } = useAuthContext();
     const authToken = getAuthToken();
     const router = useRouter();
 
     const [eventForm, setEventForm] = useState({
-        title: "",
-        description: "",
-        location: "",
-        date: "",
-        category_id: "",
-        image: "",
-        user_id: "",
+        title: event.title || "",
+        description: event.description || "",
+        location: event.location || "",
+        date: event.date || "",
+        category_id: event.category_id || "",
+        image: event.image || "",
+        user_id: event.user_id || "",
+        id: eventId 
     });
 
     const handleChange = (e) => {
@@ -39,30 +40,29 @@ export default function EventsEdit() {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-
-        const eventForm = new FormData(event.target);
-        const eventData = Object.fromEntries(eventForm.entries());
-        console.log('eventData:', eventData);
-
+    
+        const { id, ...eventData } = eventForm;
+        console.log("prueba:", { id, ...eventData })
+    
         try {
             if (!authToken) {
                 throw new Error('No hay un token de autenticación');
-                return;
             }
-
-            const response = await updateEvent(eventData, authToken);
+    
+            const response = await updateEvent(id, eventData, authToken);
             console.log('Evento editado:', response);
             router.refresh();
-            router.push("/")
-
+            router.push("/");
+    
         } catch (error) {
             console.error('Error al crear el evento:', error);
         }
     }
+    
     return (
         authToken ? (
-            <>
-        <h2 className="text-[50px] font-light">Edit an event</h2>
+            <div className='flex flex-col justify-center items-center gap-12'>
+        <h2 className="text-[50px] font-light">Edit this event:</h2>
         <form onSubmit={handleSubmit} className="border border-yellow px-12 py-8 items-center rounded-xl flex flex-col justify-center gap-20 md:mx-10">
             <fieldset>
                 <div className="mb-5">
@@ -180,7 +180,7 @@ export default function EventsEdit() {
                 </div>
             </fieldset>
         </form>
-        </>
+        </div>
         ) : 
         <p>Not logged in</p>
     );

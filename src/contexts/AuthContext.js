@@ -28,8 +28,7 @@ export default function AuthContextProvider({ children }) {
     }, []);
 
     const getUserData = useCallback(() => {
-        return currentUser;
-        console.log('currentUser:', currentUser);
+        return JSON.parse(Cookies.get("user"));
     }, [currentUser]);
 
     const value = useMemo(

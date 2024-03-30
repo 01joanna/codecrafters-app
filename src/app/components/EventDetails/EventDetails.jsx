@@ -2,10 +2,15 @@ import Image from 'next/image';
 import Button from '../Button/Button';
 import Owner from '../Owner/Owner';
 import Assistants from '../Assistants/Assistants';
+import EventsEdit from '../EventsEdit/EventsEdit';
+import { useAuthContext } from '@/contexts/AuthContext';
 
 export default function EventDetails({ event }) {
+    const { getUserData } = useAuthContext();
+    const userData = getUserData();
+    
     return (
-        <>
+        <div>
                     <section>
                         {/* <Image
                             src={event.image} // Usa la imagen del evento
@@ -64,6 +69,8 @@ export default function EventDetails({ event }) {
                             <p className='text-justify w-[70%]'>{event.description}</p> {/* Usa la descripción del evento */}
                         </div>
                     </aside>
-                </>
+
+                    {userData && event && userData.id === event.user_id && <EventsEdit event={event} eventId={event.id} />}
+                </div>
     )
 }
