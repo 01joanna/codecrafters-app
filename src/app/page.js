@@ -11,14 +11,15 @@ const imageLanding = "https://placehold.co/1400x625";
 export default function Home() {
   const [events, setEvents] = useState([]);
   const { getUserData } = useAuthContext();
-  const userData = getUserData();
+  const userData = useAuthContext().getUserData(); 
+
+  console.log('userData:', userData);
 
   useEffect(() => {
     
     const service = getAllEvents();
     service
       .then((data) => {
-        console.log("data:", data);
         setEvents(data.data);
       })
       .catch((error) => {

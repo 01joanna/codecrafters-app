@@ -9,70 +9,6 @@ axios.defaults.withXSRFToken = true;
 
 // axios.defaults.headers.common["X-CSRF-Token"] = true;
 
-// export const getCSRFToken = async () => {
-//     try {
-//         const response = await axios.get("sanctum/csrf-cookie");
-//         console.log("CSRF cookie configurada correctamente", response);
-//         return response.data;
-//     } catch (error) {
-//         console.error("Error al configurar la cookie CSRF:", error);
-//         throw error;
-//     }
-// };
-
-const postWithCSRF = async (url, data) => {
-    try {
-        // Obtener el token CSRF
-        const csrfToken = await getCSRFToken();
-
-        // Realizar la solicitud POST incluyendo el token CSRF en el encabezado
-        const response = await axios.post(url, data, {
-            headers: {
-                "X-CSRF-TOKEN": csrfToken
-            }
-        });
-
-        return response.data;
-    } catch (error) {
-        throw error;
-    }
-};
-
-// Función para obtener el token CSRF
-const getCSRFToken = async () => {
-    try {
-        // Realizar una solicitud GET para obtener el token CSRF
-        const response = await axios.get("/sanctum/csrf-cookie");
-        // Suponiendo que el token CSRF se devuelve como csrf_token en la respuesta
-        return response.data.csrf_token;
-    } catch (error) {
-        console.error("Error al obtener el token CSRF:", error);
-        throw error;
-    }
-};
-
-// // Rutas de autenticación
-// export const register = async (userData) => {
-//     try {
-//         // Realizar la solicitud POST incluyendo el token CSRF
-//         const response = await postWithCSRF("/register", userData);
-//         return response;
-//     } catch (error) {
-//         throw error;
-//     }
-// };
-
-// export const loginApi = async (userData) => {
-//     try {
-//         // Realizar la solicitud POST incluyendo el token CSRF
-//         const response = await postWithCSRF("/login", userData);
-//         return response;
-//     } catch (error) {
-//         throw error;
-//     }
-// };
-
-
 // Auth routes
 export const register = async (userData) => {
     try {
@@ -104,6 +40,16 @@ export const register = async (userData) => {
     };
 
     // User routes
+
+    export const getUserProfile = async (id) => {
+        try {
+            const response = await axios.get(`/user/${id}`); 
+            return response.data;
+        } catch (error) {
+            throw error; 
+        }
+    };
+
     export const updateUserProfile = async (id, profileData) => {
     try {
         const response = await axios.put(`/${id}/profile`, profileData);

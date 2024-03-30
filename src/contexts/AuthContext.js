@@ -1,10 +1,4 @@
-"use client"
-import React, { 
-    createContext, 
-    useCallback, 
-    useContext, 
-    useMemo, 
-    useState } from "react";
+import React, { createContext, useCallback, useContext, useMemo, useState } from "react";
 import Cookies from "js-cookie";
 
 export const AuthContext = createContext({
@@ -33,11 +27,10 @@ export default function AuthContextProvider({ children }) {
         return Cookies.get("authTokens");
     }, []);
 
-
     const getUserData = useCallback(() => {
-        return setCurrentUser;
-        // console.log("user:", setCurrentUser);
-    }, [setCurrentUser]);
+        return currentUser;
+        console.log('currentUser:', currentUser);
+    }, [currentUser]);
 
     const value = useMemo(
         () => ({

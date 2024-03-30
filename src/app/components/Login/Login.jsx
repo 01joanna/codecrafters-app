@@ -31,10 +31,10 @@ export default function Login() {
         loginApi(formInput)
           .then(({ accessToken, user }) => {
             login(accessToken, user);
+            console.log("user desde login:", user);
             getUserData(user); 
             console.log("success:", accessToken, user);
             router.push('/');
-            router.refresh();
           })
           .catch(error => {
             console.error('Login failed:', error);
