@@ -1,11 +1,11 @@
 'use client'
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import React from 'react';
 import Image from 'next/image';
-import Button from '../Button/Button';
+import Button from '../../components/Button';
 import { getUserProfile, updateUserProfile, deleteUserProfile } from "../../../services/RestApi"
 import { useAuthContext } from "../../../contexts/AuthContext";
-
+import { useRouter } from 'next/router';
 
 const ProfilePage = () => {
     const [userData, setUserData] = useState(null);
@@ -17,17 +17,31 @@ const ProfilePage = () => {
         password_confirmation: '',
         image: null,
     });
+    
     const [error, setError] = useState(null);
     const [success, setSuccess] = useState(false);
+    const { isUserAuthenticated } = useAuthContext(); // Accede a la función de autenticación
+    const router = useRouter(); // Accede al router de Next.js
+
+    // Memoriza isUserAuthenticated para prevenir re-renderizados innecesarios
+    const memoizedIsUserAuthenticated = useCallback(() => {
+        return isUserAuthenticated();
+    }, [isUserAuthenticated]);
 
     useEffect(() => {
+        if (!memoizedIsUserAuthenticated()) {
+            router.push('/login');
+            return;
+        }
+
         getUserProfile().then(response => {
             setUserData(response.data);
             setFormData(response.data);
         }).catch(error => {
             setError("Failed to fetch user profile.");
         });
-    }, []);
+    }, [memoizedIsUserAuthenticated, router]); // Usa memoizedIsUserAuthenticated como dependencia
+
 
     const handleEdit = () => {
         setIsEditing(true);

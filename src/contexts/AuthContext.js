@@ -28,8 +28,10 @@ export default function AuthContextProvider({ children }) {
     }, []);
 
     const getUserData = useCallback(() => {
-        return JSON.parse(Cookies.get("user"));
-    }, [currentUser]);
+        const userData = Cookies.get("user");
+        return userData ? JSON.parse(userData) : null;
+    }, []); 
+
 
     const value = useMemo(
         () => ({

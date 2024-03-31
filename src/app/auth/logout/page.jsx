@@ -7,6 +7,7 @@ import { useAuthContext } from "../../../contexts/AuthContext";
 export default function Logout() {
     const router = useRouter();
     const { getAuthToken, logout } = useAuthContext();
+    const push = usePush(); // Usa el método push memorizado
 
     useEffect(() => {
         const authToken = getAuthToken();
@@ -22,10 +23,11 @@ export default function Logout() {
                     router.push("/");
                 });
         } else {
-            // Si no hay token de autenticación, simplemente redirecciona al inicio
+            // Si no hay token de autenticación, simplemente redirecciona a la página de inicio
             router.push("/");
         }
-    }, [ ]);
+    }, [getAuthToken, logout, router, router.push]); // Incluye getAuthToken, logout y router.push en el array de dependencias
+
 
     return null; // Puedes devolver cualquier cosa aquí o dejar el componente vacío
 }

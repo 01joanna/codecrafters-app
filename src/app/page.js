@@ -49,13 +49,66 @@ export default function Home() {
       )}
       <section className="flex flex-col gap-4 items-center">
         <div>
-          <Image
-            src="/img/large-image.png"
-            alt="Landing page picture"
-            width={1400}
-            height={625}
-            className="px-4"
-          />
+          <main className="bg-white flex flex-col gap-8 pb-20">
+            {userData ? (
+              <p>
+                Datos del usuario logueado:
+                Id: {userData.id}
+                <br />
+                Nombre: {userData.name}
+                <br />
+                Email: {userData.email}
+              </p>
+            ) : (
+              <p>No hay ningún login</p>
+            )}
+            <section className="flex flex-col gap-4 items-center">
+              <div className="lg:visible absolute lg:top-[20rem] lg:left-[4rem] bg-white lg:w-[460px] text-black px-12 py-6 rounded-3xl">
+                <h1 className="text-2xl mb-1">
+                  Connecting minds, creating technological futures.
+                </h1>
+                <p className="text-[11px] mb-4">
+                  Connecting like-minded individuals effortlessly. Let us do the searching
+                  for you, and experience the ease of connecting with others who share
+                  your interests. Join our web platform today and unlock a world of
+                  possibilities with just one click!
+                </p>
+                <Button
+                  text={"Join us!"}
+                  className="bg-lightmayonnaise py-2 px-8 text-xs rounded-md"
+                />
+              </div>
+              <div className="flex">
+                {chunkEvents(events, 4).map((group, index) => (
+                  <div key={index} className="gap-10">
+                    {group.map((event) => (
+                      <Card key={event.id} event={event} />
+                    ))}
+                  </div>
+                ))}
+              </div>
+              <Button
+                text="Browse all events"
+                className="bg-lightmayonnaise md:text-md py-2 lg:px-36 md:px-15 rounded-xl"
+                href="/events"
+              />
+            </section>
+            <Image
+              src={imageLanding}
+              alt="Landing page picture"
+              width={1400}
+              height={625}
+              className="px-4"
+            />
+            <p className="bg-lightmayonnaise text-sm text-black rounded-xl px-6 py-4 mx-8">
+              Explore with us the fascinating world of technology. On our website, we
+              provide you with a careful selection of technological events designed to
+              keep you up to date with the latest trends and developments in this
+              exciting field. Join a community committed to technological advancement and
+              innovation, where each member has the opportunity to learn, share, and grow
+              in an inclusive and collaborative environment.
+            </p>
+          </main>
           <div className="lg:visible absolute lg:top-[20rem] lg:left-[4rem] bg-white lg:w-[460px] text-black px-12 py-6 rounded-3xl">
             <h1 className="text-2xl mb-1">
               Connecting minds, creating technological futures.
