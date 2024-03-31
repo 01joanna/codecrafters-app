@@ -34,19 +34,25 @@ export default function RegisterPage() {
 
         try {
             // Configuración de Axios para obtener la cookie CSRF
-            await axios.get('http://127.0.0.1:8000/sanctum/csrf-cookie', { withCredentials: true })
-            register(formData).then(async response => {
-                    console.log(response);
+            await axios.get('http://127.0.0.1:8000/sanctum/csrf-cookie', { withCredentials: true });
+            const response = await register(formData);
+            console.log(response);
 
-                    setSuccess(true);
-                    setError(null);
-                    router.push("/login");
-                })} catch (error) {
+            // Almacenar el token en localStorage
+            if (typeof window !== 'undefined') {
+                localStorage.setItem('authToken', response.data.token);
+            }
+
+            setSuccess(true);
+            setError(null);
+            router.push("/login");
+        } catch (error) {
             // Registro fallido
             setSuccess(false);
             setError("Registration failed. Please try again.");
         }
     };
+
 
     return (
         <main className="flex flex-col gap-3 items-center p-20">

@@ -1,3 +1,5 @@
+'use client'
+import React, { useEffect, useState } from 'react';
 import Image from "next/image";
 import Link from "next/link";
 import Searchbar from "../Searchbar/Searchbar";
@@ -9,7 +11,20 @@ export default function Header() {
     const { getAuthToken, getUserData } = useAuthContext();
     const token = getAuthToken();
     const user = getUserData();
-    const userId = user?.id
+    const userId = user?.id;
+    const [isClient, setIsClient] = useState(false);
+
+    useEffect(() => {
+        setIsClient(true);
+    }, []); // El segundo argumento [] asegura que el efecto solo se ejecute una vez, después de que el componente se monte en el cliente
+
+    // Código que se ejecuta solo en el cliente
+    useEffect(() => {
+        if (isClient) {
+            // Código que necesitas ejecutar solo en el cliente, por ejemplo, acceder a window o localStorage
+            console.log("El código se está ejecutando en el cliente");
+        }
+    }, [isClient]); // El efecto se ejecutará cuando isClient cambie
 
     return (
         <header className="bg-white text-black flex justify-between h-[4rem] px-12">
@@ -23,18 +38,18 @@ export default function Header() {
             <div className="flex items-center gap-4">
                 <Searchbar />
                 <nav>
-                        <ul className="flex gap-6 text-xs md:hidden lg:flex">
-                            <li>Your events</li>
-                            <li>Create an event</li>
-                            {token ? (
-                                <>
-                                    <li><MdOutlineManageAccounts /> <a href={`${userId}/profile`}>My Account</a></li>
-                                    <li><IoLogOutOutline /><a  href="/logout">Log Out</a></li>
-                                </>
-                            ) : (
-                                <li><MdOutlineManageAccounts /><a href="/register">Sign up</a></li>
-                            )}
-                        </ul>
+                    <ul className="flex gap-6 text-xs md:hidden lg:flex">
+                        <li>Your events</li>
+                        <li><a href="/events/create">Create an event</a></li>
+                        {token ? (
+                            <>
+                                <li><MdOutlineManageAccounts /> <a href={`${userId}/profile`}>My Account</a></li>
+                                <li><IoLogOutOutline /><a href="/auth/logout">Log Out</a></li>
+                            </>
+                        ) : (
+                            <li><MdOutlineManageAccounts /><a href="/register">Sign up</a></li>
+                        )}
+                    </ul>
                 </nav>
             </div>
         </header>
