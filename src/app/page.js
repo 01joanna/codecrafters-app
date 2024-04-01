@@ -13,7 +13,6 @@ export default function Home() {
   const { getUserData } = useAuthContext();
   const userData = useAuthContext().getUserData(); 
 
-  console.log('userData:', userData);
 
   useEffect(() => {
     

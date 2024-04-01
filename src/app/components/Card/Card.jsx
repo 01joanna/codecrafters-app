@@ -25,7 +25,7 @@ export default function Card({ event, className }) {
   };
 
   const handleDeleteEvent = () => {
-    // Lógica para eliminar el evento
+    router.push(`/events/${event.id}`);
   };
 
   

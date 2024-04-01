@@ -4,6 +4,7 @@ import axios from "axios";
 axios.defaults.baseURL = "http://127.0.0.1:8000/api";
 axios.defaults.headers.post["Content-Type"] = "application/json";
 axios.defaults.headers.post["Accept"] = "application/json";
+// axios.defaults.headers.put["Accept-Encoding"] = "application/json";
 axios.defaults.withCredentials = true;
 axios.defaults.withXSRFToken = true;
 
@@ -137,7 +138,8 @@ export const register = async (userData) => {
         const response = await axios.put(`/events/${id}/edit`, eventData, {
             headers: {
                 Authorization: `Bearer ${authToken}`,
-                "Content-Type": "multipart/form-data"
+                "Content-Type": "multipart/form-data",
+                "Accept-Encoding": "application/json"
             }
         });
         return response.data;
