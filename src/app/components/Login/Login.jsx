@@ -32,7 +32,7 @@ export default function Login() {
             console.log("Elementos de token", accessToken);
             login(accessToken, user);
             Coookies.set("user", JSON.stringify(user));
-            router.push('/auth/dashboard');
+            router.push('/');
             router.refresh();
           })
           .catch(error => {
