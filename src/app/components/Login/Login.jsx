@@ -5,6 +5,7 @@ import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useAuthContext } from "../../../contexts/AuthContext";
 import { loginApi } from "../../../services/RestApi";
+import Coookies from "js-cookie";
 
 export default function Login() {
   const [formInput, setFormInput] = useState({
@@ -29,7 +30,8 @@ export default function Login() {
           .then(({ accessToken, user }) => {
             console.log("Elementos", user);
             console.log("Elementos de token", accessToken);
-            login(accessToken);
+            login(accessToken, user);
+            Coookies.set("user", JSON.stringify(user));
             router.push('/auth/dashboard');
             router.refresh();
           })
