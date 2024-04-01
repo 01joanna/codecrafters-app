@@ -33,8 +33,6 @@ export default function RegisterPage() {
         e.preventDefault();
 
         try {
-            // Configuración de Axios para obtener la cookie CSRF
-            await axios.get('http://127.0.0.1:8000/sanctum/csrf-cookie', { withCredentials: true });
             const response = await register(formData);
             console.log(response);
 
@@ -52,6 +50,7 @@ export default function RegisterPage() {
             setError("Registration failed. Please try again.");
         }
     };
+
 
 
     return (
@@ -74,7 +73,6 @@ export default function RegisterPage() {
                             type="text"
                             id="name"
                             name="name"
-                            value={formData.name}
                             onChange={handleChange}
                             placeholder="Your name"
                         />
@@ -134,6 +132,8 @@ export default function RegisterPage() {
                         onChange={handleFileChange}
                         placeholder="Upload"
                     />
+
+                    {formData.image && <p>Selected image: {formData.image.name}</p>}
 
                     {/* Registration Button */}
                     <div id="submit-login" className="flex flex-col gap-2 my-10">

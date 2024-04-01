@@ -4,24 +4,23 @@ import axios from "axios";
 axios.defaults.baseURL = "http://127.0.0.1:8000/api";
 axios.defaults.headers.post["Content-Type"] = "application/json";
 axios.defaults.headers.post["Accept"] = "application/json";
-axios.defaults.headers.post["Access-Control-Allow-Origin"] = "*";
-axios.defaults.headers.post["Access-Control-Allow-Methods"] = "GET, POST, PUT, DELETE, OPTIONS";
-axios.defaults.headers.post["Access-Control-Allow-Headers"] = "Content-Type, Authorization";
-axios.defaults.headers.put["Accept-Encoding"] = "application/json"
 axios.defaults.withCredentials = true;
 axios.defaults.withXSRFToken = true;
 
 // axios.defaults.headers.common["X-CSRF-Token"] = true;
 
-// Auth routes
-export const register = async (userData) => {
-    try {
-        const response = await axios.post("/register", userData);
-        return response.data;
-    } catch (error) {
-        throw error;
-    }
-    };
+
+
+
+export const register = async (formData) => {
+    const response = await axios.post('http://127.0.0.1:8000/api/register', formData, {
+        headers: {
+            'Content-Type': 'multipart/form-data',
+        },
+    });
+    return response;
+};
+
 
     export const loginApi = async (userData) => {
     try {
@@ -49,19 +48,51 @@ export const register = async (userData) => {
         try {
             const response = await axios.get(`/user/${id}`); 
             return response.data;
+            console.log("response", response.data);
         } catch (error) {
             throw error; 
         }
     };
 
-    export const updateUserProfile = async (id, profileData) => {
+
+export const updateUserProfile = async (userId, formData, token) => {
     try {
-        const response = await axios.put(`/user/${id}/profile`, profileData);
+        const response = await axios.put(`/user/${userId}/profile`, formData, {
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'multipart/form-data',
+            },
+        });
         return response.data;
     } catch (error) {
         throw error;
     }
-    };
+};
+
+
+// export const updateUserProfile = async (id, profileData) => {
+//     try {
+//         const formData = new FormData();
+//         formData.append('name', profileData.name);
+//         formData.append('email', profileData.email);
+//         formData.append('password', profileData.password);
+//         formData.append('password_confirmation', profileData.password_confirmation);
+//         formData.append('image', profileData.image); // Asegúrate de que profileData.image contenga el archivo de imagen
+
+//         const response = await axios.put(`/user/${id}/profile`, formData, {
+//             headers: {
+//                 'Content-Type': 'multipart/form-data',
+//             },
+//             transformRequest: (data, headers) => {
+//                 return formData;
+//             },
+//         });
+//         return response.data;
+//     } catch (error) {
+//         throw error;
+//     }
+// };
+
 
     export const deleteUser = async (id) => {
         try {
