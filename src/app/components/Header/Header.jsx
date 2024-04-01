@@ -16,15 +16,13 @@ export default function Header() {
 
     useEffect(() => {
         setIsClient(true);
-    }, []); // El segundo argumento [] asegura que el efecto solo se ejecute una vez, después de que el componente se monte en el cliente
+    }, []); 
 
-    // Código que se ejecuta solo en el cliente
     useEffect(() => {
         if (isClient) {
-            // Código que necesitas ejecutar solo en el cliente, por ejemplo, acceder a window o localStorage
             console.log("El código se está ejecutando en el cliente");
         }
-    }, [isClient]); // El efecto se ejecutará cuando isClient cambie
+    }, [isClient]); 
 
     return (
         <header className="bg-white text-black flex justify-between h-[4rem] px-12">

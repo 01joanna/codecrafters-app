@@ -1,3 +1,4 @@
+
 import React, { createContext, useCallback, useContext, useMemo, useState } from "react";
 import Cookies from "js-cookie";
 
@@ -30,12 +31,12 @@ export default function AuthContextProvider({ children }) {
 
     const getUserData = useCallback(() => {
         const userData = Cookies.get("user");
-        return userData ? JSON.parse(userData) : null;
+        // return userData ? JSON.parse(userData) : null;
     }, []); 
 
 
     const isUserAuthenticated = useCallback(() => {
-        return !!getAuthToken(); // Verifica si hay un token de autenticación
+        return !!getAuthToken();
     }, [getAuthToken]);
 
     const value = useMemo(
