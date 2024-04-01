@@ -3,15 +3,17 @@ import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { logoutApi } from "../../../services/RestApi";
 import { useAuthContext } from "../../../contexts/AuthContext";
+// import { usePush } from "next/navigation";
 
 export default function Logout() {
     const router = useRouter();
     const { getAuthToken, logout } = useAuthContext();
+    // const push = usePush(); // Usa el método push memorizado
 
     useEffect(() => {
         const authToken = getAuthToken();
 
-        logout(); // Limpia el token de autenticación en el cliente
+        logout();
         if (authToken) {
             logoutApi(authToken)
                 .then(() => {
@@ -22,10 +24,10 @@ export default function Logout() {
                     router.push("/");
                 });
         } else {
-            // Si no hay token de autenticación, simplemente redirecciona al inicio
             router.push("/");
         }
-    }, [ ]);
+    }, [getAuthToken, logout, router, router.push]);
 
-    return null; // Puedes devolver cualquier cosa aquí o dejar el componente vacío
+
+    return null;
 }
