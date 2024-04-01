@@ -1,6 +1,5 @@
-'use client'
 import Image from "next/image";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { FaUsers } from "react-icons/fa6";
 import { IoEarthSharp } from "react-icons/io5";
@@ -9,26 +8,25 @@ import { CiEdit } from "react-icons/ci";
 import { useAuthContext } from "@/contexts/AuthContext";
 
 
-export default function Card({ event, className }) {
+export default function Card({ event, className, onDelete }) {
 
   const { isAuthenticated, getUserData } = useAuthContext();
-  const userData = getUserData();
-  const isOwner = isAuthenticated && userData && event.user_id === userData.id;
-
   const router = useRouter();
+  const user = getUserData();
+
+  const isOwner = user.id === event.user_id;
+
+
   const HandleViewDetails = () => {
     router.push(`/events/${event.id}`);
   }
 
-  const handleEditEvent = () => {
-    router.push(`/events/${event.id}`);
-  };
 
-  const handleDeleteEvent = () => {
-    router.push(`/events/${event.id}`);
-  };
+  const handleDelete = () => {
+    onDelete(event);
+  }
 
-  
+
   const defaultCSS = "bg-white flex flex-col gap-4"
   return (
     <div className={`${className} ${defaultCSS}`}>
@@ -58,11 +56,13 @@ export default function Card({ event, className }) {
           <div className="flex gap-2 mt-2">
             <CiEdit 
               className="text-blue-500 cursor-pointer"
-              onClick={handleEditEvent}
+              onClick={() => router.push(`/events/${event.id}`)}
+              event={event}
             />
             <MdDelete
               className="text-red-500 cursor-pointer"
-              onClick={handleDeleteEvent}
+              onClick={handleDelete}
+              event={event}
             />
           </div>
         )}

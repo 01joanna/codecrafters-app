@@ -24,6 +24,7 @@ export default function Header() {
         }
     }, [isClient]); 
 
+
     return (
         <header className="bg-white text-black flex justify-between h-[4rem] px-12">
             <div id="logo" className="flex items-center">
@@ -37,7 +38,7 @@ export default function Header() {
                 <Searchbar />
                 <nav>
                         <ul className="flex gap-6 text-xs md:hidden lg:flex">
-                            <li>Your events</li>
+                            <li><a href={`${userId}/your-events`}>Your events</a></li>
                             <li><a href="/events/create">Create an event</a></li>
                             {token ? (
                                 <>

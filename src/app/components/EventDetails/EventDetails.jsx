@@ -4,6 +4,7 @@ import Owner from '../Owner/Owner';
 import Assistants from '../Assistants/Assistants';
 import EventsEdit from '../EventsEdit/EventsEdit';
 import { useAuthContext } from '@/contexts/AuthContext';
+import SubscribeButton from '../SubscribeButton/SubscribeButton';
 
 export default function EventDetails({ event }) {
     const { getUserData } = useAuthContext();
@@ -28,7 +29,7 @@ export default function EventDetails({ event }) {
                                     <h1 className='md:text-[40px] lg:text-[60px] leading-none font-bold md:justify-center'>{event.title}</h1>
                                 </div>
                                 <div id='main-button-register' className='self-center'>
-                                    <Button text='Subscribe to this event' />
+                                {event && <SubscribeButton event={event} />}
                                 </div>
                             </div>
                             <div id='event-users' className='flex lg:flex-row md:flex-col-reverse gap-4 lg:items-center md:items-start w-auto'>
