@@ -2,10 +2,16 @@ import Image from 'next/image';
 import Button from '../Button/Button';
 import Owner from '../Owner/Owner';
 import Assistants from '../Assistants/Assistants';
+import EventsEdit from '../EventsEdit/EventsEdit';
+import { useAuthContext } from '@/contexts/AuthContext';
+import SubscribeButton from '../SubscribeButton/SubscribeButton';
 
 export default function EventDetails({ event }) {
+    const { getUserData } = useAuthContext();
+    const userData = getUserData();
+    
     return (
-        <>
+        <div>
                     <section>
                         {/* <Image
                             src={event.image} // Usa la imagen del evento
@@ -23,15 +29,15 @@ export default function EventDetails({ event }) {
                                     <h1 className='md:text-[40px] lg:text-[60px] leading-none font-bold md:justify-center'>{event.title}</h1>
                                 </div>
                                 <div id='main-button-register' className='self-center'>
-                                    <Button text='Subscribe to this event' />
+                                {event && <SubscribeButton event={event} />}
                                 </div>
                             </div>
                             <div id='event-users' className='flex lg:flex-row md:flex-col-reverse gap-4 lg:items-center md:items-start w-auto'>
                                 <div id='event-user-owner'>
-                                    <Owner text={event.user_id} /> {/* Usa el nombre del propietario del evento */}
+                                    <Owner text={event.user_id} />
                                 </div>
                                 <div id='users-registered'>
-                                    <Assistants count={event.attendees_count} /> {/* Usa la cantidad de asistentes del evento */}
+                                    <Assistants event={event} count={event.attendees_count} /> {/* Usa la cantidad de asistentes del evento */}
                                 </div>
                             </div>
                         </div>
@@ -64,6 +70,8 @@ export default function EventDetails({ event }) {
                             <p className='text-justify w-[70%]'>{event.description}</p> {/* Usa la descripción del evento */}
                         </div>
                     </aside>
-                </>
+
+                    {userData && event && userData.id === event.user_id && <EventsEdit event={event} eventId={event.id} />}
+                </div>
     )
 }

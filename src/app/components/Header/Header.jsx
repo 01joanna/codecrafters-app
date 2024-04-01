@@ -1,3 +1,5 @@
+'use client'
+import React, { useEffect, useState } from 'react';
 import Image from "next/image";
 import Link from "next/link";
 import Searchbar from "../Searchbar/Searchbar";
@@ -9,7 +11,19 @@ export default function Header() {
     const { getAuthToken, getUserData } = useAuthContext();
     const token = getAuthToken();
     const user = getUserData();
-    const userId = user?.id
+    const userId = user?.id;
+    const [isClient, setIsClient] = useState(false);
+
+    useEffect(() => {
+        setIsClient(true);
+    }, []); 
+
+    useEffect(() => {
+        if (isClient) {
+            console.log("El código se está ejecutando en el cliente");
+        }
+    }, [isClient]); 
+
 
     return (
         <header className="bg-white text-black flex justify-between h-[4rem] px-12">
@@ -24,8 +38,8 @@ export default function Header() {
                 <Searchbar />
                 <nav>
                         <ul className="flex gap-6 text-xs md:hidden lg:flex">
-                            <li>Your events</li>
-                            <li><a href="/auth/events/create">Create an event</a></li>
+                            <li><a href={`${userId}/your-events`}>Your events</a></li>
+                            <li><a href="/events/create">Create an event</a></li>
                             {token ? (
                                 <>
                                     <li><MdOutlineManageAccounts /> <a href={`${userId}/profile`}>My Account</a></li>

@@ -4,74 +4,14 @@ import axios from "axios";
 axios.defaults.baseURL = "http://127.0.0.1:8000/api";
 axios.defaults.headers.post["Content-Type"] = "application/json";
 axios.defaults.headers.post["Accept"] = "application/json";
+axios.defaults.headers.post["Access-Control-Allow-Origin"] = "*";
+axios.defaults.headers.post["Access-Control-Allow-Methods"] = "GET, POST, PUT, DELETE, OPTIONS";
+axios.defaults.headers.post["Access-Control-Allow-Headers"] = "Content-Type, Authorization";
+axios.defaults.headers.put["Accept-Encoding"] = "application/json"
 axios.defaults.withCredentials = true;
 axios.defaults.withXSRFToken = true;
 
 // axios.defaults.headers.common["X-CSRF-Token"] = true;
-
-// export const getCSRFToken = async () => {
-//     try {
-//         const response = await axios.get("sanctum/csrf-cookie");
-//         console.log("CSRF cookie configurada correctamente", response);
-//         return response.data;
-//     } catch (error) {
-//         console.error("Error al configurar la cookie CSRF:", error);
-//         throw error;
-//     }
-// };
-
-const postWithCSRF = async (url, data) => {
-    try {
-        // Obtener el token CSRF
-        const csrfToken = await getCSRFToken();
-
-        // Realizar la solicitud POST incluyendo el token CSRF en el encabezado
-        const response = await axios.post(url, data, {
-            headers: {
-                "X-CSRF-TOKEN": csrfToken
-            }
-        });
-
-        return response.data;
-    } catch (error) {
-        throw error;
-    }
-};
-
-// Función para obtener el token CSRF
-const getCSRFToken = async () => {
-    try {
-        // Realizar una solicitud GET para obtener el token CSRF
-        const response = await axios.get("/sanctum/csrf-cookie");
-        // Suponiendo que el token CSRF se devuelve como csrf_token en la respuesta
-        return response.data.csrf_token;
-    } catch (error) {
-        console.error("Error al obtener el token CSRF:", error);
-        throw error;
-    }
-};
-
-// // Rutas de autenticación
-// export const register = async (userData) => {
-//     try {
-//         // Realizar la solicitud POST incluyendo el token CSRF
-//         const response = await postWithCSRF("/register", userData);
-//         return response;
-//     } catch (error) {
-//         throw error;
-//     }
-// };
-
-// export const loginApi = async (userData) => {
-//     try {
-//         // Realizar la solicitud POST incluyendo el token CSRF
-//         const response = await postWithCSRF("/login", userData);
-//         return response;
-//     } catch (error) {
-//         throw error;
-//     }
-// };
-
 
 // Auth routes
 export const register = async (userData) => {
@@ -104,9 +44,19 @@ export const register = async (userData) => {
     };
 
     // User routes
+
+    export const getUserProfile = async (id) => {
+        try {
+            const response = await axios.get(`/user/${id}`); 
+            return response.data;
+        } catch (error) {
+            throw error; 
+        }
+    };
+
     export const updateUserProfile = async (id, profileData) => {
     try {
-        const response = await axios.put(`/${id}/profile`, profileData);
+        const response = await axios.put(`/user/${id}/profile`, profileData);
         return response.data;
     } catch (error) {
         throw error;
@@ -150,23 +100,63 @@ export const register = async (userData) => {
     }
     };
 
-    export const getSubscribedEvents = async (id) => {
-    try {
-        const response = await axios.get(`/${id}/subscribed-events`);
-        return response.data;
-    } catch (error) {
-        throw error;
-    }
+    export const getSubscribedEvents = async (id, authToken) => {
+        try {
+            const response = await axios.get(`/${id}/subscribed-events`, {
+                headers: {
+                    "Authorization": `Bearer ${authToken}`
+                }
+            });
+            return response.data.data.data;
+            console.log("response desde restApi", response);
+        } catch (error) {
+            throw error;
+        }
     };
 
-    export const subscribeToEvent = async (eventId) => {
-    try {
-        const response = await axios.post(`/events/${eventId}/register`);
-        return response.data;
-    } catch (error) {
-        throw error;
-    }
+    export const subscribeToEvent = async (eventId, userId, authToken) => {
+        try {
+            console.log("event id", eventId)
+            console.log("user id", userId)
+            console.log("auth token", authToken)
+            const response = await axios.post(`/events/${eventId}/register`, { user_id: userId }, {
+                headers: {
+                    Authorization: `Bearer ${authToken}`
+                }
+            });
+            return response.data;
+        } catch (error) {
+            throw error;
+        }
     };
+
+    export const unsubscribeFromEvent = async (eventId, userId, authToken) => {
+        try {
+            const response = await axios.delete(`/events/${eventId}/unregister`, {
+                headers: {
+                    Authorization: `Bearer ${authToken}`
+                }
+            });
+            return response.data;
+        } catch (error) {
+            throw error;
+        }
+    }
+
+
+    export const EventsCreatedByUser = async (userId, authToken) => {
+        try {
+            const response = await axios.get(`/${userId}/events-by-user`, {
+                headers: {
+                    Authorization: `Bearer ${authToken}`
+                }
+            });
+            return response.data.data.data;
+        } catch (error) {
+            throw error;
+        }
+    }
+    
 
     // Event routes
     export const createEvent = async (eventData, authToken) => {
@@ -178,16 +168,22 @@ export const register = async (userData) => {
             }
         
         });
-        console.log("response", response);
         return response.data;
     } catch (error) {
         throw error;
     }
     };
 
-    export const updateEvent = async (id, eventData) => {
+    export const updateEvent = async (id, eventData, authToken) => {
     try {
-        const response = await axios.put(`/events/${id}/edit`, eventData);
+        console.log("id", id)
+        const response = await axios.put(`/events/${id}/edit`, eventData, {
+            headers: {
+                Authorization: `Bearer ${authToken}`,
+                "Content-Type": "multipart/form-data",
+                "Accept-Encoding": "application/json"
+            }
+        });
         return response.data;
     } catch (error) {
         throw error;
@@ -203,18 +199,26 @@ export const register = async (userData) => {
     }
     };
 
-    export const deleteEvent = async (id) => {
+    export const deleteEvent = async (id, authToken) => {
     try {
-        const response = await axios.delete(`/events/${id}/delete`);
+        const response = await axios.delete(`/events/${id}/delete`, {
+            headers: {
+                "Authorization": `Bearer ${authToken}`
+            }
+        });
         return response.data;
     } catch (error) {
         throw error;
     }
     };
 
-    export const getRegisteredUsersForEvent = async (id) => {
+    export const getRegisteredUsersForEvent = async (id, authToken) => {
     try {
-        const response = await axios.get(`/events/${id}/registered-users`);
+        const response = await axios.get(`/events/${id}/registered-users`, {
+            headers: {
+                "Authorization": `Bearer ${authToken}`
+                    }
+                });
         return response.data;
     } catch (error) {
         throw error;
