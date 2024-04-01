@@ -23,8 +23,11 @@ export default function Card({ event, className, onDelete }) {
 
 
   const handleDelete = () => {
-    onDelete(event);
-  }
+    const isConfirmed = window.confirm('Are you sure you want to delete this event?');
+    if (isConfirmed) {
+      onDelete(event);
+    }
+  }; 
 
 
   const defaultCSS = "bg-white flex flex-col gap-4"

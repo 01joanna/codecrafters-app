@@ -34,10 +34,10 @@ export default function EventDetails({ event }) {
                             </div>
                             <div id='event-users' className='flex lg:flex-row md:flex-col-reverse gap-4 lg:items-center md:items-start w-auto'>
                                 <div id='event-user-owner'>
-                                    <Owner text={event.user_id} /> {/* Usa el nombre del propietario del evento */}
+                                    <Owner text={event.user_id} />
                                 </div>
                                 <div id='users-registered'>
-                                    <Assistants count={event.attendees_count} /> {/* Usa la cantidad de asistentes del evento */}
+                                    <Assistants event={event} count={event.attendees_count} /> {/* Usa la cantidad de asistentes del evento */}
                                 </div>
                             </div>
                         </div>

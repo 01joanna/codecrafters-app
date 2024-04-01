@@ -212,9 +212,13 @@ export const register = async (userData) => {
     }
     };
 
-    export const getRegisteredUsersForEvent = async (id) => {
+    export const getRegisteredUsersForEvent = async (id, authToken) => {
     try {
-        const response = await axios.get(`/events/${id}/registered-users`);
+        const response = await axios.get(`/events/${id}/registered-users`, {
+            headers: {
+                "Authorization": `Bearer ${authToken}`
+                    }
+                });
         return response.data;
     } catch (error) {
         throw error;

@@ -26,7 +26,7 @@ export default function Page() {
                         </div>
                     </div>
                 </section>
-                <section className="py-3">
+                <section className="py-3 pl-10">
                 <h2 className="text-3xl pb-7">Events you confirmed your assistance to:</h2>
                 <div className='w-[70%] justify-center'>
                         <EventsSubscribed userId={user.id} authToken={authToken} />
