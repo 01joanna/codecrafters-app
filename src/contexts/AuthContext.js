@@ -1,3 +1,4 @@
+"use client"
 import React, { createContext, useCallback, useContext, useMemo, useState } from "react";
 import Cookies from "js-cookie";
 
@@ -6,6 +7,7 @@ export const AuthContext = createContext({
     logout: () => {},
     getAuthToken: () => null,
     getUserData: () => null,
+    isUserAuthenticated: () => false,
 });
 
 export default function AuthContextProvider({ children }) {
@@ -28,8 +30,14 @@ export default function AuthContextProvider({ children }) {
     }, []);
 
     const getUserData = useCallback(() => {
-        return JSON.parse(Cookies.get("user"));
-    }, [currentUser]);
+        const userData = Cookies.get("user");
+        return userData ? JSON.parse(userData) : null;
+    }, []); 
+
+
+    const isUserAuthenticated = useCallback(() => {
+        return !!getAuthToken();
+    }, [getAuthToken]);
 
     const value = useMemo(
         () => ({
@@ -37,8 +45,9 @@ export default function AuthContextProvider({ children }) {
             logout,
             getAuthToken,
             getUserData,
+            isUserAuthenticated,
         }),
-        [login, logout, getAuthToken, getUserData]
+        [login, logout, getAuthToken, getUserData, isUserAuthenticated]
     );
 
     return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

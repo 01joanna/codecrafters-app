@@ -4,7 +4,10 @@ import axios from "axios";
 axios.defaults.baseURL = "http://127.0.0.1:8000/api";
 axios.defaults.headers.post["Content-Type"] = "application/json";
 axios.defaults.headers.post["Accept"] = "application/json";
-// axios.defaults.headers.put["Accept-Encoding"] = "application/json";
+axios.defaults.headers.post["Access-Control-Allow-Origin"] = "*";
+axios.defaults.headers.post["Access-Control-Allow-Methods"] = "GET, POST, PUT, DELETE, OPTIONS";
+axios.defaults.headers.post["Access-Control-Allow-Headers"] = "Content-Type, Authorization";
+axios.defaults.headers.put["Accept-Encoding"] = "application/json"
 axios.defaults.withCredentials = true;
 axios.defaults.withXSRFToken = true;
 
@@ -53,7 +56,7 @@ export const register = async (userData) => {
 
     export const updateUserProfile = async (id, profileData) => {
     try {
-        const response = await axios.put(`/${id}/profile`, profileData);
+        const response = await axios.put(`/user/${id}/profile`, profileData);
         return response.data;
     } catch (error) {
         throw error;

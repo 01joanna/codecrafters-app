@@ -1,48 +1,68 @@
 'use client'
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import React from 'react';
 import Image from 'next/image';
-import Button from '../Button/Button';
+import Button from '../../components/Button/Button';
 import { getUserProfile, updateUserProfile, deleteUserProfile } from "../../../services/RestApi"
 import { useAuthContext } from "../../../contexts/AuthContext";
-
+import { useRouter } from 'next/navigation';
 
 const ProfilePage = () => {
     const [userData, setUserData] = useState(null);
     const [isEditing, setIsEditing] = useState(false);
     const [formData, setFormData] = useState({
+        
         name: '',
         email: '',
         password: '',
         password_confirmation: '',
         image: null,
     });
+
     const [error, setError] = useState(null);
     const [success, setSuccess] = useState(false);
+    const { isUserAuthenticated } = useAuthContext(); // Accede a la función de autenticación
+    const router = useRouter(); // Accede al router de Next.js
+
+    // Memoriza isUserAuthenticated para prevenir re-renderizados innecesarios
+    const memoizedIsUserAuthenticated = useCallback(() => {
+        return isUserAuthenticated();
+    }, [isUserAuthenticated]);
 
     useEffect(() => {
-        getUserProfile().then(response => {
-            setUserData(response.data);
-            setFormData(response.data);
-        }).catch(error => {
-            setError("Failed to fetch user profile.");
-        });
-    }, []);
+    if (!memoizedIsUserAuthenticated()) {
+        router.push('/login');
+        return;
+    }
 
-    const handleEdit = () => {
-        setIsEditing(true);
+    if (userData && userData.id) {
+        getUserProfile(userData.id)
+            .then(response => {
+                setUserData(response.data);
+                setFormData(response.data);
+            })
+            .catch(error => {
+                setError("Failed to fetch user profile.");
+            });
+    }
+}, [memoizedIsUserAuthenticated, router, userData]);  // Usa memoizedIsUserAuthenticated como dependencia
+
+    const handleFileChange = (e) => {
+        setFormData({ ...formData, image: e.target.files[0] });
     };
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 
-    const handleFileChange = (e) => {
-        setFormData({ ...formData, image: e.target.files[0] });
+    const handleEdit = () => {
+        setIsEditing(true);
     };
 
     const handleUpdate = async () => {
         try {
+            console.log("handleUpdate se está ejecutando")
+            console.log(formData); 
             await updateUserProfile(userData.id, formData);
             setUserData(formData);
             setIsEditing(false);
