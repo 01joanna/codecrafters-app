@@ -55,11 +55,11 @@ export const register = async (formData) => {
     };
 
 
-export const updateUserProfile = async (userId, formData, token) => {
+export const updateUserProfile = async(userId, formData, authToken) => {
     try {
-        const response = await axios.put(`/user/${userId}/profile`, formData, {
+        const response = await axios.post(`/user/${userId}/profile`, formData, {
             headers: {
-                'Authorization': `Bearer ${token}`,
+                'Authorization': `Bearer ${authToken}`,
                 'Content-Type': 'multipart/form-data',
             },
         });

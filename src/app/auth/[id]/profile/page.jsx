@@ -8,24 +8,25 @@ import { useAuthContext } from "../../../../contexts/AuthContext";
 import { useRouter } from 'next/navigation';
 
 const ProfilePage = () => {
-  
+
     const [userData, setUserData] = useState(null);
-    const [isEditing, setIsEditing] = useState(false);
     const [formData, setFormData] = useState({
-
-
-        name: '',
-        email: '',
-        password: '',
-        password_confirmation: '',
-        image: null,
-
+        "name": "",
+        "email": "",
+        "password": "",
+        "password_confirmation": "",
+        "image": "",
     });
     console.log("ProfilePage se está ejecutando");
+
     const [error, setError] = useState(null);
     const [success, setSuccess] = useState(false);
-    const { isUserAuthenticated, userId } = useAuthContext(); // Accede a la función de autenticación y al userId
+    const { getAuthToken, isUserAuthenticated, getUserData } = useAuthContext(); // Accede a la función de autenticación y al userId
     const router = useRouter(); // Accede al router de Next.js
+    const authToken = getAuthToken();
+    const userId = getUserData();
+
+
 
     // Memoriza isUserAuthenticated para prevenir re-renderizados innecesarios
     const memoizedIsUserAuthenticated = useCallback(() => {
@@ -66,42 +67,42 @@ const ProfilePage = () => {
         }));
     };
 
+    console.log(userId);
 
-    const handleEdit = () => {
-        setIsEditing(true);
-    };
 
     const handleUpdate = async (e) => {
         e.preventDefault(); // Evitar que el formulario se envíe automáticamente
 
-        const formData = new FormData();
-        formData.append('name', formData.name); 
-        formData.append('email', formData.email); 
-        formData.append('password', formData.password); 
-        formData.append('password_confirmation', formData.password_confirmation); 
+        const formDataToSend = new FormData();
+        formDataToSend.append('name', formData.name);
+        formDataToSend.append('email', formData.email);
+        formDataToSend.append('password', formData.password);
+        formDataToSend.append('password_confirmation', formData.password_confirmation);
+
 
         if (formData.image) {
-            formData.append('image', formData.image); // Debería ser formData.image
+            formDataToSend.append('image', formData.image);
         }
-
+        
         try {
-            await updateUserProfile(userId, formData);
+            
+            await updateUserProfile(userId, formDataToSend, authToken);
 
-            // Después de la actualización exitosa, obtener los datos actualizados del usuario
-            const updatedUserData = await getUserProfile(userId);
+            console.log(userId);
+
+            // Después de la actualización exitosa, obtener los datos actualizados del usuari
 
             // Actualizar el estado local con los datos actualizados del usuario
             setUserData(updatedUserData.data);
 
-            setIsEditing(false);
+            setError(null);
             setSuccess(true);
+
         } catch (error) {
             console.error("Failed to update user profile:", error);
             setError("Failed to update user profile. Please try again later.");
         }
     };
-
-
 
     return (
         <main>

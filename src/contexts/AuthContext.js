@@ -16,7 +16,7 @@ export default function AuthContextProvider({ children }) {
 
     const login = useCallback((authTokens, user) => {
         Cookies.set("authTokens", authTokens);
-        Cookies.set("user", JSON.stringify(user));
+        Cookies.set("userId", JSON.stringify(user.id));
         setCurrentUser(user);
     }, []);
 
@@ -31,8 +31,8 @@ export default function AuthContextProvider({ children }) {
     }, []);
 
     const getUserData = useCallback(() => {
-        const userData = Cookies.get("user");
-        return userData ? JSON.parse(userData) : null;
+        const userData = Cookies.get("userId");
+        return userData ;
     }, []); 
 
     const isUserAuthenticated = useCallback(() => {
