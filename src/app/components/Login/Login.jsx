@@ -13,14 +13,16 @@ export default function Login() {
     password: '',
   });
 
+
+  const { login } = useAuthContext();
+  const { getUserData } = useAuthContext();
+  const router = useRouter();
+  const [error, setError ] = useState(null);
+
   const updateFormInput = (e) => {
     e.persist();
     setFormInput((prevState) => ({ ...prevState, [e.target.name]: e.target.value}));
-    console.log(formInput)
   };
-
-  const { login } = useAuthContext();
-  const router = useRouter();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -43,19 +45,6 @@ export default function Login() {
         console.error('Fetching CSRF cookie failed:', error);
       });
   };
-  //     const loginResponse = await api.post('api/login', formInput);
-  //     if (loginResponse.data.error) {
-  //       console.log(loginResponse.data.error);
-  //     } else {
-  //       console.log("Success:", loginResponse.data);
-  //       login(loginResponse.data.access_token);
-  //       router.push('/');
-  //       router.refresh();
-  //     }}
-  //   } .catch(error) {
-  //     console.error('Login failed:', error);
-  //   }
-  // };
 
   return (
     <div>
@@ -69,10 +58,10 @@ export default function Login() {
           className="flex flex-col items-center px-20"
           onSubmit={handleSubmit}
         >
-          @csrf
           <legend className="font-light text-4xl my-8">Sign in</legend>
 
           <div id="form-images-button" className="flex flex-col items-center">
+          {error && <p className="text-red-500">{error}</p>}
             <div id="form-fillables" className="">
               <div className="flex flex-col gap-2">
                 <div>

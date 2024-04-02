@@ -1,11 +1,42 @@
+'use client'
+import { useState } from 'react';
 import Image from 'next/image';
 import Button from '../Button/Button';
 import Owner from '../Owner/Owner';
 import Assistants from '../Assistants/Assistants';
+import EventsEdit from '../EventsEdit/EventsEdit';
+import { useAuthContext } from '@/contexts/AuthContext';
+import { useEffect } from 'react';
+import SubscribeButton from '../SubscribeButton/SubscribeButton';
+import Ticket from '../Ticket/Ticket';
 
 export default function EventDetails({ event }) {
+    const { getUserData } = useAuthContext();
+    const userData = getUserData();
+
+
+    const [isSubscribed, setIsSubscribed] = useState(false);
+    const [Ticket, setTicket] = useState(false);
+    const { getAuthToken } = useAuthContext();
+    const authToken = getAuthToken();
+    const [registeredUsers, setRegisteredUsers] = useState([]);
+
+    // useEffect(() => {
+    //     const fetchRegisteredUsers = async () => {
+    //         try {
+    //             const users = await getRegisteredUsersForEvent(eventId, authToken);
+    //             // const userNames = users.data.data.map((user) => user.name);
+    //             setRegisteredUsers(users.data.data);
+    //             // console.log("Registered users:", userNames);
+    //         } catch (error) {
+    //             console.error("Error fetching registered users:", error);
+    //         }
+    //     };
+    //     fetchRegisteredUsers();
+    // }, [eventId]);
+
     return (
-        <>
+        <div>
                     <section>
                         {/* <Image
                             src={event.image} // Usa la imagen del evento
@@ -23,15 +54,15 @@ export default function EventDetails({ event }) {
                                     <h1 className='md:text-[40px] lg:text-[60px] leading-none font-bold md:justify-center'>{event.title}</h1>
                                 </div>
                                 <div id='main-button-register' className='self-center'>
-                                    <Button text='Subscribe to this event' />
+                                {event && <SubscribeButton event={event} />}
                                 </div>
                             </div>
                             <div id='event-users' className='flex lg:flex-row md:flex-col-reverse gap-4 lg:items-center md:items-start w-auto'>
                                 <div id='event-user-owner'>
-                                    <Owner text={event.user_id} /> {/* Usa el nombre del propietario del evento */}
+                                    <Owner text={event.user_id} />
                                 </div>
                                 <div id='users-registered'>
-                                    <Assistants count={event.attendees_count} /> {/* Usa la cantidad de asistentes del evento */}
+                                    <Assistants event={event} count={event.attendees_count} /> {/* Usa la cantidad de asistentes del evento */}
                                 </div>
                             </div>
                         </div>
@@ -64,6 +95,9 @@ export default function EventDetails({ event }) {
                             <p className='text-justify w-[70%]'>{event.description}</p> {/* Usa la descripción del evento */}
                         </div>
                     </aside>
-                </>
+
+                    {userData && event && userData.id === event.user_id && <EventsEdit event={event} eventId={event.id} />}
+                    {isSubscribed && <Ticket event={event} />}
+                </div>
     )
 }

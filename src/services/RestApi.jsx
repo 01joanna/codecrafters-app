@@ -64,7 +64,6 @@ export const updateUserProfile = async(userId, formData, authToken) => {
 
             },
         });
-        return response.data;
     } catch (error) {
         throw error;
     }
@@ -98,23 +97,63 @@ export const updateUserProfile = async(userId, formData, authToken) => {
     }
     };
 
-    export const getSubscribedEvents = async (id) => {
-    try {
-        const response = await axios.get(`/${id}/subscribed-events`);
-        return response.data;
-    } catch (error) {
-        throw error;
-    }
+    export const getSubscribedEvents = async (id, authToken) => {
+        try {
+            const response = await axios.get(`/${id}/subscribed-events`, {
+                headers: {
+                    "Authorization": `Bearer ${authToken}`
+                }
+            });
+            return response.data.data.data;
+            console.log("response desde restApi", response);
+        } catch (error) {
+            throw error;
+        }
     };
 
-    export const subscribeToEvent = async (eventId) => {
-    try {
-        const response = await axios.post(`/events/${eventId}/register`);
-        return response.data;
-    } catch (error) {
-        throw error;
-    }
+    export const subscribeToEvent = async (eventId, userId, authToken) => {
+        try {
+            console.log("event id", eventId)
+            console.log("user id", userId)
+            console.log("auth token", authToken)
+            const response = await axios.post(`/events/${eventId}/register`, { user_id: userId }, {
+                headers: {
+                    Authorization: `Bearer ${authToken}`
+                }
+            });
+            return response.data;
+        } catch (error) {
+            throw error;
+        }
     };
+
+    export const unsubscribeFromEvent = async (eventId, userId, authToken) => {
+        try {
+            const response = await axios.delete(`/events/${eventId}/unregister`, {
+                headers: {
+                    Authorization: `Bearer ${authToken}`
+                }
+            });
+            return response.data;
+        } catch (error) {
+            throw error;
+        }
+    }
+
+
+    export const EventsCreatedByUser = async (userId, authToken) => {
+        try {
+            const response = await axios.get(`/${userId}/events-by-user`, {
+                headers: {
+                    Authorization: `Bearer ${authToken}`
+                }
+            });
+            return response.data.data.data;
+        } catch (error) {
+            throw error;
+        }
+    }
+    
 
     // Event routes
     export const createEvent = async (eventData, authToken) => {
@@ -126,7 +165,6 @@ export const updateUserProfile = async(userId, formData, authToken) => {
             }
         
         });
-        console.log("response", response);
         return response.data;
     } catch (error) {
         throw error;
@@ -135,11 +173,11 @@ export const updateUserProfile = async(userId, formData, authToken) => {
 
     export const updateEvent = async (id, eventData, authToken) => {
     try {
-        console.log("id", id)
-        const response = await axios.put(`/events/${id}/edit`, eventData, {
+        const response = await axios.post(`/events/${id}/edit`, eventData, {
             headers: {
                 Authorization: `Bearer ${authToken}`,
-                "Content-Type": "multipart/form-data"
+                "Content-Type": "multipart/form-data",
+                "Accept-Encoding": "application/json"
             }
         });
         return response.data;
@@ -157,18 +195,26 @@ export const updateUserProfile = async(userId, formData, authToken) => {
     }
     };
 
-    export const deleteEvent = async (id) => {
+    export const deleteEvent = async (id, authToken) => {
     try {
-        const response = await axios.delete(`/events/${id}/delete`);
+        const response = await axios.delete(`/events/${id}/delete`, {
+            headers: {
+                "Authorization": `Bearer ${authToken}`
+            }
+        });
         return response.data;
     } catch (error) {
         throw error;
     }
     };
 
-    export const getRegisteredUsersForEvent = async (id) => {
+    export const getRegisteredUsersForEvent = async (id, authToken) => {
     try {
-        const response = await axios.get(`/events/${id}/registered-users`);
+        const response = await axios.get(`/events/${id}/registered-users`, {
+            headers: {
+                "Authorization": `Bearer ${authToken}`
+                    }
+                });
         return response.data;
     } catch (error) {
         throw error;
