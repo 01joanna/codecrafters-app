@@ -33,18 +33,17 @@ export default function RegisterPage() {
         e.preventDefault();
 
         try {
-            // Configuración de Axios para obtener la cookie CSRF
             await axios.get('http://127.0.0.1:8000/sanctum/csrf-cookie', { withCredentials: true });
             const response = await register(formData);
             console.log(response);
 
-            // Almacenar el token en localStorage
             if (typeof window !== 'undefined') {
                 localStorage.setItem('authToken', response.data.token);
             }
 
             setSuccess(true);
             setError(null);
+            console.log('hola')
             router.push("/login");
         } catch (error) {
             // Registro fallido

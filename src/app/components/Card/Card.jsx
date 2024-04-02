@@ -14,7 +14,7 @@ export default function Card({ event, className, onDelete }) {
   const router = useRouter();
   const user = getUserData();
 
-  const isOwner = user.id === event.user_id;
+  const isOwner = user == event.user_id;
 
 
   const HandleViewDetails = () => {

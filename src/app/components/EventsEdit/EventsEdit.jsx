@@ -4,15 +4,6 @@ import { useAuthContext } from '../../../contexts/AuthContext';
 import { createEvent, updateEvent } from '../../../services/RestApi';
 import { useRouter } from 'next/navigation';
 
-// export const updateEvent = async (id, eventData) => {
-//     try {
-//         const response = await axios.put(`/events/${id}/edit`, eventData);
-//         return response.data;
-//     } catch (error) {
-//         throw error;
-//     }
-//     };
-
 
 export default function EventsEdit( { event, eventId }) {
     const { getAuthToken } = useAuthContext();
@@ -38,11 +29,17 @@ export default function EventsEdit( { event, eventId }) {
         }));
     }
 
+    const formatDate = (dateString) => {
+        const date = new Date(dateString);
+        const formattedDate = date.toISOString().slice(0, 19).replace('T', ' ');
+        return formattedDate;
+    }
+
     const handleSubmit = async (event) => {
         event.preventDefault();
     
         const { id, ...eventData } = eventForm;
-        console.log("prueba:", { id, ...eventData })
+        eventData.date = formatDate(eventData.date);
     
         try {
             if (!authToken) {

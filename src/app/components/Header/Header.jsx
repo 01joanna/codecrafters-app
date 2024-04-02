@@ -11,7 +11,6 @@ export default function Header() {
     const { getAuthToken, getUserData } = useAuthContext();
     const token = getAuthToken();
     const user = getUserData();
-    const userId = user?.id;
     const [isClient, setIsClient] = useState(false);
 
     useEffect(() => {
@@ -38,11 +37,11 @@ export default function Header() {
                 <Searchbar />
                 <nav>
                         <ul className="flex gap-6 text-xs md:hidden lg:flex">
-                            <li><a href={`${userId}/your-events`}>Your events</a></li>
+                            <li><a href={`${user}/your-events`}>Your events</a></li>
                             <li><a href="/events/create">Create an event</a></li>
                             {token ? (
                                 <>
-                                    <li><MdOutlineManageAccounts /> <a href={`${userId}/profile`}>My Account</a></li>
+                                    <li><MdOutlineManageAccounts /> <a href={`${user}/profile`}>My Account</a></li>
                                     <li><IoLogOutOutline /><a href="/auth/logout">Log Out</a></li>
                                 </>
                             ) : (

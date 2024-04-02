@@ -8,9 +8,11 @@ import Cookies from 'js-cookie';
 
 export default function EventCreate() {
 
-    const { getAuthToken } = useAuthContext();
+    const { getAuthToken, getUserData } = useAuthContext();
+    const id = getUserData();
     const authToken = getAuthToken();
     const router = useRouter();
+    console.log('ID:', id);
 
     const [eventForm, setEventForm] = useState({
         title: "",
@@ -46,8 +48,9 @@ export default function EventCreate() {
 
             const response = await createEvent(eventData, authToken);
             console.log('Evento creado:', response);
+            alert('Evento creado con éxito')
             router.refresh();
-            router.push("/")
+            router.push('/events');
 
         } catch (error) {
             console.error('Error al crear el evento:', error);

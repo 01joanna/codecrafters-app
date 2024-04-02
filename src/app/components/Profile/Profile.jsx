@@ -1,9 +1,9 @@
-"use client"
+'use client'
 import Image from 'next/image';
 import Button from '../Button/Button';
 import { useAuthContext } from "../../../contexts/AuthContext";
-import { useState, useEffect } from "react";
 import { getUserProfile, updateUserProfile, deleteUserProfile } from "../../../services/RestApi"
+import { useEffect, useState } from 'react';
 
 
 

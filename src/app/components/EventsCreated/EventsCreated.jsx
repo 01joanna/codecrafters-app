@@ -15,7 +15,7 @@ export default function EventsCreated({ authToken, userId}) {
     useEffect(() => {
         const fetchEvents = async () => {
             try {
-                const events = await EventsCreatedByUser(userId, authToken);
+                const events = await EventsCreatedByUser(user, authToken);
                 setCreatedEvents(events);
                 console.log('Eventos creados:', events);
             } catch (error) {
@@ -24,7 +24,7 @@ export default function EventsCreated({ authToken, userId}) {
         };
         fetchEvents();
     }
-    , [authToken, userId]);
+    , [authToken, user]);
 
     const handleDeleteEvent = async (eventToDelete) => {
         try {
@@ -40,10 +40,16 @@ export default function EventsCreated({ authToken, userId}) {
     
 
     return (
-        <div className="flex gap-8">
-            {createdEvents.map(event => (
-                <Card key={event.id} event={event} onDelete={handleDeleteEvent}/>
-            ))}
-        </div>
+        <div>
+        {createdEvents.length > 0 ? (
+            <div className="flex gap-8">
+                {createdEvents.map(event => (
+                    <Card key={event.id} event={event} onDelete={handleDeleteEvent}/>
+                ))}
+            </div>
+        ) : (
+            <p>You have not created any event.</p>
+        )}
+    </div>
     )
 }

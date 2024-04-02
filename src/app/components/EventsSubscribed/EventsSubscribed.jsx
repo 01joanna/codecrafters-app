@@ -1,20 +1,17 @@
-'use client'
 import Card from "../Card/Card";
 import { useAuthContext } from "@/contexts/AuthContext";
 import { getSubscribedEvents } from "@/services/RestApi";
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from "react";
 
-export default function EventsSubscribed({ authToken, userId }) {
-    const { getUserData, getAuthToken } = useAuthContext();
-    const user = getUserData();
-
+export default function EventsSubscribed({ user, authToken }) {
     const [subscribedEvents, setSubscribedEvents] = useState([]);
+    const userId = user;
 
     useEffect(() => {
         const fetchSubscribedEvents = async () => {
             try {
-                const events = await getSubscribedEvents(user.id, authToken);
+                const events = await getSubscribedEvents(userId, authToken);
                 setSubscribedEvents(events);
                 console.log('Eventos suscritos:', events);
             } catch (error) {
@@ -22,13 +19,19 @@ export default function EventsSubscribed({ authToken, userId }) {
             }
         };
         fetchSubscribedEvents();
-    }, [authToken, user.id]);
+    }, [authToken, userId]);
 
     return (
-        <div className="flex gap-8">
-            {subscribedEvents.map(event => (
-                <Card key={event.id} event={event} />
-            ))}
-        </div>
+        <div>
+        {subscribedEvents.length > 0 ? (
+            <div className="flex gap-8">
+                {subscribedEvents.map(event => (
+                    <Card key={event.id} event={event} />
+                ))}
+            </div>
+        ) : (
+            <p>You are not subscribed to any event</p>
+        )}
+    </div>
     )
 }

@@ -45,19 +45,26 @@ export const register = async (userData) => {
 
     // User routes
 
-    export const getUserProfile = async (id) => {
-        try {
-            const response = await axios.get(`/user/${id}`); 
-            return response.data;
-        } catch (error) {
-            throw error; 
-        }
-    };
+    // export const getUserProfile = async (id) => {
+    //     try {
+    //         const response = await axios.get(`/user/${id}`); 
+    //         return response.data;
+    //         console.log("response", response.data);
+    //     } catch (error) {
+    //         throw error; 
+    //     }
+    // };
 
-    export const updateUserProfile = async (id, profileData) => {
+
+export const updateUserProfile = async(userId, formData, authToken) => {
     try {
-        const response = await axios.put(`/user/${id}/profile`, profileData);
-        return response.data;
+        const response = await axios.post(`/user/${userId}/profile`, formData, {
+            headers: {
+                'Authorization': `Bearer ${authToken}`,
+                'Content-Type': 'multipart/form-data',
+
+            },
+        });
     } catch (error) {
         throw error;
     }
@@ -91,24 +98,14 @@ export const register = async (userData) => {
     }
     };
 
-    export const updateUser = async (id, userData) => {
-    try {
-        const response = await axios.put(`/${id}/update`, userData);
-        return response.data;
-    } catch (error) {
-        throw error;
-    }
-    };
-
-    export const getSubscribedEvents = async (id, authToken) => {
+    export const getSubscribedEvents = async (userId, authToken) => {
         try {
-            const response = await axios.get(`/${id}/subscribed-events`, {
+            const response = await axios.get(`/${userId}/subscribed-events`, {
                 headers: {
                     "Authorization": `Bearer ${authToken}`
                 }
             });
             return response.data.data.data;
-            console.log("response desde restApi", response);
         } catch (error) {
             throw error;
         }
@@ -176,12 +173,10 @@ export const register = async (userData) => {
 
     export const updateEvent = async (id, eventData, authToken) => {
     try {
-        console.log("id", id)
-        const response = await axios.put(`/events/${id}/edit`, eventData, {
+        const response = await axios.post(`/events/${id}/edit`, eventData, {
             headers: {
                 Authorization: `Bearer ${authToken}`,
                 "Content-Type": "multipart/form-data",
-                "Accept-Encoding": "application/json"
             }
         });
         return response.data;

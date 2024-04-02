@@ -1,15 +1,40 @@
+'use client'
+import { useState } from 'react';
 import Image from 'next/image';
 import Button from '../Button/Button';
 import Owner from '../Owner/Owner';
 import Assistants from '../Assistants/Assistants';
 import EventsEdit from '../EventsEdit/EventsEdit';
 import { useAuthContext } from '@/contexts/AuthContext';
+import { useEffect } from 'react';
 import SubscribeButton from '../SubscribeButton/SubscribeButton';
+import Ticket from '../Ticket/Ticket';
 
 export default function EventDetails({ event }) {
     const { getUserData } = useAuthContext();
     const userData = getUserData();
-    
+
+
+    const [isSubscribed, setIsSubscribed] = useState(false);
+    const [Ticket, setTicket] = useState(false);
+    const { getAuthToken } = useAuthContext();
+    const authToken = getAuthToken();
+    const [registeredUsers, setRegisteredUsers] = useState([]);
+
+    // useEffect(() => {
+    //     const fetchRegisteredUsers = async () => {
+    //         try {
+    //             const users = await getRegisteredUsersForEvent(eventId, authToken);
+    //             // const userNames = users.data.data.map((user) => user.name);
+    //             setRegisteredUsers(users.data.data);
+    //             // console.log("Registered users:", userNames);
+    //         } catch (error) {
+    //             console.error("Error fetching registered users:", error);
+    //         }
+    //     };
+    //     fetchRegisteredUsers();
+    // }, [eventId]);
+
     return (
         <div>
                     <section>
@@ -71,7 +96,8 @@ export default function EventDetails({ event }) {
                         </div>
                     </aside>
 
-                    {userData && event && userData.id === event.user_id && <EventsEdit event={event} eventId={event.id} />}
+                    {userData && event && userData == event.user_id && <EventsEdit event={event} eventId={event.id} />}
+                    {isSubscribed && <Ticket event={event} />}
                 </div>
     )
 }
