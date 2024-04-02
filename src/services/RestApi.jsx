@@ -56,7 +56,7 @@ export const register = async (userData) => {
 
     export const updateUserProfile = async (id, profileData) => {
     try {
-        const response = await axios.put(`/user/${id}/profile`, profileData);
+        const response = await axios.post(`/user/${id}/profile`, profileData);
         return response.data;
     } catch (error) {
         throw error;
@@ -176,8 +176,7 @@ export const register = async (userData) => {
 
     export const updateEvent = async (id, eventData, authToken) => {
     try {
-        console.log("id", id)
-        const response = await axios.put(`/events/${id}/edit`, eventData, {
+        const response = await axios.post(`/events/${id}/edit`, eventData, {
             headers: {
                 Authorization: `Bearer ${authToken}`,
                 "Content-Type": "multipart/form-data",

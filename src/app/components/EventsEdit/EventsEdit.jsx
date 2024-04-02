@@ -4,15 +4,6 @@ import { useAuthContext } from '../../../contexts/AuthContext';
 import { createEvent, updateEvent } from '../../../services/RestApi';
 import { useRouter } from 'next/navigation';
 
-// export const updateEvent = async (id, eventData) => {
-//     try {
-//         const response = await axios.put(`/events/${id}/edit`, eventData);
-//         return response.data;
-//     } catch (error) {
-//         throw error;
-//     }
-//     };
-
 
 export default function EventsEdit( { event, eventId }) {
     const { getAuthToken } = useAuthContext();

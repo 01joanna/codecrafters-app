@@ -1,7 +1,7 @@
 import Owner from "../Owner/Owner"
 import Assistants from "../Assistants/Assistants"
 
-export default function Ticket () {
+export default function Ticket ({event}) {
     return (
         <div className='w-[80%] h-full items-center justify-center border-2 border-lightmayonnaise rounded-lg p-7'>
             <section id="ticket-description" className="flex flex-col gap-4 w-1/2">
