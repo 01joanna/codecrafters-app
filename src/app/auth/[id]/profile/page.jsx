@@ -9,100 +9,54 @@ import { useRouter } from 'next/navigation';
 
 const ProfilePage = () => {
 
-    const [userData, setUserData] = useState(null);
-    const [formData, setFormData] = useState({
-        "name": "",
-        "email": "",
-        "password": "",
-        "password_confirmation": "",
-        "image": "",
-    });
-    console.log("ProfilePage se está ejecutando");
-
-    const [error, setError] = useState(null);
-    const [success, setSuccess] = useState(false);
-    const { getAuthToken, isUserAuthenticated, getUserData } = useAuthContext(); // Accede a la función de autenticación y al userId
-    const router = useRouter(); // Accede al router de Next.js
+    const router = useRouter();
+    const { getUserData, getAuthToken } = useAuthContext();
+    const userData = getUserData();
     const authToken = getAuthToken();
-    const userId = getUserData();
-
-
-
-    // Memoriza isUserAuthenticated para prevenir re-renderizados innecesarios
-    const memoizedIsUserAuthenticated = useCallback(() => {
-        return isUserAuthenticated();
-    }, [isUserAuthenticated]);
+    const [formData, setFormData] = useState({
+        
+        name: '',
+        email: '',
+        password: '',
+        password_confirmation: '',
+        image: null,
+    });
 
     useEffect(() => {
-        if (!memoizedIsUserAuthenticated()) {
-            router.push('/login');
-            return;
+        if (userData) {
+            setFormData({
+                name: userData.name,
+                email: userData.email,
+                password: '',
+                password_confirmation: '',
+                image: null,
+            });
         }
-
-        if (userId) {
-            getUserProfile(userId)
-                .then(response => {
-                    setUserData(response.data);
-                    setFormData(prevFormData => ({
-                        ...prevFormData,
-                        name: response.data.name || '',
-                        email: response.data.email || '',
-                        // Asegúrate de manejar correctamente el caso cuando no haya imagen
-                    }));
-                })
-                .catch(error => {
-                    setError("Failed to fetch user profile.");
-                });
-        }
-    }, [memoizedIsUserAuthenticated, router, userId]);  // Usa memoizedIsUserAuthenticated y userId como dependencias
-
-    const handleFileChange = (e) => {
-        setFormData({ ...formData, image: e.target.files[0] });
-    };
+    }
+    , [userData]);
 
     const handleChange = (e) => {
-        setFormData(prevFormData => ({
+        setFormData({ ...formData, [e.target.name]: e.target.value });
+    }
+
+    const handleFileChange = (e) => {
+        const file = e.target.files[0];
+        setFormData((prevFormData) => ({
             ...prevFormData,
-            [e.target.name]: e.target.value
+            image: file,
         }));
-    };
-
-    console.log(userId);
-
+    }
 
     const handleUpdate = async (e) => {
-        e.preventDefault(); // Evitar que el formulario se envíe automáticamente
-
-        const formDataToSend = new FormData();
-        formDataToSend.append('name', formData.name);
-        formDataToSend.append('email', formData.email);
-        formDataToSend.append('password', formData.password);
-        formDataToSend.append('password_confirmation', formData.password_confirmation);
-
-
-        if (formData.image) {
-            formDataToSend.append('image', formData.image);
+        e.preventDefault();
+        const userId = userData;
+        const response = await updateUserProfile(userId, formData, authToken);
+        if (response) {
+            alert("Profile updated successfully");
+            console.log("Datos modificados", response);
         }
-        
-        try {
-            
-            await updateUserProfile(userId, formDataToSend, authToken);
+    }
 
-            console.log(userId);
-
-            // Después de la actualización exitosa, obtener los datos actualizados del usuari
-
-            // Actualizar el estado local con los datos actualizados del usuario
-            setUserData(updatedUserData.data);
-
-            setError(null);
-            setSuccess(true);
-
-        } catch (error) {
-            console.error("Failed to update user profile:", error);
-            setError("Failed to update user profile. Please try again later.");
-        }
-    };
 
     return (
         <main>

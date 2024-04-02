@@ -44,15 +44,15 @@ export const register = async (formData) => {
 
     // User routes
 
-    export const getUserProfile = async (id) => {
-        try {
-            const response = await axios.get(`/user/${id}`); 
-            return response.data;
-            console.log("response", response.data);
-        } catch (error) {
-            throw error; 
-        }
-    };
+    // export const getUserProfile = async (id) => {
+    //     try {
+    //         const response = await axios.get(`/user/${id}`); 
+    //         return response.data;
+    //         console.log("response", response.data);
+    //     } catch (error) {
+    //         throw error; 
+    //     }
+    // };
 
 
 export const updateUserProfile = async(userId, formData, authToken) => {
@@ -68,31 +68,6 @@ export const updateUserProfile = async(userId, formData, authToken) => {
         throw error;
     }
 };
-
-
-// export const updateUserProfile = async (id, profileData) => {
-//     try {
-//         const formData = new FormData();
-//         formData.append('name', profileData.name);
-//         formData.append('email', profileData.email);
-//         formData.append('password', profileData.password);
-//         formData.append('password_confirmation', profileData.password_confirmation);
-//         formData.append('image', profileData.image); // Asegúrate de que profileData.image contenga el archivo de imagen
-
-//         const response = await axios.put(`/user/${id}/profile`, formData, {
-//             headers: {
-//                 'Content-Type': 'multipart/form-data',
-//             },
-//             transformRequest: (data, headers) => {
-//                 return formData;
-//             },
-//         });
-//         return response.data;
-//     } catch (error) {
-//         throw error;
-//     }
-// };
-
 
     export const deleteUser = async (id) => {
         try {
@@ -116,15 +91,6 @@ export const updateUserProfile = async(userId, formData, authToken) => {
     export const getUserEvents = async (id) => {
     try {
         const response = await axios.get(`/${id}/events`);
-        return response.data;
-    } catch (error) {
-        throw error;
-    }
-    };
-
-    export const updateUser = async (id, userData) => {
-    try {
-        const response = await axios.put(`/${id}/update`, userData);
         return response.data;
     } catch (error) {
         throw error;
