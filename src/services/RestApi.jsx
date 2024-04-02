@@ -61,6 +61,7 @@ export const updateUserProfile = async(userId, formData, authToken) => {
             headers: {
                 'Authorization': `Bearer ${authToken}`,
                 'Content-Type': 'multipart/form-data',
+
             },
         });
         return response.data;

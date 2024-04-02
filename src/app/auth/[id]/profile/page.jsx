@@ -10,7 +10,8 @@ import { useRouter } from 'next/navigation';
 const ProfilePage = () => {
 
     const router = useRouter();
-    const { getUserData, getAuthToken } = useAuthContext();
+    const { getUserData, getAuthToken, getUserImage } = useAuthContext();
+    const userImage = getUserImage();
     const userData = getUserData();
     const authToken = getAuthToken();
     const [formData, setFormData] = useState({
@@ -19,7 +20,7 @@ const ProfilePage = () => {
         email: '',
         password: '',
         password_confirmation: '',
-        image: null,
+        image: userData && userImage ? userImage : null, 
     });
 
     useEffect(() => {
@@ -29,11 +30,11 @@ const ProfilePage = () => {
                 email: userData.email,
                 password: '',
                 password_confirmation: '',
-                image: null,
+                image: userData && userImage ? userImage : null, 
             });
         }
     }
-    , [userData]);
+    , [userData, userImage]);
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -56,6 +57,8 @@ const ProfilePage = () => {
             console.log("Datos modificados", response);
         }
     }
+    console.log("userData", userData);
+    console.log("userImage", userImage);
 
 
     return (
@@ -64,19 +67,18 @@ const ProfilePage = () => {
                 {userData && (
                     <div className="flex lg:flex-row md:flex-col md:gap-10 lg:gap-20 justify-center items-center lg:my-10 md:my-0 md:mt-10">
                         <h1>Your profile</h1>
-                        <Button text="Check all your events" />
+                        <Button text="Check all your events" to={""} />
                     </div>
                 )}
                 <div className='flex lg:flex-row md:flex-col md:gap-10 lg:gap-32 md:items-center justify-center h-[500px] md:pt-[27rem] lg:pt-0'>
                     <section id="profile-picture" className='flex flex-col gap-3 items-center'>
-                        {userData?.image ? (
-                            <Image
-                                src={userData.image} // Utiliza el operador de encadenamiento opcional
-                                alt="Profile picture"
-                                width={200}
-                                height={200}
-                                className='rounded-full border-2 border-red-500'
-                            />
+                        {userImage ? (
+                            <img
+                            src={userImage}
+                            alt="Profile picture"
+                            width={200}
+                            height={200}
+                            className='rounded-full border-2 border-red-500'></img>
                         ) : (
                             <div className="rounded-full border-2 border-red-500 w-32 h-32 flex items-center justify-center">No Image</div>
                         )}
