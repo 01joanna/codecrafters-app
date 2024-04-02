@@ -207,9 +207,9 @@ export const updateUserProfile = async(userId, formData, authToken) => {
     }
     };
 
-    export const getRegisteredUsersForEvent = async (id, authToken) => {
+    export const getRegisteredUsersForEvent = async (userData, authToken) => {
     try {
-        const response = await axios.get(`/events/${id}/registered-users`, {
+        const response = await axios.get(`/events/${userData}/registered-users`, {
             headers: {
                 "Authorization": `Bearer ${authToken}`
                     }
