@@ -4,23 +4,24 @@ import axios from "axios";
 axios.defaults.baseURL = "http://127.0.0.1:8000/api";
 axios.defaults.headers.post["Content-Type"] = "application/json";
 axios.defaults.headers.post["Accept"] = "application/json";
+axios.defaults.headers.post["Access-Control-Allow-Origin"] = "*";
+axios.defaults.headers.post["Access-Control-Allow-Methods"] = "GET, POST, PUT, DELETE, OPTIONS";
+axios.defaults.headers.post["Access-Control-Allow-Headers"] = "Content-Type, Authorization";
+axios.defaults.headers.put["Accept-Encoding"] = "application/json"
 axios.defaults.withCredentials = true;
 axios.defaults.withXSRFToken = true;
 
 // axios.defaults.headers.common["X-CSRF-Token"] = true;
 
-
-
-
-export const register = async (formData) => {
-    const response = await axios.post('http://127.0.0.1:8000/api/register', formData, {
-        headers: {
-            'Content-Type': 'multipart/form-data',
-        },
-    });
-    return response;
-};
-
+// Auth routes
+export const register = async (userData) => {
+    try {
+        const response = await axios.post("/register", userData);
+        return response.data;
+    } catch (error) {
+        throw error;
+    }
+    };
 
     export const loginApi = async (userData) => {
     try {
@@ -67,7 +68,7 @@ export const updateUserProfile = async(userId, formData, authToken) => {
     } catch (error) {
         throw error;
     }
-};
+    };
 
     export const deleteUser = async (id) => {
         try {

@@ -8,10 +8,8 @@ import { useAuthContext } from "../../../contexts/AuthContext";
 import { useRouter } from 'next/navigation';
 
 const ProfilePage = () => {
-    const router = useRouter();
-    const { getUserData, getAuthToken } = useAuthContext();
-    const userData = getUserData();
-    const authToken = getAuthToken();
+    const [userData, setUserData] = useState(null);
+    const [isEditing, setIsEditing] = useState(false);
     const [formData, setFormData] = useState({
         
         name: '',
@@ -21,39 +19,67 @@ const ProfilePage = () => {
         image: null,
     });
 
-    useEffect(() => {
-        if (userData) {
-            setFormData({
-                name: userData.name,
-                email: userData.email,
-                password: '',
-                password_confirmation: '',
-                image: null,
-            });
-        }
-    }
-    , [userData]);
+    const [error, setError] = useState(null);
+    const [success, setSuccess] = useState(false);
+    const { isUserAuthenticated } = useAuthContext(); // Accede a la función de autenticación
+    const router = useRouter(); // Accede al router de Next.js
 
-    const handleChange = (e) => {
-        setFormData({ ...formData, [e.target.name]: e.target.value });
+    // Memoriza isUserAuthenticated para prevenir re-renderizados innecesarios
+    const memoizedIsUserAuthenticated = useCallback(() => {
+        return isUserAuthenticated();
+    }, [isUserAuthenticated]);
+
+    useEffect(() => {
+    if (!memoizedIsUserAuthenticated()) {
+        router.push('/login');
+        return;
     }
+
+    if (userData && userData.id) {
+        getUserProfile(userData.id)
+            .then(response => {
+                setUserData(response.data);
+                setFormData(response.data);
+            })
+            .catch(error => {
+                setError("Failed to fetch user profile.");
+            });
+    }
+}, [memoizedIsUserAuthenticated, router, userData]);  // Usa memoizedIsUserAuthenticated como dependencia
 
     const handleFileChange = (e) => {
         setFormData({ ...formData, image: e.target.files[0] });
-    }
+    };
 
-    const handleUpdate = async (e) => {
-        e.preventDefault();
-        const userId = userData.id;
-        console.log("userId", userId);
-        const response = await updateUserProfile(userId, formData, authToken);
-        if (response) {
-            alert("Profile updated successfully");
-            router.reload();
+    const handleChange = (e) => {
+        setFormData({ ...formData, [e.target.name]: e.target.value });
+    };
+
+    const handleEdit = () => {
+        setIsEditing(true);
+    };
+
+    const handleUpdate = async () => {
+        try {
+            console.log("handleUpdate se está ejecutando")
+            console.log(formData); 
+            await updateUserProfile(userData.id, formData);
+            setUserData(formData);
+            setIsEditing(false);
+            setSuccess(true);
+        } catch (error) {
+            setError("Failed to update user profile.");
         }
-    }
+    };
 
-    
+    const handleDelete = async () => {
+        try {
+            await deleteUser(userData.id);
+            // Redirect to login or homepage after deletion
+        } catch (error) {
+            setError("Failed to delete user profile.");
+        }
+    };
 
     return (
         <div className='flex flex-col lg:justify-around lg:h-full md:h-[1100px]'>

@@ -1,4 +1,3 @@
-//AuhtContext.js
 "use client"
 import React, { createContext, useCallback, useContext, useMemo, useState } from "react";
 import Cookies from "js-cookie";
@@ -42,6 +41,7 @@ export default function AuthContextProvider({ children }) {
         const userImage = Cookies.get("image");
         return userImage;
     }, []); 
+
 
     const isUserAuthenticated = useCallback(() => {
         return !!getAuthToken();

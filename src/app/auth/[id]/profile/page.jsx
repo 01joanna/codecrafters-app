@@ -10,8 +10,7 @@ import { useRouter } from 'next/navigation';
 const ProfilePage = () => {
 
     const router = useRouter();
-    const { getUserData, getAuthToken, getUserImage } = useAuthContext();
-    const userImage = getUserImage();
+    const { getUserData, getAuthToken } = useAuthContext();
     const userData = getUserData();
     const authToken = getAuthToken();
     const [formData, setFormData] = useState({
@@ -20,7 +19,7 @@ const ProfilePage = () => {
         email: '',
         password: '',
         password_confirmation: '',
-        image: userData && userImage ? userImage : null, 
+        image: userData.image ? userData.image : null,
     });
 
     useEffect(() => {
@@ -30,11 +29,11 @@ const ProfilePage = () => {
                 email: userData.email,
                 password: '',
                 password_confirmation: '',
-                image: userData && userImage ? userImage : null, 
+                image: userData.image ? userData.image : null,
             });
         }
     }
-    , [userData, userImage]);
+    , [userData]);
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -51,15 +50,20 @@ const ProfilePage = () => {
     const handleUpdate = async (e) => {
         e.preventDefault();
         const userId = userData;
+        const formData = new FormData();
+        formData.append('name', formData.name);
+        formData.append('email', formData.email);
+        formData.append('password', formData.password);
+        formData.append('password_confirmation', formData.password_confirmation);
+        formData.append('image', formData.image);
         const response = await updateUserProfile(userId, formData, authToken);
         if (response) {
             alert("Profile updated successfully");
             console.log("Datos modificados", response);
+        } else {
+            console.log("error")
         }
     }
-    console.log("userData", userData);
-    console.log("userImage", userImage);
-
 
     return (
         <main>
@@ -67,18 +71,19 @@ const ProfilePage = () => {
                 {userData && (
                     <div className="flex lg:flex-row md:flex-col md:gap-10 lg:gap-20 justify-center items-center lg:my-10 md:my-0 md:mt-10">
                         <h1>Your profile</h1>
-                        <Button text="Check all your events" to={""} />
+                        <Button text="Check all your events" />
                     </div>
                 )}
                 <div className='flex lg:flex-row md:flex-col md:gap-10 lg:gap-32 md:items-center justify-center h-[500px] md:pt-[27rem] lg:pt-0'>
                     <section id="profile-picture" className='flex flex-col gap-3 items-center'>
-                        {userImage ? (
-                            <img
-                            src={userImage}
-                            alt="Profile picture"
-                            width={200}
-                            height={200}
-                            className='rounded-full border-2 border-red-500'></img>
+                        {userData?.image ? (
+                            <Image
+                                src={userData.image}
+                                alt="Profile picture"
+                                width={200}
+                                height={200}
+                                className='rounded-full border-2 border-red-500'
+                            />
                         ) : (
                             <div className="rounded-full border-2 border-red-500 w-32 h-32 flex items-center justify-center">No Image</div>
                         )}
