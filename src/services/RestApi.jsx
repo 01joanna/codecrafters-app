@@ -156,19 +156,18 @@ export const updateUserProfile = async(userId, formData, authToken) => {
     
 
     // Event routes
-    export const createEvent = async (eventData, authToken) => {
-    try {
-        const response = await axios.post("/events/create", eventData, {
-            headers: {
-                Authorization: `Bearer ${authToken}`,
-                "Content-Type": "multipart/form-data"
-            }
-        
-        });
-        return response.data;
-    } catch (error) {
-        throw error;
-    }
+    export const createEvent = async (eventData, authToken, id) => {
+        try {
+            const response = await axios.post("/events/create", eventData, {
+                headers: {
+                    Authorization: `Bearer ${authToken}`,
+                    "Content-Type": "multipart/form-data"
+                }
+            });
+            return response.data;
+        } catch (error) {
+            throw error;
+        }
     };
 
     export const updateEvent = async (id, eventData, authToken) => {

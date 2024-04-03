@@ -20,7 +20,7 @@ export default function EventDetails({ event }) {
     const { getAuthToken } = useAuthContext();
     const authToken = getAuthToken();
     const [registeredUsers, setRegisteredUsers] = useState([]);
-    
+
     return (
         <div>
                     <section>
