@@ -3,9 +3,9 @@ import React, { useState, useEffect } from 'react';
 import { useAuthContext } from "@/contexts/AuthContext";
 import { EventsCreatedByUser, getSubscribedEvents } from "@/services/RestApi";
 import { useRouter } from 'next/navigation';
-import Card from '../../components/Card/Card';
-import EventsCreated from '../../components/EventsCreated/EventsCreated';
-import EventsSubscribed from '../../components/EventsSubscribed/EventsSubscribed';
+import Card from '../../../components/Card/Card';
+import EventsCreated from '../../../components/EventsCreated/EventsCreated';
+import EventsSubscribed from '../../../components/EventsSubscribed/EventsSubscribed';
 
 export default function Page() {
     const { getUserData, getAuthToken } = useAuthContext();
