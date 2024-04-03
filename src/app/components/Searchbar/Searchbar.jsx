@@ -29,7 +29,7 @@ export default function Searchbar() {
         <form 
         // onSubmit={handleSearch}
         >
-            <div className='flex lg:w-[500px] md:w-[300px] pr-5'>
+            <div className='flex lg:w-[500px] md:w-[250px] pr-5'>
                 <Image
                 src="/img/search-icon.svg"
                 alt="Search icon"
