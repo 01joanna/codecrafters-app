@@ -80,9 +80,9 @@ export default function EventCreate() {
         authToken ? (
             <>
         <h2 className="text-[50px] font-light">Add a new event</h2>
-        <form onSubmit={handleSubmit} className="border border-yellow px-12 py-8 items-center rounded-xl flex flex-col justify-center gap-20 md:mx-10">
+        <form onSubmit={handleSubmit} className=" md:border-none lg:border border-yellow md:px-0 lg:px-12 py-8 items-center rounded-xl flex flex-col justify-center gap-20">
             <fieldset>
-                <div className="mb-5">
+                <div className="mb-5 md:w-1/2 lg:w-full">
                     <label id="event-form-label" htmlFor="title">Title:</label><br/>
                     <input 
                     type="text" 
@@ -151,6 +151,7 @@ export default function EventCreate() {
                             placeholder="Event description"
                             value={eventForm.description}
                             onChange={handleChange}
+                            className="w-full h-40"
                             />
                         </div>
                         <div id="event-form-category" className="text-xs">

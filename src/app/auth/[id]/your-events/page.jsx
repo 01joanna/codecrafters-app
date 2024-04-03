@@ -26,9 +26,9 @@ export default function Page() {
                     </div>
                 </section>
                 <section className="py-3 pl-10">
-                <h2 className="text-3xl pb-7">Events you confirmed your assistance to:</h2>
-                <div className='w-[70%] justify-center'>
-                        <EventsSubscribed user={user} authToken={authToken} /> {/* Pasar el objeto de usuario */}
+                <h2 className="text-3xl pb-7 md:mr-10 lg:mr-0 ">Events you confirmed your assistance to:</h2>
+                <div className='w-[70%] justify-center '>
+                        <EventsSubscribed user={user} authToken={authToken} /> {/* Pasar el objeto de usuario */} 
                     </div>
                 </section>
                 </> ) : (
