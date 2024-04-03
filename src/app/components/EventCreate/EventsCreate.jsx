@@ -12,7 +12,6 @@ export default function EventCreate() {
     const id = getUserData();
     const authToken = getAuthToken();
     const router = useRouter();
-    console.log('ID:', id);
 
     const [eventForm, setEventForm] = useState({
         title: "",
@@ -36,10 +35,15 @@ export default function EventCreate() {
     const handleSubmit = async (event) => {
         event.preventDefault();
 
-        const eventForm = new FormData(event.target);
-        const eventData = Object.fromEntries(eventForm.entries());
-        console.log('eventData:', eventData);
-
+    const eventData = {
+        title: eventForm.title,
+        description: eventForm.description,
+        location: eventForm.location,
+        date: eventForm.date,
+        category_id: eventForm.category_id,
+        image: eventForm.image,
+        user_id: id
+    };
         try {
             if (!authToken) {
                 throw new Error('No hay un token de autenticación');
@@ -147,16 +151,6 @@ export default function EventCreate() {
                             min={1}
                             max={2}
                             />
-                            <div>
-                                    <input 
-                                    type="text" 
-                                    id="user_id" 
-                                    name="user_id" 
-                                    value={eventForm.user_id}
-                                    onChange={handleChange}
-                                    />
-                                    <label htmlFor="in-person">In-person</label>
-                                </div>
                             </fieldset>
                         </div>
                         <div id="event-form-image">

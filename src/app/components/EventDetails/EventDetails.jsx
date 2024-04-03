@@ -20,21 +20,7 @@ export default function EventDetails({ event }) {
     const { getAuthToken } = useAuthContext();
     const authToken = getAuthToken();
     const [registeredUsers, setRegisteredUsers] = useState([]);
-
-    // useEffect(() => {
-    //     const fetchRegisteredUsers = async () => {
-    //         try {
-    //             const users = await getRegisteredUsersForEvent(eventId, authToken);
-    //             // const userNames = users.data.data.map((user) => user.name);
-    //             setRegisteredUsers(users.data.data);
-    //             // console.log("Registered users:", userNames);
-    //         } catch (error) {
-    //             console.error("Error fetching registered users:", error);
-    //         }
-    //     };
-    //     fetchRegisteredUsers();
-    // }, [eventId]);
-
+    
     return (
         <div>
                     <section>

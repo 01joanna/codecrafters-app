@@ -48,9 +48,8 @@ export default function EventsEdit( { event, eventId }) {
     
             const response = await updateEvent(id, eventData, authToken);
             console.log('Evento editado:', response);
+            alert('Event was edited correctly!')
             router.refresh();
-            router.push("/");
-    
         } catch (error) {
             console.error('Error al crear el evento:', error);
         }
@@ -146,16 +145,6 @@ export default function EventsEdit( { event, eventId }) {
                             min={1}
                             max={2}
                             />
-                            <div>
-                                    <input 
-                                    type="text" 
-                                    id="user_id" 
-                                    name="user_id" 
-                                    value={eventForm.user_id}
-                                    onChange={handleChange}
-                                    />
-                                    <label htmlFor="in-person">In-person</label>
-                                </div>
                             </fieldset>
                         </div>
                         <div id="event-form-image">
