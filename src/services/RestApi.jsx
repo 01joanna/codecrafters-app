@@ -16,7 +16,7 @@ axios.defaults.withXSRFToken = true;
 // Auth routes
 export const register = async (userData) => {
     try {
-        const response = await axios.post("/register", userData);
+        const response = await axios.post("/register", userData,{});
         return response.data;
     } catch (error) {
         throw error;

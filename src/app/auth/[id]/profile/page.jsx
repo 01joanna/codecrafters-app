@@ -3,7 +3,8 @@ import Button from '../../../components/Button/Button';
 import Image from 'next/image';
 import { useAuthContext } from '../../../../contexts/AuthContext';
 import { useState, useEffect } from 'react';
-import { updateUserProfile } from '../../../../services/RestApi';
+import { register, updateUserProfile } from '../../../../services/RestApi';
+import axios from 'axios';
 
 
 export default function Page() {
@@ -27,18 +28,30 @@ export default function Page() {
     }
 
     const handleFileChange = (e) => {
-        setFormData({ ...formData, image: e.target.files[0].name });
+        setFormData({ ...formData, image: e.target.files[0] });
     };
+
 
     const handleUpdate = async () => {
         try {
-            await updateUserProfile(userData, formData, authToken);
-            console.log("User profile updated successfully.");
+            const formData = new FormData();
+            formData.append('name', formData.name);
+            formData.append('email', formData.email);
+            formData.append('password', formData.password);
+            formData.append('password_confirmation', formData.password_confirmation);
+            if (formData.image) {
+                formData.append('image', formData.image);
+            }
+
             
+            await register(formData);
+            console.log("User profile updated successfully.");
         } catch (error) {
             console.error("Failed to update user profile.");
         }
     }
+
+
 
 
     return (
@@ -94,7 +107,7 @@ export default function Page() {
                             type="file" 
                             id="image" 
                             name="image" 
-                            // value={formData.image}
+                            value={formData.image}
                             onChange={handleFileChange} />
                         </div>
 
