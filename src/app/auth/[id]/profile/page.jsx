@@ -5,11 +5,19 @@ import { getUserProfile } from '../../../../services/RestApi';
 import Image from 'next/image';
 import { user } from '@nextui-org/react';
 import Button from '@/app/components/Button/Button';
+import { updateUserProfile } from '@/services/RestApi';
 
 export default function Profile() {
     const { getUserData, getAuthToken } = useAuthContext();
-    const userData = getUserData();
+    const userId = getUserData();
     const authToken = getAuthToken();
+    const [formData, setFormData] = useState({
+        name: '',
+        email: '',
+        password: '',
+        password_confirmation: '',
+        image_path: null,
+    });
 
     const [userProfile, setUserProfile] = useState(null);
     const [loading, setLoading] = useState(true);
@@ -18,7 +26,7 @@ export default function Profile() {
     useEffect(() => {
         const fetchUserProfile = async () => {
             try {
-                const userProfileData = await getUserProfile(userData, authToken);
+                const userProfileData = await getUserProfile(userId, authToken);
                 const info = userProfileData.data;
                 setUserProfile(info);
                 setLoading(false);
@@ -30,7 +38,7 @@ export default function Profile() {
 
 
         fetchUserProfile();
-    }, [userData, authToken]);
+    }, [userId, authToken]);
 
     if (loading) {
         return <p>Loading...</p>;
@@ -42,6 +50,32 @@ export default function Profile() {
 
     if (!userProfile) {
         return <p>No user profile data available</p>;
+    }
+
+    const handleChange = (e) => {
+        setFormData({ ...formData, [e.target.name]: e.target.value });
+    }
+
+    const handleFileChange = (e) => {
+        setFormData({ ...formData, image_path: e.target.files[0] }); 
+    }
+
+    const handleUpdate = async (e) => {
+
+        const formDataToUpdate = new FormData();
+            formDataToUpdate.append('name', formData.name);
+            formDataToUpdate.append('email', formData.email);
+            formDataToUpdate.append('password', formData.password);
+            formDataToUpdate.append('password_confirmation', formData.password_confirmation);
+            formDataToUpdate.append('image', formData.image_path);
+
+        e.preventDefault();
+        try {
+            const response = await updateUserProfile(formDataToUpdate, authToken, userId);
+            console.log(response);
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     return (
@@ -83,14 +117,15 @@ export default function Profile() {
             <aside className="w-[40%] border border-lightmayonnaise items-center justify-center flex flex-col rounded-xl gap-6">
                 <h2 className='font-light text-md'>Edit your profile</h2>
                 <div className='flex flex-col gap-3'>
-                    <form action="" className="flex flex-col gap-2 justify-center">
+                    <form onSubmit={handleUpdate} action="" className="flex flex-col gap-2 justify-center">
                         <div id="prf-edit-name">
                             <label htmlFor="name" className='font-light uppercase text-xs'>Name:</label><br/>
                             <input 
                             type="text" 
                             name="name" 
                             id="name"
-                            placeholder="New name"/>
+                            placeholder="New name"
+                            value={formData.name} onChange={handleChange}/>
                         </div>
                         <div id="prf-edit-email">
                         <label htmlFor="email" className='font-light uppercase text-xs'>email</label><br/>
@@ -98,28 +133,33 @@ export default function Profile() {
                             type="text" 
                             name="email" 
                             id="email"
-                            placeholder="New email"/>
+                            placeholder="New email"
+                            value={formData.email} onChange={handleChange}/>
                         </div>
                         <div id="prf-edit-password">
                         <label htmlFor="password" className='font-light uppercase text-xs'>Password</label><br/>
                             <input 
-                            type="text" 
+                            type="password" 
                             name="password" 
                             id="password"
-                            placeholder="New password"/>
+                            placeholder="New password"
+                            value={formData.password} onChange={handleChange}/>
                             <input 
-                            type="text" 
+                            type="password" 
                             name="password_confirmation" 
                             id="password_confirmation"
-                            placeholder="New password confirmation"/>
+                            placeholder="New password confirmation"
+                            value={formData.password_confirmation} onChange={handleChange}/>
                         </div>
                         <div id="prf-edit-image">
                         <label htmlFor="image" className='font-light uppercase text-xs'>Image</label><br/>
                             <input 
                             type="file" 
-                            name="image" 
+                            name="image_path" 
                             id="image"
-                            placeholder="New image"/>
+                            placeholder="New image"
+                            onChange={handleFileChange}
+                            />
                         </div>
                         <div id="prf-edit-submit" className='text-xs flex items-center justify-center pt-3'>
                             <Button 

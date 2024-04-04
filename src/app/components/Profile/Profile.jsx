@@ -45,7 +45,7 @@ export default function Profile() {
     const handleUpdate = async (e) => {
         e.preventDefault();
         try {
-            const response = await updateUserProfile(formData);
+            const response = await updateUserProfile(formData, userId, authToken);
             console.log(response);
         } catch (error) {
             console.log(error);

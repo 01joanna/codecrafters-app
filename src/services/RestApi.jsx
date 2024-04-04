@@ -49,9 +49,9 @@ export const register = async (userData) => {
 
     // User routes
 
-    export const getUserProfile = async (userData, authToken) => {
+    export const getUserProfile = async (userId, authToken) => {
         try {
-            const response = await axios.get(`/user/${userData}`, {
+            const response = await axios.get(`/user/${userId}`, {
                 headers: {
                     Authorization: `Bearer ${authToken}`
                 }
