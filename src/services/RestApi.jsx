@@ -28,15 +28,15 @@ export const register = async (userData) => {
     };
 
     export const loginApi = async (userData) => {
-    try {
-        const response = await axios.post("/login", userData, );
-        const accessToken = response.data.data.token;
-        const user = response.data.data.user;
-        return {accessToken, user };
-    } catch (error) {
-        throw error;
-    }
-    };
+        try {
+            const response = await axios.post("/login", userData, );
+            const accessToken = response.data.data.token;
+            const user = response.data.data.user;
+            return {accessToken, user };
+        } catch (error) {
+            throw error;
+        }
+        };
 
     export const logoutApi = async () => {
     try {
@@ -63,19 +63,21 @@ export const register = async (userData) => {
     };
 
 
-export const updateUserProfile = async(userId, formData, authToken) => {
+export const updateUserProfile = async (userId, formData, authToken) => {
     try {
         const response = await axios.post(`/user/${userId}/profile`, formData, {
             headers: {
                 'Authorization': `Bearer ${authToken}`,
                 'Content-Type': 'multipart/form-data',
-
             },
+            
         });
+        return response.data; // <- ¡Importante: devuelve los datos de la respuesta!
+        
     } catch (error) {
         throw error;
     }
-    };
+};
 
     export const deleteUser = async (id) => {
         try {

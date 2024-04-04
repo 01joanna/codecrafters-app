@@ -1,9 +1,9 @@
+//Profile.jsx
 'use client'
 import React, { useState, useEffect } from 'react';
 import { useAuthContext } from '../../../../contexts/AuthContext';
 import { getUserProfile } from '../../../../services/RestApi';
 import Image from 'next/image';
-import { user } from '@nextui-org/react';
 import Button from '@/app/components/Button/Button';
 import { updateUserProfile } from '@/services/RestApi';
 
@@ -11,12 +11,14 @@ export default function Profile() {
     const { getUserData, getAuthToken } = useAuthContext();
     const userId = getUserData();
     const authToken = getAuthToken();
+    
     const [formData, setFormData] = useState({
         name: '',
         email: '',
         password: '',
         password_confirmation: '',
         image_path: null,
+        id: userId
     });
 
     const [userProfile, setUserProfile] = useState(null);
@@ -27,8 +29,8 @@ export default function Profile() {
         const fetchUserProfile = async () => {
             try {
                 const userProfileData = await getUserProfile(userId, authToken);
-                const info = userProfileData.data;
-                setUserProfile(info);
+                
+                setUserProfile(userProfileData.data);
                 setLoading(false);
             } catch (error) {
                 setError('Failed to fetch user profile data');
@@ -36,9 +38,47 @@ export default function Profile() {
             }
         };
 
-
         fetchUserProfile();
     }, [userId, authToken]);
+
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setFormData(prevState => ({
+            ...prevState,
+            [name]: value
+        }));
+    }
+
+    const handleFileChange = (e) => {
+        setFormData({ ...formData, image_path: e.target.files[0] }); 
+    }
+
+    const handleUpdate = async (e) => {
+        e.preventDefault();
+
+        // Crear un objeto FormData
+        const formData = new FormData();
+        formData.append('name', formData.name);
+        formData.append('email', formData.email);
+        formData.append('password', formData.password);
+        formData.append('password_confirmation', formData.password_confirmation);
+        if (formData.image_path) {
+            formData.append("image", formData.image_path);
+        }
+
+        try {
+            const response = await updateUserProfile(userId, formData, authToken, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                    'Accept': 'multipart/form-data',
+                }
+            });
+            console.log(response);
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
 
     if (loading) {
         return <p>Loading...</p>;
@@ -50,32 +90,6 @@ export default function Profile() {
 
     if (!userProfile) {
         return <p>No user profile data available</p>;
-    }
-
-    const handleChange = (e) => {
-        setFormData({ ...formData, [e.target.name]: e.target.value });
-    }
-
-    const handleFileChange = (e) => {
-        setFormData({ ...formData, image_path: e.target.files[0] }); 
-    }
-
-    const handleUpdate = async (e) => {
-
-        const formDataToUpdate = new FormData();
-            formDataToUpdate.append('name', formData.name);
-            formDataToUpdate.append('email', formData.email);
-            formDataToUpdate.append('password', formData.password);
-            formDataToUpdate.append('password_confirmation', formData.password_confirmation);
-            formDataToUpdate.append('image', formData.image_path);
-
-        e.preventDefault();
-        try {
-            const response = await updateUserProfile(formDataToUpdate, authToken, userId);
-            console.log(response);
-        } catch (error) {
-            console.log(error);
-        }
     }
 
     return (
@@ -175,6 +189,7 @@ export default function Profile() {
         
     );
 }
+
 
 {/* <main>
         <div>
