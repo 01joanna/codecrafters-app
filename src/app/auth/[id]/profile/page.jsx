@@ -10,13 +10,16 @@ import { updateUserProfile } from '@/services/RestApi';
 export default function Profile() {
     const { getUserData, getAuthToken } = useAuthContext();
     const userId = getUserData();
+    console.log(userId);
     const authToken = getAuthToken();
+    console.log(authToken);
     const [formData, setFormData] = useState({
         name: '',
         email: '',
         password: '',
         password_confirmation: '',
         image_path: null,
+        id: userId
     });
 
     const [userProfile, setUserProfile] = useState(null);
@@ -62,16 +65,18 @@ export default function Profile() {
 
     const handleUpdate = async (e) => {
 
-        const formDataToUpdate = new FormData();
-            formDataToUpdate.append('name', formData.name);
-            formDataToUpdate.append('email', formData.email);
-            formDataToUpdate.append('password', formData.password);
-            formDataToUpdate.append('password_confirmation', formData.password_confirmation);
-            formDataToUpdate.append('image', formData.image_path);
+        // const formDataToUpdate = new FormData();
+        //     formDataToUpdate.append('name', formData.name);
+        //     formDataToUpdate.append('email', formData.email);
+        //     formDataToUpdate.append('password', formData.password);
+        //     formDataToUpdate.append('password_confirmation', formData.password_confirmation);
+        //     formDataToUpdate.append('image', formData.image_path);
 
         e.preventDefault();
+        const { userId, ...formData } = eventForm; 
+
         try {
-            const response = await updateUserProfile(formDataToUpdate, authToken, userId);
+            const response = await updateUserProfile(formData, authToken, userId);
             console.log(response);
         } catch (error) {
             console.log(error);

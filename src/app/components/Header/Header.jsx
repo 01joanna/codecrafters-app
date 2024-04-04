@@ -73,7 +73,7 @@ export default function Header() {
                                         <li>
                                             <button 
                                             className='bg-yellow text-black rounded-lg px-2 py-1 flex items-center justify-center gap-2 w-[170px]'
-                                            onClick={() => handleNavigation(`auth/${user}/profile`)}>
+                                            onClick={() => handleNavigation(`/auth/${user}/profile`)}>
                                                 <MdOutlineManageAccounts /> My Account
                                             </button>
                                         </li>
