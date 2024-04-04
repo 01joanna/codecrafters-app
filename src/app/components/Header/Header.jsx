@@ -57,7 +57,7 @@ export default function Header() {
                                 <li>
                                     <button 
                                     className='bg-yellow text-black rounded-lg px-2 py-1 w-[170px]'
-                                    onClick={() => handleNavigation(`/auth/${user}/your-events`)}>
+                                            onClick={() => handleNavigation(`/auth/[id]/your-events`)}>
                                         Your events
                                     </button>
                                 </li>
@@ -73,7 +73,7 @@ export default function Header() {
                                         <li>
                                             <button 
                                             className='bg-yellow text-black rounded-lg px-2 py-1 flex items-center justify-center gap-2 w-[170px]'
-                                            onClick={() => handleNavigation(`/auth/${user}/profile`)}>
+                                                    onClick={() => handleNavigation(`/auth/[id]/profile`)}>
                                                 <MdOutlineManageAccounts /> My Account
                                             </button>
                                         </li>
@@ -100,7 +100,7 @@ export default function Header() {
                 </div>
                     <ul className="flex gap-6 text-xs md:hidden lg:flex">
                         <li>
-                            <button onClick={() => handleNavigation(`/auth/${user}/your-events`)}>
+                            <button onClick={() => handleNavigation(`/auth/[id]/your-events`)}>
                                 Your events
                             </button>
                         </li>
@@ -112,7 +112,7 @@ export default function Header() {
                         {token ? (
                             <>
                                 <li>
-                                    <button onClick={() => handleNavigation(`auth/${user}/profile`)}>
+                                    <button onClick={() => handleNavigation(`/auth/[id]/profile`)}>
                                         <MdOutlineManageAccounts /> My Account
                                     </button>
                                 </li>
