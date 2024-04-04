@@ -4,7 +4,7 @@ import { useAuthContext } from "@/contexts/AuthContext";
 import { useRouter } from 'next/navigation';
 import Button from '../Button/Button';
 
-export default function SubscribeButton({ event }) {
+export default function SubscribeButton({ event, onSubscribe }) {
     const { getAuthToken, getUserData } = useAuthContext();
     const authToken = getAuthToken();
     const userData = getUserData();
@@ -14,7 +14,7 @@ export default function SubscribeButton({ event }) {
     useEffect(() => {
         const fetchSubscribedEvents = async () => {
             try {
-                const subscribedEvents = await getSubscribedEvents(userData.id, authToken);
+                const subscribedEvents = await getSubscribedEvents(userData, authToken);
                 setIsSubscribed(subscribedEvents.some(subscribedEvent => subscribedEvent.id === event.id));
             } catch (error) {
                 console.error('Error fetching subscribed events:', error);
@@ -27,9 +27,10 @@ export default function SubscribeButton({ event }) {
 
     const handleSubscribe = async () => {
         try {
-            await subscribeToEvent(event.id, userData.id, authToken);
+            await subscribeToEvent(event.id, userData, authToken);
             setIsSubscribed(true);
-            alert('You have successfully subscribed to this event!');
+            alert('You have successfully subscribed to this event!')
+            router.refresh();
         } catch (error) {
             console.error('Error subscribing to event:', error);
         }
@@ -37,7 +38,7 @@ export default function SubscribeButton({ event }) {
 
     const handleUnsubscribe = async () => {
         try {
-            await unsubscribeFromEvent(event.id, userData.id, authToken);
+            await unsubscribeFromEvent(event.id, userData, authToken);
             setIsSubscribed(false);
             alert('You have successfully unsubscribed from this event!');
         } catch (error) {
@@ -49,6 +50,7 @@ export default function SubscribeButton({ event }) {
         <div>
             {isSubscribed ? (
                 <button className='px-10 py-2 rounded-xl bg-lightmayonnaise text-black text-sm hover:bg-yellow' onClick={handleUnsubscribe}>Unsubscribe from this event</button>
+
             ) : (
                 <button className="px-10 py-2 rounded-xl bg-lightmayonnaise text-black text-sm hover:bg-yellow" onClick={handleSubscribe}>Subscribe to this event</button>
             )}
