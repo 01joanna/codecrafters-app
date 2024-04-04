@@ -18,8 +18,9 @@ export const register = async (userData) => {
     try {
         const response = await axios.post("/register", userData, {
             headers: {
-                "Content-Type": "multipart/form-data",
-            },
+                'Content-Type': 'multipart/form-data',
+                'Accept': 'multipart/form-data',
+            }
         });
         return response.data;
     } catch (error) {

@@ -56,21 +56,27 @@ export default function Profile() {
     const handleUpdate = async (e) => {
         e.preventDefault();
 
-        // Crear un objeto FormData
-        const formData = new FormData();
-        formData.append('name', formData.name);
-        formData.append('email', formData.email);
-        formData.append('password', formData.password);
-        formData.append('password_confirmation', formData.password_confirmation);
+        // Crear un objeto de datos JSON
+        const jsonData = {
+            name: formData.name,
+            password: formData.password,
+            password_confirmation: formData.password_confirmation,
+        };
+
+        // Agregar el correo electrónico si no está vacío
+        if (formData.email !== '') {
+            jsonData.email = formData.email;
+        }
+
+        // Agregar la imagen si está presente
         if (formData.image_path) {
-            formData.append("image", formData.image_path);
+            jsonData.image = formData.image_path;
         }
 
         try {
-            const response = await updateUserProfile(userId, formData, authToken, {
+            const response = await updateUserProfile(userId, jsonData, authToken, {
                 headers: {
-                    'Content-Type': 'multipart/form-data',
-                    'Accept': 'multipart/form-data',
+                    'Content-Type': 'application/json',
                 }
             });
             console.log(response);
@@ -78,6 +84,8 @@ export default function Profile() {
             console.log(error);
         }
     }
+
+
 
 
     if (loading) {
