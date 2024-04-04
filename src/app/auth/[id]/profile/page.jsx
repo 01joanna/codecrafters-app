@@ -20,8 +20,6 @@ export default function Profile() {
             try {
                 const userProfileData = await getUserProfile(userData, authToken);
                 const info = userProfileData.data;
-                console.log(userProfileData.data.image_path, "estoy aqui")
-                console.log(info.image_url)
                 setUserProfile(info);
                 setLoading(false);
             } catch (error) {
@@ -49,11 +47,12 @@ export default function Profile() {
     return (
         <main className="h-full flex flex-col items-center border-2 ">
             <h1 className="text-[60px] my-8">Your profile</h1>
-            <section id='prf' className="flex flex-col gap-4 border border-lightmayonnaise rounded-xl w-[50%] m-5 items-center justify-center py-10">
+            <div className='w-full border-5 flex gap-4 m-8'>
+            <section id='prf' className="flex flex-col gap-4 w-[50%] h-[450px] border border-lightmayonnaise rounded-xl items-center ml-10 justify-center py-10">
                 <div className='flex gap-12 m-5 items-center justify-center'>
                 <div id='prf-image' className='items-center justify-center'>
                     <Image
-                    src={`http://127.0.0.1:8000/storage/${userProfile.image_path}`}
+                    src={userProfile.image_url}
                     alt={userProfile.name}
                     width={200}
                     height={200}
@@ -81,6 +80,57 @@ export default function Profile() {
                         text={"Browse all your events"}/>
                     </div>
             </section>
+            <aside className="w-[40%] border border-lightmayonnaise items-center justify-center flex flex-col rounded-xl gap-6">
+                <h2 className='font-light text-md'>Edit your profile</h2>
+                <div className='flex flex-col gap-3'>
+                    <form action="" className="flex flex-col gap-2 justify-center">
+                        <div id="prf-edit-name">
+                            <label htmlFor="name" className='font-light uppercase text-xs'>Name:</label><br/>
+                            <input 
+                            type="text" 
+                            name="name" 
+                            id="name"
+                            placeholder="New name"/>
+                        </div>
+                        <div id="prf-edit-email">
+                        <label htmlFor="email" className='font-light uppercase text-xs'>email</label><br/>
+                            <input 
+                            type="text" 
+                            name="email" 
+                            id="email"
+                            placeholder="New email"/>
+                        </div>
+                        <div id="prf-edit-password">
+                        <label htmlFor="password" className='font-light uppercase text-xs'>Password</label><br/>
+                            <input 
+                            type="text" 
+                            name="password" 
+                            id="password"
+                            placeholder="New password"/>
+                            <input 
+                            type="text" 
+                            name="password_confirmation" 
+                            id="password_confirmation"
+                            placeholder="New password confirmation"/>
+                        </div>
+                        <div id="prf-edit-image">
+                        <label htmlFor="image" className='font-light uppercase text-xs'>Image</label><br/>
+                            <input 
+                            type="file" 
+                            name="image" 
+                            id="image"
+                            placeholder="New image"/>
+                        </div>
+                        <div id="prf-edit-submit" className='text-xs flex items-center justify-center pt-3'>
+                            <Button 
+                            text={"Update profile"}
+                            className="text-xs items-center"/>
+                        </div>
+                    </form>
+                </div>
+                
+            </aside>
+            </div>
         </main>
         
     );

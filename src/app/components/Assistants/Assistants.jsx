@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Avatar, AvatarGroup } from "@nextui-org/react";
+import { Avatar, AvatarGroup, user } from "@nextui-org/react";
 import { getRegisteredUsersForEvent } from "@/services/RestApi";
 import { useAuthContext } from "@/contexts/AuthContext";
 
@@ -9,6 +9,7 @@ const Assistants = ({ event, count, className }) => {
     const { getAuthToken } = useAuthContext();
     const authToken = getAuthToken();
     const eventId = event.id;   
+
 
     useEffect(() => {
         const fetchRegisteredUsers = async () => {
@@ -28,7 +29,7 @@ const Assistants = ({ event, count, className }) => {
             {registeredUsers.length > 0 ? (
                 <AvatarGroup isBordered max={count} total={registeredUsers.length}>
                     {registeredUsers.map((user) => (
-                        <Avatar key={user.id} src={user.avatar} />
+                        <Avatar key={user.id} src={user.image_url} />
                     ))}
                 </AvatarGroup>
             ) : (

@@ -22,17 +22,17 @@ export default function EventDetails({ event }) {
     const [registeredUsers, setRegisteredUsers] = useState([]);
 
     return (
-        <div>
+        <div className='flex flex-col gap-5 items-center justify-center'>
                     <section>
-                        {/* <Image
-                            src={event.image} // Usa la imagen del evento
-                            alt={event.title} // Usa el título del evento como alt
-                            width={1380}
+                        <img
+                            src={event.image_url}
+                            alt={event.title}
+                            width={1000}
                             height={650}
-                            className='w-95% h-[400px] object-cover mx-auto rounded-3xl'
-                        /> */}
+                            className='h-[400px] object-cover mx-auto rounded-3xl'
+                        />
                     </section>
-                    <aside className='flex flex-col gap-7 mx-10'>
+                    <aside className='flex flex-col gap-7 mx-10 w-[60%] justify-center items-ceter'>
                         <div id='main-information' className='flex flex-col gap-5'>
                             <div id='main-title-options' className='flex lg:flex-row md:flex-col gap-7'>
                                 <div id='main-title' className='flex flex-col -gap-3 lg:w-[50%] md:w-[100%]'>
@@ -45,7 +45,7 @@ export default function EventDetails({ event }) {
                             </div>
                             <div id='event-users' className='flex lg:flex-row md:flex-col-reverse gap-4 lg:items-center md:items-start w-auto'>
                                 <div id='event-user-owner'>
-                                    <Owner text={event.user_id} />
+                                    <Owner text={event.user.name} image={event.user.image_url} />
                                 </div>
                                 <div id='users-registered'>
                                     <Assistants event={event} count={event.attendees_count} /> {/* Usa la cantidad de asistentes del evento */}
