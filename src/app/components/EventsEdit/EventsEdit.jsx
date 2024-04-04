@@ -1,39 +1,35 @@
-'use client';
-import axios from 'axios';
+"use client"
 import React, { useState } from 'react';
-import { createEvent } from '../../../services/RestApi';
 import { useAuthContext } from '../../../contexts/AuthContext';
+import { createEvent, updateEvent } from '../../../services/RestApi';
 import { useRouter } from 'next/navigation';
-import Cookies from 'js-cookie';
 
-export default function EventCreate() {
 
-    const { getAuthToken, getUserData } = useAuthContext();
-    const userId = getUserData();
-    const id = parseInt(userId);
-
+export default function EventsEdit( { event, eventId }) {
+    const { getAuthToken } = useAuthContext();
     const authToken = getAuthToken();
     const router = useRouter();
 
     const [eventForm, setEventForm] = useState({
-        title: "",
-        description: "",
-        location: "",
-        date: "",
-        category_id: "",
-        max_assistants: 0,
-        image: null,
-        user_id: id
+        title: event.title || "",
+        description: event.description || "",
+        location: event.location || "",
+        date: event.date || "",
+        category_id: event.category_id || "",
+        image: event.image || "",
+        max_assistants: event.max_assistants || 0,
+        user_id: event.user_id || "",
+        id: eventId 
     });
 
     const handleChange = (e) => {
         const { name, value } = e.target;
-        const newValue = name === 'max_assistants' ? parseInt(value) : value;
         setEventForm(prevData => ({
             ...prevData,
-            [name]: newValue
+            [name]: value
         }));
-    };
+    }
+
 
 
     const handleImageChange = (e) => {
@@ -44,45 +40,40 @@ export default function EventCreate() {
         }));
     };
 
-    console.log(eventForm);
+
+    const formatDate = (dateString) => {
+        const date = new Date(dateString);
+        const formattedDate = date.toISOString().slice(0, 19).replace('T', ' ');
+        return formattedDate;
+    }
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-
-    const eventData = {
-        title: eventForm.title,
-        description: eventForm.description,
-        location: eventForm.location,
-        date: eventForm.date,
-        category_id: eventForm.category_id,
-        max_assistants: eventForm.max_assistants,
-        image: eventForm.image,
-        user_id: id
-    };
+    
+        const { id, ...eventData } = eventForm;
+        eventData.date = formatDate(eventData.date);
+    
         try {
             if (!authToken) {
                 throw new Error('No hay un token de autenticación');
-                return;
             }
-
-            const response = await createEvent(eventData, authToken);
-            console.log('Evento creado:', response);
-            alert('Evento creado con éxito')
+    
+            const response = await updateEvent(id, eventData, authToken);
+            console.log('Evento editado:', response);
+            alert('Event was edited correctly!')
             router.refresh();
-            router.push('/events');
-
         } catch (error) {
             console.error('Error al crear el evento:', error);
         }
-    };
-
+    }
+    
     return (
         authToken ? (
-            <>
-        <h2 className="text-[50px] font-light">Add a new event</h2>
-        <form onSubmit={handleSubmit} className=" md:border-none lg:border border-yellow md:px-0 lg:px-12 py-8 items-center rounded-xl flex flex-col justify-center gap-20">
+            <div className='flex flex-col justify-center items-center gap-12'>
+        <h2 className="text-[50px] font-light">Edit this event:</h2>
+        <form onSubmit={handleSubmit} className="border border-yellow px-12 py-8 items-center rounded-xl flex flex-col justify-center gap-20 md:mx-10">
             <fieldset>
-                <div className="mb-5 md:w-1/2 lg:w-full">
+                <div className="mb-5">
                     <label id="event-form-label" htmlFor="title">Title:</label><br/>
                     <input 
                     type="text" 
@@ -107,16 +98,6 @@ export default function EventCreate() {
                             onChange={handleChange}
                             />
                         </div>
-                        {/* <div id="event-form-time">
-                            <label id="event-form-label" htmlFor="time">Time:</label><br/>
-                            <input 
-                            type="time" 
-                            id="time" 
-                            name="time" 
-                            value={eventForm.time}
-                            onChange={handleChange}
-                            />
-                        </div> */}
                         <div id="event-form-location">
                             <label id="event-form-label" htmlFor="location">Location:</label><br/>
                             <input 
@@ -131,14 +112,14 @@ export default function EventCreate() {
                         <div id="event-form-assistants">
                             <label id="event-form-label" htmlFor="max_assistants">Max. Assistants:</label><br/>
                             <input 
-                                type="number" 
-                                id="max_assistants" 
-                                name="max_assistants" 
-                                placeholder="Number of max. assistants"
-                                value={eventForm.max_assistants}
-                                onChange={handleChange}
-                                min={1}
-                                max={2000}
+                            type="number" 
+                            id="max_assistants" 
+                            name="max_assistants" 
+                            placeholder="Number of max. assistants"
+                            value={eventForm.max_assistants}
+                            onChange={handleChange}
+                            min={1}
+                            max={2000}
                             />
                         </div>
                     </div>
@@ -151,7 +132,6 @@ export default function EventCreate() {
                             placeholder="Event description"
                             value={eventForm.description}
                             onChange={handleChange}
-                            className="w-full h-40"
                             />
                         </div>
                         <div id="event-form-category" className="text-xs">
@@ -187,7 +167,7 @@ export default function EventCreate() {
                 </div>
             </fieldset>
         </form>
-        </>
+        </div>
         ) : 
         <p>Not logged in</p>
     );

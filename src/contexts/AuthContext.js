@@ -1,10 +1,5 @@
 "use client"
-import React, { 
-    createContext, 
-    useCallback, 
-    useContext, 
-    useMemo, 
-    useState } from "react";
+import React, { createContext, useCallback, useContext, useMemo, useState } from "react";
 import Cookies from "js-cookie";
 
 export const AuthContext = createContext({
@@ -12,6 +7,7 @@ export const AuthContext = createContext({
     logout: () => {},
     getAuthToken: () => null,
     getUserData: () => null,
+    isUserAuthenticated: () => false,
 });
 
 export default function AuthContextProvider({ children }) {
@@ -19,13 +15,21 @@ export default function AuthContextProvider({ children }) {
 
     const login = useCallback((authTokens, user) => {
         Cookies.set("authTokens", authTokens);
-        Cookies.set("user", JSON.stringify(user));
+        Cookies.set("userId", JSON.stringify(user.id));
+        Cookies.set("name", JSON.stringify(user.name));
+        Cookies.set("email", JSON.stringify(user.email));
+        Cookies.set("image", JSON.stringify(user.image_path));
         setCurrentUser(user);
     }, []);
 
     const logout = useCallback(() => {
         Cookies.remove("authTokens");
         Cookies.remove("user");
+        Cookies.remove("userId");
+        Cookies.remove("name");
+        Cookies.remove("email");
+        Cookies.remove("image");
+        
         setCurrentUser(null);
     }, []);
 
@@ -33,11 +37,25 @@ export default function AuthContextProvider({ children }) {
         return Cookies.get("authTokens");
     }, []);
 
-
     const getUserData = useCallback(() => {
-        return setCurrentUser;
-        // console.log("user:", setCurrentUser);
-    }, [setCurrentUser]);
+        const userData = Cookies.get("userId");
+        return userData ;
+    }, []); 
+
+    const getUserInfo = useCallback(() => {
+        const name = Cookies.get("name");
+        const email = Cookies.get("email");
+        let image = Cookies.get("image");
+        // if (image) {
+        //     image = image.replace(/"/g, '').replace(/^(?!\/)/, '/');
+        // }
+        return { name, email, image };
+    }, []);
+
+
+    const isUserAuthenticated = useCallback(() => {
+        return !!getAuthToken();
+    }, [getAuthToken]);
 
     const value = useMemo(
         () => ({
@@ -45,8 +63,10 @@ export default function AuthContextProvider({ children }) {
             logout,
             getAuthToken,
             getUserData,
+            isUserAuthenticated,
+            getUserInfo
         }),
-        [login, logout, getAuthToken, getUserData]
+        [login, logout, getAuthToken, getUserData, isUserAuthenticated, getUserInfo]
     );
 
     return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
