@@ -16,7 +16,11 @@ axios.defaults.withXSRFToken = true;
 // Auth routes
 export const register = async (userData) => {
     try {
-        const response = await axios.post("/register", userData,{});
+        const response = await axios.post("/register", userData, {
+            headers: {
+                "Content-Type": "multipart/form-data",
+            },
+        });
         return response.data;
     } catch (error) {
         throw error;
@@ -25,7 +29,7 @@ export const register = async (userData) => {
 
     export const loginApi = async (userData) => {
     try {
-        const response = await axios.post("/login", userData);
+        const response = await axios.post("/login", userData, );
         const accessToken = response.data.data.token;
         const user = response.data.data.user;
         return {accessToken, user };
@@ -45,15 +49,18 @@ export const register = async (userData) => {
 
     // User routes
 
-    // export const getUserProfile = async (id) => {
-    //     try {
-    //         const response = await axios.get(`/user/${id}`); 
-    //         return response.data;
-    //         console.log("response", response.data);
-    //     } catch (error) {
-    //         throw error; 
-    //     }
-    // };
+    export const getUserProfile = async (userData, authToken) => {
+        try {
+            const response = await axios.get(`/user/${userData}`, {
+                headers: {
+                    Authorization: `Bearer ${authToken}`
+                }
+            }); 
+            return response.data;
+        } catch (error) {
+            throw error; 
+        }
+    };
 
 
 export const updateUserProfile = async(userId, formData, authToken) => {

@@ -1,124 +1,58 @@
 'use client'
-import Button from '../../../components/Button/Button';
-import Image from 'next/image';
+import React, { useState, useEffect } from 'react';
 import { useAuthContext } from '../../../../contexts/AuthContext';
-import { useState, useEffect } from 'react';
-import { register, updateUserProfile } from '../../../../services/RestApi';
-import axios from 'axios';
+import { getUserProfile } from '../../../../services/RestApi';
+import Image from 'next/image';
+import { user } from '@nextui-org/react';
 
-
-export default function Page() {
-
+export default function Profile() {
     const { getUserData, getAuthToken } = useAuthContext();
     const userData = getUserData();
     const authToken = getAuthToken();
-    const [formData, setFormData] = useState({
-        name: '',
-        email: '',
-        password: '',
-        password_confirmation: '',
-        image: null,
-    });
 
-    console.log("userData", userData);
-    console.log(formData);
+    const [userProfile, setUserProfile] = useState(null);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
 
-    const handleChange = (e) => {
-        setFormData({ ...formData, [e.target.name]: e.target.value });
-    }
-
-    const handleFileChange = (e) => {
-        setFormData({ ...formData, image: e.target.files[0] });
-    };
-
-
-    const handleUpdate = async () => {
-        try {
-            const formData = new FormData();
-            formData.append('name', formData.name);
-            formData.append('email', formData.email);
-            formData.append('password', formData.password);
-            formData.append('password_confirmation', formData.password_confirmation);
-            if (formData.image) {
-                formData.append('image', formData.image);
+    useEffect(() => {
+        const fetchUserProfile = async () => {
+            try {
+                const userProfileData = await getUserProfile(userData, authToken);
+                const info = userProfileData.data;
+                console.log(userProfileData.data.image_path, "estoy aqui")
+                console.log(info.image_url)
+                setUserProfile(info);
+                setLoading(false);
+            } catch (error) {
+                setError('Failed to fetch user profile data');
+                setLoading(false);
             }
+        };
 
-            
-            await register(formData);
-            console.log("User profile updated successfully.");
-        } catch (error) {
-            console.error("Failed to update user profile.");
-        }
+
+        fetchUserProfile();
+    }, [userData, authToken]);
+
+    if (loading) {
+        return <p>Loading...</p>;
     }
 
+    if (error) {
+        return <p>Error: {error}</p>;
+    }
 
-
+    if (!userProfile) {
+        return <p>No user profile data available</p>;
+    }
 
     return (
-        <main className='flex flex-col gap-10 pb-20 pl-10'>
-                                <form method="post" className='flex flex-col gap-7 text-[11px]'>
-                        <div>
-                            <label htmlFor="name" id='profile-form-label'>Name</label><br/>
-                            <input 
-                            type="text"
-                            id="name"
-                            name="name"
-                            placeholder='New name'
-                            value={formData.name}
-                            onChange={handleChange}
-                            />
-                        </div>
-                        <div>
-                            <label htmlFor="email" id='profile-form-label'>Email</label><br/>
-                            <input 
-                            type="text"
-                            id="email"
-                            name="email"
-                            placeholder='New email'
-                            value={formData.email}
-                            onChange={handleChange}
-                            />
-                        </div>
-                        <div>
-                            <label htmlFor="password" id='profile-form-label'>New password</label><br/>
-                            <input 
-                            type="password"
-                            id="password"
-                            name="password"
-                            placeholder='New password'
-                            value={formData.password}
-                            onChange={handleChange}
-                            />
-                        </div>
-                        <div>
-                            <label htmlFor="password_confirmation" id='profile-form-label'>Password confirmation</label><br/>
-                            <input 
-                            type="password"
-                            id="password_confirmation"
-                            name="password_confirmation"
-                            placeholder='New password confirmation'
-                            value={formData.password_confirmation}
-                            onChange={handleChange}
-                            />
-                        </div>
-                        <div>
-                            <label htmlFor="image" id='profile-form-label'>New image</label><br/>
-                            <input 
-                            type="file" 
-                            id="image" 
-                            name="image" 
-                            value={formData.image}
-                            onChange={handleFileChange} />
-                        </div>
-
-                        <div className="flex gap-4 mb-20">
-                        <button 
-                        onClick={handleUpdate}
-                        type="submit" 
-                        className='text-sm bg-yellow py-2 px-12 mt-5 rounded-lg'>Save changes</button>
-                        <button className='text-sm bg-yellow py-2 px-12 mt-5 rounded-lg'>Go Back</button>
-                        </div>
-                    </form>
+        <main>
+        <div>
+            <h1>User Profile</h1>
+            <p>Name: {userProfile.name}</p>
+            <p>Email: {userProfile.email}</p>
+            <p>Image: <Image src={`http://127.0.0.1:8000/storage/${userProfile.image_path}`} alt={userProfile.name} width={100} height={100} /></p>
+        </div>
         </main>
-    )
+    );
 }
