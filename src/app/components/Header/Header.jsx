@@ -101,6 +101,7 @@ export default function Header() {
                     <ul className="flex gap-6 text-xs md:hidden lg:flex">
                         <li>
                             <button onClick={() => handleNavigation(`/auth/[id]/your-events`)}>
+                            <button onClick={() => handleNavigation(`/auth/[id]/your-events`)}>
                                 Your events
                             </button>
                         </li>
