@@ -20,6 +20,7 @@ const Page = ({ searchParams }) => {
         console.log("Valor actual del parámetro de consulta:", query);
     }, [query]);
 
+
     const loadEvents = async (page) => {
         setLoading(true);
         try {

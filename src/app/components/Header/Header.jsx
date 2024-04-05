@@ -12,9 +12,13 @@ import { GiHamburgerMenu } from "react-icons/gi";
 export default function Header() {
     const { getAuthToken, getUserData } = useAuthContext();
     const router = useRouter();
-    const token = getAuthToken();
+    const [token, setToken] = useState('');
     const user = getUserData();
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+    useEffect(() => {
+        setToken(getAuthToken())
+    }, [getAuthToken]);
 
     const handleNavigation = (route) => {
         router.push(route);

@@ -30,7 +30,7 @@ export const register = async (userData) => {
 
     export const loginApi = async (userData) => {
         try {
-            const response = await axios.post("/login", userData, );
+            const response = await axios.post("/login", userData);
             const accessToken = response.data.data.token;
             const user = response.data.data.user;
             return {accessToken, user };
@@ -39,10 +39,15 @@ export const register = async (userData) => {
         }
         };
 
-    export const logoutApi = async () => {
+    export const logoutApi = async (authToken) => {
     try {
-        const response = await axios.get("/logout");
-        return response.data;
+        const response = await axios.post("/logout", {
+            headers: {
+                Authorization: `Bearer ${authToken}`
+            } 
+        });
+        console.log(response)
+        return response;
     } catch (error) {
         throw error;
     }

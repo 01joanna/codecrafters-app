@@ -103,7 +103,7 @@ export default function Profile() {
     return (
         <main className="h-full flex flex-col items-center border-2 ">
             <h1 className="text-[60px] my-8">Your profile</h1>
-            <div className='w-full border-5 flex gap-4 m-8'>
+            <div className='w-full border-5 flex lg:flex-row md:flex-col gap-4 m-8 md:items-center'>
             <section id='prf' className="flex flex-col gap-4 w-[50%] h-[450px] border border-lightmayonnaise rounded-xl items-center ml-10 justify-center py-10">
                 <div className='flex gap-12 m-5 items-center justify-center'>
                 <div id='prf-image' className='items-center justify-center'>
@@ -136,7 +136,7 @@ export default function Profile() {
                         text={"Browse all your events"}/>
                     </div>
             </section>
-            <aside className="w-[40%] border border-lightmayonnaise items-center justify-center flex flex-col rounded-xl gap-6">
+            <aside className="w-[40%] h-[450px] border border-lightmayonnaise items-center justify-center flex flex-col rounded-xl gap-6">
                 <h2 className='font-light text-md'>Edit your profile</h2>
                 <div className='flex flex-col gap-3'>
                     <form onSubmit={handleUpdate} action="" className="flex flex-col gap-2 justify-center">
