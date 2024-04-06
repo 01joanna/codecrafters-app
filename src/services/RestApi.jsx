@@ -39,14 +39,22 @@ export const register = async (userData) => {
         }
         };
 
-    export const logoutApi = async () => {
-    try {
-        const response = await axios.get("/logout");
-        return response.data;
-    } catch (error) {
-        throw error;
-    }
-    };
+    export const logoutApi = async (authToken) => {
+        console.log(authToken);
+
+        try {
+            const response = await axios.post("/logout", {}, {
+                headers: {
+                    Authorization: `Bearer ${authToken}`
+                }
+            });
+            return response.data;
+        } catch (error) {
+            throw error;
+        }
+};
+
+
 
     // User routes
 
