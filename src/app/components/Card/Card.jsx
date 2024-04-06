@@ -33,12 +33,13 @@ export default function Card({ event, className, onDelete }) {
   const defaultCSS = "bg-white flex flex-col gap-4"
   return (
     <div className={`${className} ${defaultCSS}`}>
-      {/* <Image
-        src={event.image}
-        alt="Event picture"
-        width={250}
-        height={250}
-      /> */}
+        <img
+        src={event.image_url}
+        alt={event.title}
+        width={200}
+        height={100}
+        className="object-cover rounded-md"
+        />
       <div id="card-text" className="text-black flex flex-col gap-1 w-[170px]">
         <div className="flex gap-3 items-center">
           <h1 className="text-lg">{event.title}</h1>

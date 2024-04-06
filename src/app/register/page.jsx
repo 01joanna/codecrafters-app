@@ -13,7 +13,7 @@ export default function RegisterPage() {
         email: '',
         password: '',
         password_confirmation: '',
-        image: null,
+        image_path: null,
     });
 
     const [error, setError] = useState(null);
@@ -21,37 +21,37 @@ export default function RegisterPage() {
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
-        console.log(formData);
+        // console.log(formData);
     };
 
     const handleFileChange = (e) => {
         setFormData({ ...formData, image: e.target.files[0] });
-        console.log("imagen:", formData);
+        console.log("Estado actualizado:", formData);
     };
-
     const handleSubmit = async (e) => {
         e.preventDefault();
-
+    
         try {
-            await axios.get('http://127.0.0.1:8000/sanctum/csrf-cookie', { withCredentials: true });
             const response = await register(formData);
             console.log(response);
-
+    
             if (typeof window !== 'undefined') {
                 localStorage.setItem('authToken', response.data.token);
             }
-
+    
             setSuccess(true);
             setError(null);
             console.log('hola')
             router.push("/login");
         } catch (error) {
-            // Registro fallido
             setSuccess(false);
-            setError("Registration failed. Please try again.");
+            if (error.response && error.response.data && error.response.data.message) {
+                setError(error.response.data.message);
+            } else {
+                setError("Registration failed. Please try again.");
+            }
         }
     };
-
 
     return (
         <main className="flex flex-col gap-3 items-center p-20">
@@ -59,7 +59,7 @@ export default function RegisterPage() {
                 <h1 className="">./m</h1>
             </div>
             <div id="signup-form" className="shadow-xl">
-                <form onSubmit={handleSubmit} className="flex flex-col items-center px-8">
+                <form method="POST" onSubmit={handleSubmit} className="flex flex-col items-center px-8">
                     <legend className="font-light md:text-xl lg:text-4xl my-8">
                         Create a new account
                     </legend>
@@ -128,8 +128,8 @@ export default function RegisterPage() {
                     <br />
                     <input
                         type="file"
-                        id="image"
-                        name="image"
+                        id="image_path"
+                        name="image_path"
                         onChange={handleFileChange}
                         placeholder="Upload"
                     />

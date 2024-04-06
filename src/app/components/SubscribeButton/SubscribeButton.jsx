@@ -3,6 +3,7 @@ import { subscribeToEvent, unsubscribeFromEvent, getSubscribedEvents } from "@/s
 import { useAuthContext } from "@/contexts/AuthContext";
 import { useRouter } from 'next/navigation';
 import Button from '../Button/Button';
+import Ticket from '../Ticket/Ticket';
 
 export default function SubscribeButton({ event, onSubscribe }) {
     const { getAuthToken, getUserData } = useAuthContext();
@@ -10,6 +11,7 @@ export default function SubscribeButton({ event, onSubscribe }) {
     const userData = getUserData();
     const router = useRouter();
     const [isSubscribed, setIsSubscribed] = useState(false);
+    // const [showModal, setShowModal] = useState(false);
 
     useEffect(() => {
         const fetchSubscribedEvents = async () => {
@@ -46,14 +48,28 @@ export default function SubscribeButton({ event, onSubscribe }) {
         }
     };
 
+    // const handleShowTicket = () => {
+    //     setShowModal(true);
+    // };
+
+    // const handleCloseModal = () => {
+    //     setShowModal(false); 
+    // };
+
     return (
         <div>
             {isSubscribed ? (
+                <div className="flex flex-col gap-4">
                 <button className='px-10 py-2 rounded-xl bg-lightmayonnaise text-black text-sm hover:bg-yellow' onClick={handleUnsubscribe}>Unsubscribe from this event</button>
-
+                {/* <button className="px-3 py-2 rounded-xl bg-lightmayonnaise text-black text-sm hover:bg-yellow" onClick={handleShowTicket}>Ticket</button> */}
+                </div>
             ) : (
+                <>
                 <button className="px-10 py-2 rounded-xl bg-lightmayonnaise text-black text-sm hover:bg-yellow" onClick={handleSubscribe}>Subscribe to this event</button>
+
+                </>
             )}
+            {/* {showModal && <Ticket event={event} onClose={handleCloseModal} />} */}
         </div>
     );
 }

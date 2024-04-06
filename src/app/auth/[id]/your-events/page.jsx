@@ -3,9 +3,9 @@ import React, { useState, useEffect } from 'react';
 import { useAuthContext } from "@/contexts/AuthContext";
 import { EventsCreatedByUser, getSubscribedEvents } from "@/services/RestApi";
 import { useRouter } from 'next/navigation';
-import Card from '../../components/Card/Card';
-import EventsCreated from '../../components/EventsCreated/EventsCreated';
-import EventsSubscribed from '../../components/EventsSubscribed/EventsSubscribed';
+import Card from '../../../components/Card/Card';
+import EventsCreated from '../../../components/EventsCreated/EventsCreated';
+import EventsSubscribed from '../../../components/EventsSubscribed/EventsSubscribed';
 
 export default function Page() {
     const { getUserData, getAuthToken } = useAuthContext();
@@ -26,9 +26,9 @@ export default function Page() {
                     </div>
                 </section>
                 <section className="py-3 pl-10">
-                <h2 className="text-3xl pb-7">Events you confirmed your assistance to:</h2>
-                <div className='w-[70%] justify-center'>
-                        <EventsSubscribed user={user} authToken={authToken} /> {/* Pasar el objeto de usuario */}
+                <h2 className="text-3xl pb-7 md:mr-10 lg:mr-0 ">Events you confirmed your assistance to:</h2>
+                <div className='w-[70%] justify-center '>
+                        <EventsSubscribed user={user} authToken={authToken} /> {/* Pasar el objeto de usuario */} 
                     </div>
                 </section>
                 </> ) : (

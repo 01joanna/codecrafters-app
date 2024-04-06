@@ -7,14 +7,13 @@ import { useAuthContext } from "../../../contexts/AuthContext";
 export default function Page() {
     const router = useRouter();
     const { getAuthToken, logout } = useAuthContext();
+    const authToken = getAuthToken();
 
-    useEffect(() => {
-        const authToken = getAuthToken(); // Obtener el token de autenticación
+    useEffect(() => { 
 
-        // Realizar el logout utilizando la función logoutApi
+        console.log('authToken', authToken)
         logoutApi(authToken)
             .then(() => {
-                // Eliminar el token de autenticación del contexto
                 logout();
                 // Redirigir al usuario a la página principal
                 router.push("/");
@@ -23,7 +22,7 @@ export default function Page() {
                 console.error("Error al cerrar sesión:", error);
                 // Manejar el error si es necesario
             });
-    }, []);
+    });
 
     return null; // No renderizamos nada en este componente
 }

@@ -16,7 +16,12 @@ axios.defaults.withXSRFToken = true;
 // Auth routes
 export const register = async (userData) => {
     try {
-        const response = await axios.post("/register", userData);
+        const response = await axios.post("/register", userData, {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+                'Accept': 'multipart/form-data',
+            }
+        });
         return response.data;
     } catch (error) {
         throw error;
@@ -24,20 +29,25 @@ export const register = async (userData) => {
     };
 
     export const loginApi = async (userData) => {
-    try {
-        const response = await axios.post("/login", userData);
-        const accessToken = response.data.data.token;
-        const user = response.data.data.user;
-        return {accessToken, user };
-    } catch (error) {
-        throw error;
-    }
-    };
+        try {
+            const response = await axios.post("/login", userData);
+            const accessToken = response.data.data.token;
+            const user = response.data.data.user;
+            return {accessToken, user };
+        } catch (error) {
+            throw error;
+        }
+        };
 
-    export const logoutApi = async () => {
+    export const logoutApi = async (authToken) => {
     try {
-        const response = await axios.get("/logout");
-        return response.data;
+        const response = await axios.post("/logout", {
+            headers: {
+                Authorization: `Bearer ${authToken}`
+            } 
+        });
+        console.log(response)
+        return response;
     } catch (error) {
         throw error;
     }
@@ -45,30 +55,35 @@ export const register = async (userData) => {
 
     // User routes
 
-    // export const getUserProfile = async (id) => {
-    //     try {
-    //         const response = await axios.get(`/user/${id}`); 
-    //         return response.data;
-    //         console.log("response", response.data);
-    //     } catch (error) {
-    //         throw error; 
-    //     }
-    // };
+    export const getUserProfile = async (userId, authToken) => {
+        try {
+            const response = await axios.get(`/user/${userId}`, {
+                headers: {
+                    Authorization: `Bearer ${authToken}`
+                }
+            }); 
+            return response.data;
+        } catch (error) {
+            throw error; 
+        }
+    };
 
 
-export const updateUserProfile = async(userId, formData, authToken) => {
+export const updateUserProfile = async (userId, formData, authToken) => {
     try {
         const response = await axios.post(`/user/${userId}/profile`, formData, {
             headers: {
                 'Authorization': `Bearer ${authToken}`,
                 'Content-Type': 'multipart/form-data',
-
             },
+            
         });
+        return response.data; // <- ¡Importante: devuelve los datos de la respuesta!
+        
     } catch (error) {
         throw error;
     }
-    };
+};
 
     export const deleteUser = async (id) => {
         try {
@@ -156,19 +171,18 @@ export const updateUserProfile = async(userId, formData, authToken) => {
     
 
     // Event routes
-    export const createEvent = async (eventData, authToken) => {
-    try {
-        const response = await axios.post("/events/create", eventData, {
-            headers: {
-                Authorization: `Bearer ${authToken}`,
-                "Content-Type": "multipart/form-data"
-            }
-        
-        });
-        return response.data;
-    } catch (error) {
-        throw error;
-    }
+    export const createEvent = async (eventData, authToken, id) => {
+        try {
+            const response = await axios.post("/events/create", eventData, {
+                headers: {
+                    Authorization: `Bearer ${authToken}`,
+                    "Content-Type": "multipart/form-data"
+                }
+            });
+            return response.data;
+        } catch (error) {
+            throw error;
+        }
     };
 
     export const updateEvent = async (id, eventData, authToken) => {
