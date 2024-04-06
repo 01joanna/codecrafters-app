@@ -16,7 +16,7 @@ export default function EventPage() {
 
 
     const id = pathname.split('/').pop();
-    console.log('ID del evento:', id);
+
 
     useEffect(() => {
         const fetchEventDetails = async () => {

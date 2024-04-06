@@ -9,17 +9,36 @@ import { useAuthContext } from '@/contexts/AuthContext';
 import { useEffect } from 'react';
 import SubscribeButton from '../SubscribeButton/SubscribeButton';
 import Ticket from '../Ticket/Ticket';
+import { getRegisteredUsersForEvent } from '@/services/RestApi';
 
 export default function EventDetails({ event }) {
     const { getUserData } = useAuthContext();
     const userData = getUserData();
 
-
     const [isSubscribed, setIsSubscribed] = useState(false);
-    const [Ticket, setTicket] = useState(false);
+    const [showTicket, setShowTicket] = useState(false);
     const { getAuthToken } = useAuthContext();
     const authToken = getAuthToken();
     const [registeredUsers, setRegisteredUsers] = useState([]);
+    const eventId = event.id;   
+
+    useEffect(() => {
+        const fetchRegisteredUsers = async () => {
+            try {
+                const users = await getRegisteredUsersForEvent(eventId, authToken);
+                setRegisteredUsers(users.data);
+                console.log('Registered users:', registeredUsers);
+                
+            } catch (error) {
+                console.error("Error fetching registered users:", error);
+            }
+        };
+        fetchRegisteredUsers();
+    }, [eventId]);
+
+    console.log('Registered users:', registeredUsers);
+    const isOwner = userData == event.user_id;
+    
 
     return (
         <div className='flex flex-col gap-5 items-center justify-center'>
@@ -40,15 +59,15 @@ export default function EventDetails({ event }) {
                                     <h1 className='md:text-[40px] lg:text-[60px] leading-none font-bold md:justify-center'>{event.title}</h1>
                                 </div>
                                 <div id='main-button-register' className='self-center'>
-                                {event && <SubscribeButton event={event} />}
+                                {!isOwner && <SubscribeButton event={event} />}
                                 </div>
                             </div>
                             <div id='event-users' className='flex lg:flex-row md:flex-col-reverse gap-4 lg:items-center md:items-start w-auto'>
                                 <div id='event-user-owner'>
-                                    <Owner text={event.user.name} image={event.user.image_url} />
+                                    <Owner text={event.user.name} event={event} />
                                 </div>
                                 <div id='users-registered'>
-                                    <Assistants event={event} count={event.attendees_count} /> {/* Usa la cantidad de asistentes del evento */}
+                                    <Assistants event={event} count={event.attendees_count} />
                                 </div>
                             </div>
                         </div>

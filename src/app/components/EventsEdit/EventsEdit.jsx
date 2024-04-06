@@ -69,9 +69,9 @@ export default function EventsEdit( { event, eventId }) {
     
     return (
         authToken ? (
-            <div className='flex flex-col justify-center items-center gap-12'>
+            <div className='flex flex-col justify-center items-center gap-12 lg:w-auto md:w-full mt-10'>
         <h2 className="text-[50px] font-light">Edit this event:</h2>
-        <form onSubmit={handleSubmit} className="border border-yellow px-12 py-8 items-center rounded-xl flex flex-col justify-center gap-20 md:mx-10">
+        <form onSubmit={handleSubmit} className="border border-yellow px-12 py-8 items-center rounded-xl flex flex-col justify-center gap-20 lg:w-full md:w-[100%]">
             <fieldset>
                 <div className="mb-5">
                     <label id="event-form-label" htmlFor="title">Title:</label><br/>
@@ -82,7 +82,7 @@ export default function EventsEdit( { event, eventId }) {
                     placeholder="Event title" 
                     onChange={handleChange}
                     value={eventForm.title}
-                    className="w-full" />
+                    className="w-[80%]" />
                 </div>
                 <hr/>
                 <br/>
@@ -132,6 +132,7 @@ export default function EventsEdit( { event, eventId }) {
                             placeholder="Event description"
                             value={eventForm.description}
                             onChange={handleChange}
+                            className='w-[80%] h-40'
                             />
                         </div>
                         <div id="event-form-category" className="text-xs">

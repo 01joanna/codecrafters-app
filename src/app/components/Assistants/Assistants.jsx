@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Avatar, AvatarGroup, user } from "@nextui-org/react";
+import { Avatar, AvatarGroup } from "@nextui-org/react";
 import { getRegisteredUsersForEvent } from "@/services/RestApi";
 import { useAuthContext } from "@/contexts/AuthContext";
 
@@ -10,18 +10,18 @@ const Assistants = ({ event, count, className }) => {
     const authToken = getAuthToken();
     const eventId = event.id;   
 
-
     useEffect(() => {
         const fetchRegisteredUsers = async () => {
             try {
                 const users = await getRegisteredUsersForEvent(eventId, authToken);
-                setRegisteredUsers(users.data.data);
+                setRegisteredUsers(users.data);
             } catch (error) {
                 console.error("Error fetching registered users:", error);
             }
         };
         fetchRegisteredUsers();
     }, [eventId]);
+
 
     const defaultAssistant = "text-xs flex gap-4 items-center";
     return (
