@@ -1,9 +1,10 @@
 import Image from 'next/image'
 import Button from '../Button/Button'
 
+
 export default function Footer() {
     return (
-        <footer className="bg-yellow md:h-auto lg:h-[300px] p-5 relative overflow-hidden">
+        <footer className="bg-yellow md:h-auto lg:h-[300px] p-5 relative overflow-hidden bottom-0">
             <section className="flex w-full justify-around">
                 <div id="social-terms">
                     <div className='flex gap-2'>

@@ -77,4 +77,5 @@ body {
   #signup-part-1, #signup-part-2 {
     @apply flex flex-col gap-7;
   }
+  
 }

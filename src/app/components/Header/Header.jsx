@@ -26,7 +26,7 @@ export default function Header() {
             // Eliminar el token de autenticación del contexto
             logout();
             // Redirigir al usuario a la página principal
-            router.push("/register");
+            router.push("/");
             // Recargar la página
             window.location.reload();
         } catch (error) {

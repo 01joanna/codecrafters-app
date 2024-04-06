@@ -65,12 +65,12 @@ const ProfilePage = () => {
         }
     };
 
-    useEffect(() => {
-        if (success) {
-            // Recargar la página si el estado de éxito cambia a verdadero
-            window.location.reload();
-        }
-    }, [success]);
+    // useEffect(() => {
+    //     if (success) {
+    //         // Recargar la página si el estado de éxito cambia a verdadero
+    //         window.location.reload();
+    //     }
+    // }, [success]);
 
     return (
         <div className='flex flex-col lg:justify-around lg:h-full md:h-[1100px]'>
