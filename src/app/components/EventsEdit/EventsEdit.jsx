@@ -17,6 +17,7 @@ export default function EventsEdit( { event, eventId }) {
         date: event.date || "",
         category_id: event.category_id || "",
         image: event.image || "",
+        max_assistants: event.max_assistants || 0,
         user_id: event.user_id || "",
         id: eventId 
     });
@@ -28,6 +29,17 @@ export default function EventsEdit( { event, eventId }) {
             [name]: value
         }));
     }
+
+
+
+    const handleImageChange = (e) => {
+        const file = e.target.files[0];
+        setEventForm(prevData => ({
+            ...prevData,
+            image: file
+        }));
+    };
+
 
     const formatDate = (dateString) => {
         const date = new Date(dateString);
@@ -57,9 +69,9 @@ export default function EventsEdit( { event, eventId }) {
     
     return (
         authToken ? (
-            <div className='flex flex-col justify-center items-center gap-12'>
+            <div className='flex flex-col justify-center items-center gap-12 lg:w-auto md:w-full mt-10'>
         <h2 className="text-[50px] font-light">Edit this event:</h2>
-        <form onSubmit={handleSubmit} className="border border-yellow px-12 py-8 items-center rounded-xl flex flex-col justify-center gap-20 md:mx-10">
+        <form onSubmit={handleSubmit} className="border border-yellow px-12 py-8 items-center rounded-xl flex flex-col justify-center gap-20 md:mx-10 lg:w-full md:w-[100%]">
             <fieldset>
                 <div className="mb-5">
                     <label id="event-form-label" htmlFor="title">Title:</label><br/>
@@ -86,16 +98,6 @@ export default function EventsEdit( { event, eventId }) {
                             onChange={handleChange}
                             />
                         </div>
-                        {/* <div id="event-form-time">
-                            <label id="event-form-label" htmlFor="time">Time:</label><br/>
-                            <input 
-                            type="time" 
-                            id="time" 
-                            name="time" 
-                            value={eventForm.time}
-                            onChange={handleChange}
-                            />
-                        </div> */}
                         <div id="event-form-location">
                             <label id="event-form-label" htmlFor="location">Location:</label><br/>
                             <input 
@@ -108,13 +110,13 @@ export default function EventsEdit( { event, eventId }) {
                             />
                         </div>
                         <div id="event-form-assistants">
-                            <label id="event-form-label" htmlFor="assistants">Max. Assistants:</label><br/>
+                            <label id="event-form-label" htmlFor="max_assistants">Max. Assistants:</label><br/>
                             <input 
                             type="number" 
-                            id="assistants" 
-                            name="assistants" 
+                            id="max_assistants" 
+                            name="max_assistants" 
                             placeholder="Number of max. assistants"
-                            value={eventForm.assistants}
+                            value={eventForm.max_assistants}
                             onChange={handleChange}
                             min={1}
                             max={2000}
@@ -130,6 +132,7 @@ export default function EventsEdit( { event, eventId }) {
                             placeholder="Event description"
                             value={eventForm.description}
                             onChange={handleChange}
+                            className='w-full h-40'
                             />
                         </div>
                         <div id="event-form-category" className="text-xs">
@@ -150,12 +153,11 @@ export default function EventsEdit( { event, eventId }) {
                         <div id="event-form-image">
                             <label id="event-form-label" htmlFor="image">Image:</label><br/>
                             <input 
-                            type="text" 
-                            id="image" 
-                            name="image" 
-                            placeholder="Event image"
-                            value={eventForm.image}
-                            onChange={handleChange}
+                                type="file" 
+                                id="image" 
+                                name="image" 
+                                accept="image/*" // Solo permite seleccionar archivos de imagen
+                                onChange={handleImageChange} // Manejar el cambio de archivo de imagen
                             />
                         </div>
                     </div>

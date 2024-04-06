@@ -7,8 +7,7 @@ import { getEventById } from '../../../services/RestApi';
 import { useAuthContext } from '@/contexts/AuthContext';
 
 export default function EventPage() {
-    const { getUserData } = useAuthContext();
-    const userData = getUserData();
+
     const [event, setEvent] = useState(null);
 
     const router = useRouter();
@@ -16,7 +15,6 @@ export default function EventPage() {
 
 
     const id = pathname.split('/').pop();
-    console.log('ID del evento:', id);
 
     useEffect(() => {
         const fetchEventDetails = async () => {
@@ -33,8 +31,6 @@ export default function EventPage() {
         fetchEventDetails();
 
     }, [id]);
-
-    console.log('Evento:', event);
 
     return (
         <main className='bg-white text-black flex flex-col gap-10 pb-20'>

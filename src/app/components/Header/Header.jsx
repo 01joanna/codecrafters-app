@@ -7,26 +7,25 @@ import Searchbar from "../Searchbar/Searchbar";
 import { useAuthContext } from "@/contexts/AuthContext";
 import { MdOutlineManageAccounts } from "react-icons/md";
 import { IoLogOutOutline } from "react-icons/io5";
+import { GiHamburgerMenu } from "react-icons/gi";
 
 export default function Header() {
     const { getAuthToken, getUserData } = useAuthContext();
     const router = useRouter();
-    const token = getAuthToken();
+    const [token, setToken] = useState('');
     const user = getUserData();
-    const [isClient, setIsClient] = useState(false);
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
 
     useEffect(() => {
-        setIsClient(true);
-    }, []); 
-
-    useEffect(() => {
-        if (isClient) {
-            console.log("El código se está ejecutando en el cliente");
-        }
-    }, [isClient]); 
+        setToken(getAuthToken())
+    }, [getAuthToken]);
 
     const handleNavigation = (route) => {
         router.push(route);
+    };
+
+    const toggleMenu = () => {
+        setIsMenuOpen(prevState => !prevState);
     };
 
     return (
@@ -45,9 +44,67 @@ export default function Header() {
             <div className="flex items-center gap-4">
                 <Searchbar />
                 <nav>
+                <div 
+                onClick={toggleMenu} 
+                className="md:visible lg:hidden">
+                    <GiHamburgerMenu />
+                    {isMenuOpen && (
+                        <div className=" absolute w-[170px] top-[3.5rem] right-1 border border-gray-200 z-10">
+                            <ul className="flex flex-col gap-1 text-[11px] items-center justify-center ">
+                                <li>
+                                    <button 
+                                    className='bg-yellow text-black rounded-lg px-2 py-1 w-[170px]'
+                                    onClick={() => handleNavigation('/events')}>
+                                        Browse all events
+                                    </button>
+                                </li>
+                                <li>
+                                    <button 
+                                    className='bg-yellow text-black rounded-lg px-2 py-1 w-[170px]'
+                                            onClick={() => handleNavigation(`/auth/[id]/your-events`)}>
+                                        Your events
+                                    </button>
+                                </li>
+                                <li>
+                                    <button 
+                                    className='bg-yellow text-black rounded-lg px-2 py-1 w-[170px]'
+                                    onClick={() => handleNavigation('/auth/events/create')}>
+                                        Create an event
+                                    </button>
+                                </li>
+                                {token ? (
+                                    <>
+                                        <li>
+                                            <button 
+                                            className='bg-yellow text-black rounded-lg px-2 py-1 flex items-center justify-center gap-2 w-[170px]'
+                                                    onClick={() => handleNavigation(`/auth/[id]/profile`)}>
+                                                <MdOutlineManageAccounts /> My Account
+                                            </button>
+                                        </li>
+                                        <li>
+                                            <button 
+                                            className='bg-yellow text-black rounded-lg px-2 py-1 flex items-center justify-center gap-2 w-[170px]'
+                                            onClick={() => handleNavigation('/auth/logout')}>
+                                                <IoLogOutOutline /> Log Out
+                                            </button>
+                                        </li>
+                                    </>
+                                ) : (
+                                    <li>
+                                        <button 
+                                        className='bg-yellow text-black rounded-lg px-2 py-1 flex items-center justify-center gap-2 w-[170px]'
+                                        onClick={() => handleNavigation('/register')}>
+                                            <MdOutlineManageAccounts /> Sign up
+                                        </button>
+                                    </li>
+                                )}
+                            </ul>
+                        </div>
+                    )}
+                </div>
                     <ul className="flex gap-6 text-xs md:hidden lg:flex">
                         <li>
-                            <button onClick={() => handleNavigation(`/auth/${user}/your-events`)}>
+                            <button onClick={() => handleNavigation(`/auth/[id]/your-events`)}>
                                 Your events
                             </button>
                         </li>
@@ -59,7 +116,7 @@ export default function Header() {
                         {token ? (
                             <>
                                 <li>
-                                    <button onClick={() => handleNavigation(`auth/${user}/profile`)}>
+                                    <button onClick={() => handleNavigation(`/auth/[id]/profile`)}>
                                         <MdOutlineManageAccounts /> My Account
                                     </button>
                                 </li>

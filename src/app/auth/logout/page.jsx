@@ -8,25 +8,22 @@ import { useAuthContext } from "../../../contexts/AuthContext";
 export default function Logout() {
     const router = useRouter();
     const { getAuthToken, logout } = useAuthContext();
-    // const push = usePush(); // Usa el método push memorizado
+    const authToken = getAuthToken();
 
     useEffect(() => {
-        const authToken = getAuthToken();
-
-        logout();
-        if (authToken) {
             logoutApi(authToken)
-                .then(() => {
+                .then((res) => {
+                    console.log(res)
+                    logout();
                     router.push("/");
                 })
                 .catch((error) => {
+                    logout();
                     console.error("Error al cerrar sesión:", error);
                     router.push("/");
                 });
-        } else {
-            router.push("/");
-        }
-    }, [getAuthToken, logout, router, router.push]);
+
+    });
 
 
     return null;

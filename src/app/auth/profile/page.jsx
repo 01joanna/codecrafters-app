@@ -1,56 +1,65 @@
 'use client'
+import { useState, useEffect } from 'react';
+import React from 'react';
 import Image from 'next/image';
-import Button from '../Button/Button';
-import { useAuthContext } from "../../../contexts/AuthContext";
+import Button from '../../components/Button/Button';
 import { getUserProfile, updateUserProfile, deleteUserProfile } from "../../../services/RestApi"
-import { useEffect, useState } from 'react';
+import { useAuthContext } from "../../../contexts/AuthContext";
 
 
-
-export default function Profile() {
-
-    const { getUserData, getUserInfo, } = useAuthContext();
-    const userInfo = getUserInfo();
-    console.log(userInfo);
-    
-
-    const userData = getUserData();
+const ProfilePage = () => {
+    const [userData, setUserData] = useState(null);
+    const [isEditing, setIsEditing] = useState(false);
     const [formData, setFormData] = useState({
         name: '',
         email: '',
         password: '',
         password_confirmation: '',
-        image_path: null,
+        image: null,
     });
+    const [error, setError] = useState(null);
+    const [success, setSuccess] = useState(false);
 
+    useEffect(() => {
+        getUserProfile().then(response => {
+            setUserData(response.data);
+            setFormData(response.data);
+        }).catch(error => {
+            setError("Failed to fetch user profile.");
+        });
+    }, []);
 
-    // useEffect(() => {
-    //     if (userInfo) {
-    //         setFormData({
-    //             name: userInfo.name,
-    //             email: userInfo.email,
-    //             image_path: userInfo.image_path,
-    //         });
-    //     }
-    // }, [userInfo]);
+    const handleEdit = () => {
+        setIsEditing(true);
+    };
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
-    }
+    };
 
     const handleFileChange = (e) => {
         setFormData({ ...formData, image: e.target.files[0] });
-    }
-    
-    const handleUpdate = async (e) => {
-        e.preventDefault();
+    };
+
+    const handleUpdate = async () => {
         try {
-            const response = await updateUserProfile(formData, userId, authToken);
-            console.log(response);
+            await updateUserProfile(userData.id, formData);
+            setUserData(formData);
+            setIsEditing(false);
+            setSuccess(true);
         } catch (error) {
-            console.log(error);
+            setError("Failed to update user profile.");
         }
-    }
+    };
+
+    const handleDelete = async () => {
+        try {
+            await deleteUser(userData.id);
+            // Redirect to login or homepage after deletion
+        } catch (error) {
+            setError("Failed to delete user profile.");
+        }
+    };
 
     return (
         <div className='flex flex-col lg:justify-around lg:h-full md:h-[1100px]'>
@@ -63,7 +72,7 @@ export default function Profile() {
             <div className='flex lg:flex-row md:flex-col md:gap-10 lg:gap-32 md:items-center justify-center h-[500px] md:pt-[27rem] lg:pt-0'>
                 <section id="profile-picture" className='flex flex-col gap-3 items-center'>
                     <Image
-                        src={`http://127.0.0.1:8000/storage/${formData.image_path}`} 
+                        src="/public/img/large-image.png"
                         alt="Profile picture"
                         width={200}
                         height={200}
@@ -98,3 +107,4 @@ export default function Profile() {
         </div>
     );
 }
+export default ProfilePage;

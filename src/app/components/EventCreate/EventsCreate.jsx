@@ -9,7 +9,9 @@ import Cookies from 'js-cookie';
 export default function EventCreate() {
 
     const { getAuthToken, getUserData } = useAuthContext();
-    const id = getUserData();
+    const userId = getUserData();
+    const id = parseInt(userId);
+
     const authToken = getAuthToken();
     const router = useRouter();
 
@@ -19,18 +21,30 @@ export default function EventCreate() {
         location: "",
         date: "",
         category_id: "",
-        image: "",
-        user_id: "",
+        max_assistants: 0,
+        image: null,
+        user_id: id
     });
-
 
     const handleChange = (e) => {
         const { name, value } = e.target;
+        const newValue = name === 'max_assistants' ? parseInt(value) : value;
         setEventForm(prevData => ({
             ...prevData,
-            [name]: value
+            [name]: newValue
         }));
     };
+
+
+    const handleImageChange = (e) => {
+        const file = e.target.files[0];
+        setEventForm(prevData => ({
+            ...prevData,
+            image: file
+        }));
+    };
+
+    console.log(eventForm);
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -41,6 +55,7 @@ export default function EventCreate() {
         location: eventForm.location,
         date: eventForm.date,
         category_id: eventForm.category_id,
+        max_assistants: eventForm.max_assistants,
         image: eventForm.image,
         user_id: id
     };
@@ -65,9 +80,9 @@ export default function EventCreate() {
         authToken ? (
             <>
         <h2 className="text-[50px] font-light">Add a new event</h2>
-        <form onSubmit={handleSubmit} className="border border-yellow px-12 py-8 items-center rounded-xl flex flex-col justify-center gap-20 md:mx-10">
+        <form onSubmit={handleSubmit} className=" md:border-none lg:border border-yellow md:px-0 lg:px-12 py-8 items-center rounded-xl flex flex-col justify-center gap-20">
             <fieldset>
-                <div className="mb-5">
+                <div className="mb-5 md:w-1/2 lg:w-full">
                     <label id="event-form-label" htmlFor="title">Title:</label><br/>
                     <input 
                     type="text" 
@@ -114,16 +129,16 @@ export default function EventCreate() {
                             />
                         </div>
                         <div id="event-form-assistants">
-                            <label id="event-form-label" htmlFor="assistants">Max. Assistants:</label><br/>
+                            <label id="event-form-label" htmlFor="max_assistants">Max. Assistants:</label><br/>
                             <input 
-                            type="number" 
-                            id="assistants" 
-                            name="assistants" 
-                            placeholder="Number of max. assistants"
-                            value={eventForm.assistants}
-                            onChange={handleChange}
-                            min={1}
-                            max={2000}
+                                type="number" 
+                                id="max_assistants" 
+                                name="max_assistants" 
+                                placeholder="Number of max. assistants"
+                                value={eventForm.max_assistants}
+                                onChange={handleChange}
+                                min={1}
+                                max={2000}
                             />
                         </div>
                     </div>
@@ -136,6 +151,7 @@ export default function EventCreate() {
                             placeholder="Event description"
                             value={eventForm.description}
                             onChange={handleChange}
+                            className="w-full h-40"
                             />
                         </div>
                         <div id="event-form-category" className="text-xs">
@@ -156,12 +172,11 @@ export default function EventCreate() {
                         <div id="event-form-image">
                             <label id="event-form-label" htmlFor="image">Image:</label><br/>
                             <input 
-                            type="text" 
-                            id="image" 
-                            name="image" 
-                            placeholder="Event image"
-                            value={eventForm.image}
-                            onChange={handleChange}
+                                type="file" 
+                                id="image" 
+                                name="image" 
+                                accept="image/*" // Solo permite seleccionar archivos de imagen
+                                onChange={handleImageChange} // Manejar el cambio de archivo de imagen
                             />
                         </div>
                     </div>
