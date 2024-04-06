@@ -54,6 +54,7 @@ export default function AuthContextProvider({ children }) {
         return !!getAuthToken();
     }, [getAuthToken]);
 
+
     const value = useMemo(
         () => ({
             login,
@@ -61,7 +62,7 @@ export default function AuthContextProvider({ children }) {
             getAuthToken,
             getUserData,
             isUserAuthenticated,
-            getUserInfo
+            getUserInfo,
         }),
         [login, logout, getAuthToken, getUserData, isUserAuthenticated, getUserInfo]
     );
