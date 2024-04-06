@@ -48,7 +48,7 @@ export default function Login() {
 
   return (
     <div>
-      <div id="logo" className="items-baseline">
+      <div id="logo" className="flex flex-col items-center">
         <h1 className="">./m</h1>
       </div>
       <div id="signup-form" className="shadow-xl">
