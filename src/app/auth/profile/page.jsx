@@ -5,9 +5,11 @@ import Image from 'next/image';
 import Button from '../../components/Button/Button';
 import { getUserProfile, updateUserProfile, deleteUserProfile } from "../../../services/RestApi"
 import { useAuthContext } from "../../../contexts/AuthContext";
-
+import { useRouter } from 'next/navigation';
 
 const ProfilePage = () => {
+    
+    const router = useRouter();
     const [userData, setUserData] = useState(null);
     const [isEditing, setIsEditing] = useState(false);
     const [formData, setFormData] = useState({
@@ -29,6 +31,7 @@ const ProfilePage = () => {
         });
     }, []);
 
+
     const handleEdit = () => {
         setIsEditing(true);
     };
@@ -47,6 +50,7 @@ const ProfilePage = () => {
             setUserData(formData);
             setIsEditing(false);
             setSuccess(true);
+            console.log("Update successful");
         } catch (error) {
             setError("Failed to update user profile.");
         }
@@ -60,6 +64,13 @@ const ProfilePage = () => {
             setError("Failed to delete user profile.");
         }
     };
+
+    useEffect(() => {
+        if (success) {
+            // Recargar la página si el estado de éxito cambia a verdadero
+            window.location.reload();
+        }
+    }, [success]);
 
     return (
         <div className='flex flex-col lg:justify-around lg:h-full md:h-[1100px]'>
