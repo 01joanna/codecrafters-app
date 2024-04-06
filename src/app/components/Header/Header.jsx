@@ -26,14 +26,20 @@ export default function Header() {
             // Eliminar el token de autenticación del contexto
             logout();
             // Redirigir al usuario a la página principal
-            router.push("/login");
-            // Mostrar mensaje en la consola
-            console.log("Usuario cerró sesión exitosamente.");
+            router.push("/register");
+            // Recargar la página
+            window.location.reload();
         } catch (error) {
             console.error("Error al cerrar sesión:", error);
             // Manejar el error si es necesario
         }
     };
+    // useEffect(() => {
+    //     // Si el token se vuelve null (es decir, el usuario cierra sesión), redirigir a la página de inicio
+    //     if (token === null) {
+    //         router.push("/register");
+    //     }
+    // }, [token]);
 
 
     const handleNavigation = (route) => {

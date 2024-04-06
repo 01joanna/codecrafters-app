@@ -1,38 +1,8 @@
-'use client'
-import { useEffect } from "react";
-import { useRouter } from "next/router";
-import { logoutApi } from "../../../services/RestApi";
-import { useAuthContext } from "../../../contexts/AuthContext";
-
-
-export default function Page() {
-    const router = useRouter();
-    const { getAuthToken, logout } = useAuthContext();
-    const authToken = getAuthToken();
-
-    const handleLogout = async () => {
-        const authToken = getAuthToken(); // Obtener el token de autenticación
-
-        try {
-            // Realizar el logout utilizando la función logoutApi
-            await logoutApi(authToken);
-            // Eliminar el token de autenticación del contexto
-            logout();
-            // Redirigir al usuario a la página principal
-            router.push("/");
-        } catch (error) {
-            console.error("Error al cerrar sesión:", error);
-            // Manejar el error si es necesario
-        }
-    };
-
-    // Ejecutar handleLogout cuando el componente se monta
-    useEffect(() => {
-        handleLogout();
-    }, []);
-
-    return null; // No renderizamos nada en este componente
-}
+// 'use client'
+// import { useEffect } from "react";
+// import { useRouter } from "next/router";
+// import { logoutApi } from "../../../services/RestApi";
+// import { useAuthContext } from "../../../contexts/AuthContext";
 
 
 // export default function Page() {

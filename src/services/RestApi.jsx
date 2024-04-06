@@ -81,6 +81,7 @@ export const updateUserProfile = async (userId, formData, authToken) => {
             },
             
         });
+        window.location.reload();
         return response.data; // <- ¡Importante: devuelve los datos de la respuesta!
         
     } catch (error) {
