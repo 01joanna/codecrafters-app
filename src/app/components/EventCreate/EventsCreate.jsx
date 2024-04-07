@@ -189,6 +189,7 @@ export default function EventCreate() {
         </form>
         </>
         ) : 
-        <p>Not logged in</p>
+            <p className='h-40 text-black text-xl align-middle text-center mt-9 '> You are not logged in <br></br>
+                Please login to create an event</p>
     );
 }
