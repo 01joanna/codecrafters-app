@@ -26,7 +26,7 @@ export default function EventsSubscribed({ user, authToken }) {
         {subscribedEvents.length > 0 ? (
             <div className="flex lg:flex-row md:flex-col gap-8">
                 {subscribedEvents.map(event => (
-                    <Card key={event.id} event={event} />
+                    <Card key={event.id} event={event} imageUrl={event.image_url} />
                 ))}
             </div>
         ) : (

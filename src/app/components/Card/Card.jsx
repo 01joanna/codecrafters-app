@@ -8,7 +8,7 @@ import { CiEdit } from "react-icons/ci";
 import { useAuthContext } from "@/contexts/AuthContext";
 
 
-export default function Card({ event, className, onDelete }) {
+export default function Card({ event, className, onDelete, imageUrl }) {
 
   const { isAuthenticated, getUserData } = useAuthContext();
   const router = useRouter();
@@ -34,7 +34,7 @@ export default function Card({ event, className, onDelete }) {
   return (
     <div className={`${className} ${defaultCSS}`}>
       <Image
-        src={`/storage/images/${event.image}`} 
+        src={imageUrl} 
         alt={event.title}
         width={200}
         height={100}

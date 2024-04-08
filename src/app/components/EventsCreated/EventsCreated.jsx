@@ -44,7 +44,7 @@ export default function EventsCreated({ authToken, userId}) {
         {createdEvents.length > 0 ? (
             <div className="flex lg:flex-row md:flex-col gap-8">
                 {createdEvents.map(event => (
-                    <Card key={event.id} event={event} onDelete={handleDeleteEvent}/>
+                    <Card key={event.id} event={event} imageUrl={event.image_url} onDelete={handleDeleteEvent}/>
                 ))}
             </div>
         ) : (
@@ -53,3 +53,4 @@ export default function EventsCreated({ authToken, userId}) {
     </div>
     )
 }
+
