@@ -54,7 +54,6 @@ const Page = ({ searchParams }) => {
                 (event.title && event.title.toLowerCase().includes(query.toLowerCase())) ||
                 (event.description && event.description.toLowerCase().includes(query.toLowerCase())) ||
                 (event.date && event.date.toLowerCase().includes(query.toLowerCase())) ||
-                (event.category_id && event.category_id.toLowerCase().includes(query.toLowerCase())) ||
                 (event.location && event.location.toLowerCase().includes(query.toLowerCase()))
             );
             setFilteredEvents(filtered);
