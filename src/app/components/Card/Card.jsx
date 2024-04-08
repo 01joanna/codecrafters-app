@@ -38,7 +38,7 @@ export default function Card({ event, className, onDelete, imageUrl }) {
         alt={event.title}
         width={200}
         height={100}
-        className="object-cover rounded-md"
+        className="object-cover rounded-md w-[200px] h-[100px]"
       />
       <div id="card-text" className="text-black flex flex-col gap-1 w-[170px]">
         <div className="flex gap-10 items-center">

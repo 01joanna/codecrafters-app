@@ -32,7 +32,7 @@ export default function Page() {
                     </div>
                 </section>
                 </> ) : (
-                    <p className='h-40 text-black text-xl align-middle text-center my-24 ' >You need to be logged in <br></br> to preview this page.</p>
+                    <p className='h-40 text-black text-xl align-middle text-center lg:my-32 md:my-80' >You need to be logged in <br></br> to preview this page.</p>
                 )
                 }
         </main>
