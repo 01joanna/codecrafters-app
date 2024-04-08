@@ -4,7 +4,6 @@ import Card from '../Card/Card';
 import Button from '../Button/Button';
 
 const EventsList = ({ events }) => {
-    console.log(events)
 
     const [filter, setFilter] = useState(null);
 
