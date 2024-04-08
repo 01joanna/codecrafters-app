@@ -9,8 +9,11 @@ import { MdOutlineManageAccounts } from "react-icons/md";
 import { IoLogOutOutline } from "react-icons/io5";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { logoutApi } from "../../../services/RestApi"; 
+import logoMoge from "/public/img/LogoMogeWhite.png";
 
 export default function Header() {
+
+    
     const { getAuthToken, logout } = useAuthContext();
     const router = useRouter();
     const token = getAuthToken();
@@ -52,8 +55,16 @@ export default function Header() {
 
     return (
         <header className="bg-white text-black flex justify-between h-[4rem] px-12">
-            <div id="logo" className="flex items-center">
-                <div className="text-xs lg:visible lg:flex md:hidden">
+            <div id="logo"  className="flex items-center">
+                <div className='z-44'>
+                    <Image
+                        src={logoMoge}
+                        alt={"logo"}
+                        width={150}
+                        height={100}
+                    />
+                </div>
+                <div className="text-xs font-bold lg:visible lg:flex md:hidden">
                     <ul>
                         <li>
                             <button onClick={() => handleNavigation('/events')}>
@@ -75,21 +86,21 @@ export default function Header() {
                                 <ul className="flex flex-col gap-1 text-[11px] items-center justify-center ">
                                     <li>
                                         <button
-                                            className='bg-yellow text-black rounded-lg px-2 py-1 w-[170px]'
+                                            className='bg-yellow font-bold text-black rounded-lg px-2 py-1 w-[170px]'
                                             onClick={() => handleNavigation('/events')}>
                                             Browse all events
                                         </button>
                                     </li>
                                     <li>
                                         <button
-                                            className='bg-yellow text-black rounded-lg px-2 py-1 w-[170px]'
+                                            className='bg-yellow font-bold text-black rounded-lg px-2 py-1 w-[170px]'
                                             onClick={() => handleNavigation(`/auth/[id]/your-events`)}>
                                             Your events
                                         </button>
                                     </li>
                                     <li>
                                         <button
-                                            className='bg-yellow text-black rounded-lg px-2 py-1 w-[170px]'
+                                            className='bg-yellow font-bold text-black rounded-lg px-2 py-1 w-[170px]'
                                             onClick={() => handleNavigation('/auth/events/create')}>
                                             Create an event
                                         </button>
@@ -98,14 +109,14 @@ export default function Header() {
                                         <>
                                             <li>
                                                 <button
-                                                    className='bg-yellow text-black rounded-lg px-2 py-1 flex items-center justify-center gap-2 w-[170px]'
+                                                    className='bg-yellow font-bold text-black rounded-lg px-2 py-1 flex items-center justify-center gap-2 w-[170px]'
                                                     onClick={() => handleNavigation(`/auth/[id]/profile`)}>
                                                     <MdOutlineManageAccounts /> My Account
                                                 </button>
                                             </li>
                                             <li>
                                                 <button
-                                                    className='bg-yellow text-black rounded-lg px-2 py-1 flex items-center justify-center gap-2 w-[170px]'
+                                                    className='bg-yellow font-bold text-black rounded-lg px-2 py-1 flex items-center justify-center gap-2 w-[170px]'
                                                     onClick={handleLogout}>
                                                     <IoLogOutOutline /> Log Out
                                                 </button>
@@ -114,7 +125,7 @@ export default function Header() {
                                     ) : (
                                         <li>
                                             <button
-                                                className='bg-yellow text-black rounded-lg px-2 py-1 flex items-center justify-center gap-2 w-[170px]'
+                                                    className='bg-yellow font-bold text-black rounded-lg px-2 py-1 flex items-center justify-center gap-2 w-[170px]'
                                                 onClick={() => handleNavigation('/register')}>
                                                 <MdOutlineManageAccounts /> Sign up
                                             </button>
@@ -124,7 +135,7 @@ export default function Header() {
                             </div>
                         )}
                     </div>
-                    <ul className="flex gap-6 text-xs md:hidden lg:flex">
+                    <ul className="flex gap-6 font-bold text-xs md:hidden lg:flex">
                         <li>
                             <button onClick={() => handleNavigation(`/auth/[id]/your-events`)}>
                                 Your events
