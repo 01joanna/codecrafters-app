@@ -66,7 +66,7 @@ export default function Home() {
             </p>
             <Button
               text={"Join us!"}
-              className="bg-lightmayonnaise py-2 px-8 text-xs rounded-md"
+              className="bg-black py-2 px-8 text-xs rounded-md"
               onClick={() => handleNavigation("/register")}
             />
           </div>

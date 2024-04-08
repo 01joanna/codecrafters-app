@@ -54,7 +54,7 @@ export default function Header() {
     };
 
     return (
-        <header className="bg-white text-black flex justify-between h-[4rem] px-12">
+        <header className="bg-white text-black flex justify-between h-[4rem] lg:px-12 md:px-0">
             <div id="logo"  className="flex items-center">
                 <div className='z-44'>
                     <Image
@@ -63,6 +63,7 @@ export default function Header() {
                         width={150}
                         height={100}
                         onClick={() => handleNavigation('/')}
+                        className='cursor-pointer min-h-11 min-w-20'
                     />
                 </div>
                 <div className="text-xs font-bold lg:visible lg:flex md:hidden">
@@ -75,16 +76,17 @@ export default function Header() {
                     </ul>
                 </div>
             </div>
-            <div className="flex items-center gap-4">
+            <div className="flex items-center lg:gap-4 md:gap-2">
                 <Searchbar />
                 <nav>
                     <div
                         onClick={toggleMenu}
-                        className="md:visible lg:hidden">
-                        <GiHamburgerMenu />
+                        className="md:visible lg:hidden pr-8">
+                        <GiHamburgerMenu 
+                        className='text-2xl'/>
                         {isMenuOpen && (
                             <div className=" absolute w-[170px] top-[3.5rem] right-1 border border-gray-200 z-10">
-                                <ul className="flex flex-col gap-1 text-[11px] items-center justify-center ">
+                                <ul className="flex flex-col gap-1 text-[11px] items-center justify-center bg-white">
                                     <li>
                                         <button
                                             className='bg-yellow font-bold text-black rounded-lg px-2 py-1 w-[170px]'
@@ -112,7 +114,8 @@ export default function Header() {
                                                 <button
                                                     className='bg-yellow font-bold text-black rounded-lg px-2 py-1 flex items-center justify-center gap-2 w-[170px]'
                                                     onClick={() => handleNavigation(`/auth/[id]/profile`)}>
-                                                    <MdOutlineManageAccounts /> My Account
+                                                    <MdOutlineManageAccounts /> 
+                                                    <p>My Account</p>
                                                 </button>
                                             </li>
                                             <li>
@@ -150,20 +153,26 @@ export default function Header() {
                         {token ? (
                             <>
                                 <li>
-                                    <button onClick={() => handleNavigation(`auth/[id]/profile`)}>
+                                    <button onClick={() => handleNavigation(`/auth/[id]/profile`)}>
+                                        <div className='flex gap-2'>
                                         <MdOutlineManageAccounts /> My Account
+                                        </div>
                                     </button>
                                 </li>
                                 <li>
                                     <button onClick={handleLogout}>
+                                    <div className='flex gap-2'>
                                         <IoLogOutOutline /> Log Out
+                                    </div>
                                     </button>
                                 </li>
                             </>
                         ) : (
                             <li>
                                 <button onClick={() => handleNavigation('/register')}>
+                                <div className='flex gap-2'>
                                     <MdOutlineManageAccounts /> Sign up
+                                </div>
                                 </button>
                             </li>
                         )}
