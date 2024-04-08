@@ -15,6 +15,7 @@ const Assistants = ({ event, count, className }) => {
             try {
                 const users = await getRegisteredUsersForEvent(eventId, authToken);
                 setRegisteredUsers(users.data);
+                console.log("Registered users:", registeredUsers);
             } catch (error) {
                 console.error("Error fetching registered users:", error);
             }

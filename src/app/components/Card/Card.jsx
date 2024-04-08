@@ -38,12 +38,18 @@ export default function Card({ event, className, onDelete, imageUrl }) {
         alt={event.title}
         width={200}
         height={100}
-        className="object-cover rounded-md"
+        className="object-cover rounded-md w-[200px] h-[100px]"
       />
       <div id="card-text" className="text-black flex flex-col gap-1 w-[170px]">
-        <div className="flex gap-3 items-center">
-          <h1 className="text-lg">{event.title}</h1>
-          <IoEarthSharp />
+        <div className="flex gap-10 items-center">
+          <h1 className="text-lg w-2/3">{event.title}</h1>
+          <div id="category-icon" className="w-1/3" >
+            {event.category_id === 1 ?  (
+              <IoEarthSharp className="text-1xl"/>
+            ) : (
+              <FaUsers className="text-1xl"/>
+            )}   
+          </div> 
         </div>
         <div className="flex gap-3 text-xs uppercase">
           <h2 className="text-gray-400 text-xs">{event.date}</h2>

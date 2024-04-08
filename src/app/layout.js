@@ -16,7 +16,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <meta name="csrf-token" content="{{ csrf_token() }}"></meta>
-      <body>
+      <body className="">
         
         <AuthContextProvider>
           <Header />

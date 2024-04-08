@@ -31,6 +31,11 @@ body {
       rgb(var(--background-end-rgb))
     )
     rgb(var(--background-start-rgb));
+
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+
 }
 
 @layer utilities {
@@ -39,7 +44,7 @@ body {
   }
 
   main {
-    @apply bg-white text-black;
+    @apply bg-white text-black ;
   
   }
 
@@ -80,6 +85,20 @@ body {
 
   .pointer  {
   cursor: pointer;
+}
+
+footer {
+  @apply mt-auto;
+}
+
+#footer {
+  @apply bg-white text-black ;
+}
+
+.no-hover:hover,
+.no-hover:active {
+  pointer-events: none;
+  background-color: transparent !important;
 }
   
 }
