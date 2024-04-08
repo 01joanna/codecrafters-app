@@ -87,7 +87,7 @@ export default function EventDetails({ event }) {
                                 </div>
                                 <div>
                                     <h3 id='event-details-h3'>Date and time</h3>
-                                    <p id='event-details-text'>{event.date}</p> 
+                                    <p id='event-details-text'>{new Date(event.date).toDateString()}</p> 
                                 </div>
                                 <div>
                                     <h3 id='event-details-h3'>Max. assistants</h3>
