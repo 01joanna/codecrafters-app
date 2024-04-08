@@ -16,7 +16,7 @@ const EventsList = ({ events }) => {
     return (
         <div className='flex flex-col gap-10'>
             <h1 className='text-bold text-[80px] text-black pl-12'>All events</h1>
-            <div id="filter-btns" className='flex gap-6 border justify-center border-lightmayonnaise py-6'>
+            <div id="filter-btns" className='flex gap-6 border justify-center border-lightmayonnaise py-6 mx-44'>
                 <p>Filter by:</p>
                 <Button text={"Online"} className="px-20" onClick={() => handleFilter(1)} />
                 <Button text={"In-person"} className="px-20" onClick={() => handleFilter(2)} />

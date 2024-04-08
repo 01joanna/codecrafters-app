@@ -5,6 +5,7 @@ import Card from "./components/Card/Card";
 import { useEffect, useState } from "react";
 import { getAllEvents } from "../services/RestApi";
 import { useAuthContext } from "../contexts/AuthContext";
+import { useRouter } from "next/navigation";
 
 const imageLanding = "https://placehold.co/1400x625";
 
@@ -12,6 +13,7 @@ export default function Home() {
   const [events, setEvents] = useState([]);
   const { getUserData } = useAuthContext();
   const userData = useAuthContext().getUserData(); 
+  const router = useRouter();
 
 
   useEffect(() => {
@@ -37,6 +39,10 @@ export default function Home() {
     return chunkedArray;
   };
 
+  const handleNavigation = (url) => {
+    router.push(url);
+};
+
   return (
     <main className="bg-white flex flex-col gap-8 pb-20">
       <section className="flex flex-col gap-4 items-center">
@@ -61,7 +67,7 @@ export default function Home() {
             <Button
               text={"Join us!"}
               className="bg-lightmayonnaise py-2 px-8 text-xs rounded-md"
-              to="/signup"
+              onClick={() => handleNavigation("/register")}
             />
           </div>
         </div>
@@ -107,8 +113,8 @@ export default function Home() {
           <div>
           <Button
             text="Browse all events"
-            className="bg-lightmayonnaise md:text-md py-2 lg:px-36 md:px-15 rounded-xl"
-            to="/events"
+            className="md:text-md py-2 lg:px-36 md:px-15 rounded-xl"
+            onClick={() => handleNavigation("/events")}
           />
           </div>
         </div>

@@ -52,7 +52,11 @@ export default function Card({ event, className, onDelete, imageUrl }) {
           </div> 
         </div>
         <div className="flex gap-3 text-xs uppercase">
-          <h2 className="text-gray-400 text-xs">{event.date}</h2>
+        {event.date && (
+  <h2 className="text-gray-400 text-xs">
+    {new Date(event.date).toDateString()}
+  </h2>
+)}
           <h3>{event.location}</h3>
         </div>
         <span className="flex gap-2 items-center text-xs">

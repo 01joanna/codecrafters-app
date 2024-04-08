@@ -184,8 +184,8 @@ export default function EventCreate() {
                     </div>
                 </div>
                 <div className="flex gap-4 text-sm pt-12 justify-center items-center">
-                    <button type="submit" className="px-16 py-2 bg-lightmayonnaise font-light justify-center rounded-xl">Send</button>
-                    <button type="submit" className="px-16 py-2 bg-lightmayonnaise font-light justify-center rounded-xl">Go Back</button>
+                    <button type="submit" className="px-16 py-2 bg-black text-lightmayonnaise font-light justify-center rounded-xl">Send</button>
+                    <button type="submit" className="px-16 py-2 bg-black text-lightmayonnaise font-light justify-center rounded-xl">Go Back</button>
                 </div>
             </fieldset>
         </form>
