@@ -70,11 +70,13 @@ export default function EventCreate() {
             alert('Evento creado con éxito')
             router.refresh();
             router.push('/events');
+            handleEventCreationSuccess();
 
         } catch (error) {
             console.error('Error al crear el evento:', error);
         }
     };
+
 
     return (
         authToken ? (

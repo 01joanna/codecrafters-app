@@ -46,9 +46,6 @@ export default function AuthContextProvider({ children }) {
         const name = Cookies.get("name");
         const email = Cookies.get("email");
         let image = Cookies.get("image");
-        // if (image) {
-        //     image = image.replace(/"/g, '').replace(/^(?!\/)/, '/');
-        // }
         return { name, email, image };
     }, []);
 
@@ -57,6 +54,7 @@ export default function AuthContextProvider({ children }) {
         return !!getAuthToken();
     }, [getAuthToken]);
 
+
     const value = useMemo(
         () => ({
             login,
@@ -64,7 +62,7 @@ export default function AuthContextProvider({ children }) {
             getAuthToken,
             getUserData,
             isUserAuthenticated,
-            getUserInfo
+            getUserInfo,
         }),
         [login, logout, getAuthToken, getUserData, isUserAuthenticated, getUserInfo]
     );

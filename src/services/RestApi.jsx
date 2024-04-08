@@ -30,7 +30,7 @@ export const register = async (userData) => {
 
     export const loginApi = async (userData) => {
         try {
-            const response = await axios.post("/login", userData, );
+            const response = await axios.post("/login", userData);
             const accessToken = response.data.data.token;
             const user = response.data.data.user;
             return {accessToken, user };

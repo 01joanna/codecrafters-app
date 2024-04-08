@@ -37,15 +37,6 @@ export default function Home() {
 
   return (
     <main className="bg-white flex flex-col gap-8 pb-20">
-      {userData ? (
-        <p>Datos del usuario logueado:
-          Id: {userData.id}<br />
-          Nombre: {userData.name}<br />
-          Email: {userData.email}
-        </p>
-      ) : (
-        <p>No hay ningún login</p>
-      )}
       <section className="flex flex-col gap-4 items-center">
         <div>
           <Image

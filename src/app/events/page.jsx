@@ -6,7 +6,6 @@ import Pagination from '@/app/components/Pagination/Pagination';
 import { getAllEvents } from '../../services/RestApi';
 
 const Page = ({ searchParams }) => {
-    const router = useRouter();
     const query = searchParams?.query || '';
 
     const [currentPage, setCurrentPage] = useState(1);
@@ -20,15 +19,16 @@ const Page = ({ searchParams }) => {
         console.log("Valor actual del parámetro de consulta:", query);
     }, [query]);
 
-    const loadEvents = async (page) => {
+
+    const loadEvents = async () => {
         setLoading(true);
         try {
-            const events = await getAllEvents(page);
+            const events = await getAllEvents();
             const eventsData = events.data;
             const paginationData = {
-                currentPage: events.current_page,
-                totalPages: events.last_page,
-                totalItems: events.total,
+                currentPage: eventsData.current_page,
+                totalPages: eventsData.last_page,
+                totalItems: eventsData.total,
             };
             if (events.length === 0) {
                 setLoadAttempts(prevAttempts => prevAttempts + 1);
@@ -40,8 +40,8 @@ const Page = ({ searchParams }) => {
             console.log('Eventos cargados:', eventsData)
             console.log('Datos de paginación:', paginationData)
             console.log('data:', events)
-            filterEvents(eventsData, query)
             setTotalPages(paginationData.totalPages);
+            console.log(eventsData.data)
         } catch (error) {
             setLoading(false);
             console.error('Error al cargar los eventos:', error);
@@ -49,12 +49,12 @@ const Page = ({ searchParams }) => {
     }
 
     const filterEvents = useCallback((eventsData, query) => {
-        if (Array.isArray(eventsData)) {
-        const filtered = eventsData.filter(event => 
+        if (eventsData) {
+        const filtered = eventsData.data.filter(event => 
             event.title?.toLowerCase().includes(query.toLowerCase()) ||
             event.description?.toLowerCase().includes(query.toLowerCase()) ||
             event.date?.toLowerCase().includes(query.toLowerCase()) ||
-            // event.category?.toLowerCase().includes(query.toLowerCase()) ||
+            event.category_id?.toLowerCase().includes(query.toLowerCase()) ||
             event.location?.toLowerCase().includes(query.toLowerCase())
         );
         setFilteredEvents(filtered)
@@ -64,24 +64,27 @@ const Page = ({ searchParams }) => {
         console.log('No hay eventos para filtrar');
     }
     }, []);
-
-
+    
     useEffect(() => {
-        if (loadAttempts < 3) { // Limita a 3 intentos de carga
-            loadEvents(currentPage);
-        }
-    }, [currentPage, loadAttempts]);
-
-    useEffect(() => {
-        if (events.length > 0) {
         filterEvents(events, query);
-        }
     }, [query, events, filterEvents]);
+
 
     const handlePageUpdate = (pageNumber) => {
         setCurrentPage(pageNumber);
         loadEvents(pageNumber);
     };
+
+    useEffect(() => {
+        if (loadAttempts < 3) {
+            loadEvents(currentPage);
+        }
+    }, [currentPage, loadAttempts]);
+    
+    // useEffect(() => {
+    //     filterEvents(events, query);
+    // }, [query, events, filterEvents]);
+
 
 
 
