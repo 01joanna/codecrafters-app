@@ -48,7 +48,7 @@ export default function EventDetails({ event }) {
                             alt={event.title}
                             width={1000}
                             height={650}
-                            className='lg:h-[480px] md:h-[300px] lg:w-[1120px] md:w-[200px] object-cover rounded-3xl'
+                            className='lg:h-[480px] md:h-[300px] lg:w-[1120px] md:w-[200px] object-cover rounded-3xl mt-5'
                         />
                     </section>
                     <aside className='flex flex-col gap-7 mx-10 w-[60%] justify-center items-ceter'>
