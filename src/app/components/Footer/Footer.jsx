@@ -40,11 +40,11 @@ export default function Footer() {
                         <p onClick={() => handleNavigation('/privacy')} style={{ cursor: 'pointer' }}>Privacy Policy</p>
                     </div>
                 </div>
-                <div id="membership-flag" className='md:hidden lg:visible lg:flex lg:flex-col lg:h-[7rem] lg:gap-4  text-black'>
+                <div id="membership-flag" className='md:hidden lg:visible lg:flex lg:flex-col lg:h-[7rem] lg:gap-4 z-40 text-black'>
                     <p className='text-2xl text-center'>Are you already a member?</p>
                     <Button
-                        to="/login"
-                        className="bg-customdark px-20 text-xs py-2.5 rounded-2xl bg-black text-white"
+                        OnClick={() => handleNavigation('/login')}
+                        className="px-20 text-xs py-2.5 rounded-2xl text-white z-40 no-hover"
                         text="Create an event"
                         
                     />
@@ -72,7 +72,7 @@ export default function Footer() {
                     </div>
                 </section>
 
-                <aside className='md:invisible lg:visible absolute bottom-[-6rem] left-[10rem]'>
+                <aside className='md:invisible lg:visible absolute bottom-[-6rem] left-[10rem] z-1'>
                     <p className='text-[300px] text-black '>./moge</p>
                 </aside>
 
