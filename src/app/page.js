@@ -28,6 +28,8 @@ export default function Home() {
 
   //Función para dividir los eventos en grupos de 5
   const chunkEvents = (array, size) => {
+    if(!array || !array.length) return [];
+    
     const chunkedArray = [];
     for (let i = 0; i < array.length; i += size) {
       chunkedArray.push(array.slice( i,+ size)); // Corregido: i + size
@@ -93,8 +95,8 @@ export default function Home() {
           />
         </div> */}
         <div className="flex flex-col gap-10 items-center">
-          <div className=" ">
-          {chunkEvents(events, 4).map((group, index) => (
+          <div className="">
+          {chunkEvents(events.data, 4).map((group, index) => (
               <div key={index} className=" flex md:flex-col lg:flex-row gap-10">
                 {group.map((event) => (
                   <Card key={event.id} event={event} />

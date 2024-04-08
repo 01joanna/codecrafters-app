@@ -44,7 +44,7 @@ export default function EventCreate() {
         }));
     };
 
-    console.log(eventForm);
+    //console.log(eventForm);
 
     const handleSubmit = async (event) => {
         event.preventDefault();
