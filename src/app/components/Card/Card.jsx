@@ -27,19 +27,19 @@ export default function Card({ event, className, onDelete }) {
     if (isConfirmed) {
       onDelete(event);
     }
-  }; 
+  };
 
 
   const defaultCSS = "bg-white flex flex-col gap-4"
   return (
     <div className={`${className} ${defaultCSS}`}>
-        <img
-        src={event.image_url}
+      <img
+        src={"/storage/images/${event.image}"} //falta el trozo delantero
         alt={event.title}
         width={200}
         height={100}
         className="object-cover rounded-md"
-        />
+      />
       <div id="card-text" className="text-black flex flex-col gap-1 w-[170px]">
         <div className="flex gap-3 items-center">
           <h1 className="text-lg">{event.title}</h1>
@@ -53,12 +53,12 @@ export default function Card({ event, className, onDelete }) {
           <FaUsers />
           <h6>{event.attendees_count} assistants</h6>
         </span>
-        <button 
-        className="bg-lightmayonnaise text-black text-[9px] py-1 px-2 rounded-md mt-4"
-        onClick={HandleViewDetails}>View Event Details</button>
+        <button
+          className="bg-lightmayonnaise text-black text-[9px] py-1 px-2 rounded-md mt-4"
+          onClick={HandleViewDetails}>View Event Details</button>
         {isOwner && (
           <div className="flex gap-2 mt-2">
-            <CiEdit 
+            <CiEdit
               className="text-blue-500 cursor-pointer"
               onClick={() => router.push(`/events/${event.id}`)}
               event={event}
