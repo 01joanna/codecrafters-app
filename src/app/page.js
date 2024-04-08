@@ -59,6 +59,7 @@ export default function Home() {
             <Button
               text={"Join us!"}
               className="bg-lightmayonnaise py-2 px-8 text-xs rounded-md"
+              to="/signup"
             />
           </div>
         </div>
@@ -75,8 +76,8 @@ export default function Home() {
 
       <aside className="flex flex-col gap-16">
         <h2 className="text-6xl font-bold pl-36 text-black">Weekly events</h2>
-        <div className="flex flex-col justify-center items-center gap-20">
-          <div className="flex">
+        {/* <div className="flex flex-col justify-center items-center gap-20">
+          <div className="flex w-full">
             {chunkEvents(events, 4).map((group, index) => (
               <div key={index} className="gap-10">
                 {group.map((event) => (
@@ -90,6 +91,24 @@ export default function Home() {
             className="bg-lightmayonnaise md:text-md py-2 lg:px-36 md:px-15 rounded-xl"
             href="/events"
           />
+        </div> */}
+        <div className="flex flex-col gap-10 items-center">
+          <div className=" ">
+          {chunkEvents(events, 4).map((group, index) => (
+              <div key={index} className=" flex md:flex-col lg:flex-row gap-10">
+                {group.map((event) => (
+                  <Card key={event.id} event={event} />
+                ))}
+                </div>
+            ))}
+          </div>
+          <div>
+          <Button
+            text="Browse all events"
+            className="bg-lightmayonnaise md:text-md py-2 lg:px-36 md:px-15 rounded-xl"
+            to="/events"
+          />
+          </div>
         </div>
       </aside>
     </main>
