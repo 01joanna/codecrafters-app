@@ -99,7 +99,7 @@ export default function Home() {
           {chunkEvents(events.data, 4).map((group, index) => (
               <div key={index} className=" flex md:flex-col lg:flex-row gap-10">
                 {group.map((event) => (
-                  <Card key={event.id} event={event} />
+                  <Card key={event.id} event={event} imageUrl={event.image_url} />
                 ))}
                 </div>
             ))}
