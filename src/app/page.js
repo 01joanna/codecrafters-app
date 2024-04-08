@@ -76,7 +76,7 @@ export default function Home() {
       <aside className="flex flex-col gap-16">
         <h2 className="text-6xl font-bold pl-36 text-black">Weekly events</h2>
         <div className="flex flex-col justify-center items-center gap-20">
-          <div className="flex">
+          <div className="flex w-full">
             {chunkEvents(events, 4).map((group, index) => (
               <div key={index} className="gap-10">
                 {group.map((event) => (

@@ -1,64 +1,83 @@
 import Image from 'next/image'
 import Button from '../Button/Button'
+import { useRouter } from 'next/navigation';
+import '../../../app/globals.css'
 
 export default function Footer() {
+    const router = useRouter();
+
+    const handleNavigation = (url) => {
+        router.push(url);
+    };
+
     return (
-        <footer className="bg-yellow md:h-auto lg:h-[300px] p-5 relative overflow-hidden">
+        <footer className="bg-yellow md:h-auto lg:h-[300px] p-5 relative overflow-hidden bottom-0">
             <section className="flex w-full justify-around">
                 <div id="social-terms">
                     <div className='flex gap-2'>
-                    <Image 
-                    src="/img/linkedin-icon.svg"
-                    alt="LinkedIn"
-                    width={20}
-                    height={20}
-                    />
-                    <Image 
-                    src="/img/instagram-icon.svg"
-                    alt="Instagram"
-                    width={20}
-                    height={20}
-                    /> 
-                    <Image 
-                    src="/img/dice-icon.svg"
-                    alt="Dice"
-                    width={20}
-                    height={20}
-                    />
+                        <Image
+                            src="/img/linkedin-icon.svg"
+                            alt="LinkedIn"
+                            width={20}
+                            height={20}
+                        />
+                        <Image
+                            src="/img/instagram-icon.svg"
+                            alt="Instagram"
+                            width={20}
+                            height={20}
+                        />
+                        <Image
+                            src="/img/dice-icon.svg"
+                            alt="Dice"
+                            width={20}
+                            height={20}
+                        />
                     </div>
-                    <div className='text-xs pt-3 lg:flex lg:flex-col md:hidden '>
+                    <div className='text-xs pt-3 lg:flex lg:flex-col md:hidden  text-black'>
                         <p>Copyright ©2024 Moge Company Design</p>
-                        <p>Terms of Use</p>
-                        <p>Privacy Policy</p>
+                        <p onClick={() => handleNavigation('/terms')} style={{ cursor: 'pointer' }}>Terms of Use</p>
+                        <p onClick={() => handleNavigation('/privacy')} style={{ cursor: 'pointer' }}>Privacy Policy</p>
                     </div>
                 </div>
-                <div id="membership-flag" className='md:hidden lg:visible lg:flex lg:flex-col lg:h-[7rem] lg:gap-4'>
+                <div id="membership-flag" className='md:hidden lg:visible lg:flex lg:flex-col lg:h-[7rem] lg:gap-4  text-black'>
                     <p className='text-2xl text-center'>Are you already a member?</p>
-                    <Button 
-                    to="/login"
-                    className="bg-customdark px-20 text-xs py-2.5 rounded-2xl text-white" text="Create an event"/>
-                    <div className='flex gap-2 font-light text-xs justify-center text-center'> 
+                    <Button
+                        to="/login"
+                        className="bg-customdark px-20 text-xs py-2.5 rounded-2xl bg-black text-white"
+                        text="Create an event"
+                        
+                    />
+
+
+                    <div className='flex gap-2 font-light text-xs justify-center text-center  text-black'>
                         <Image
-                        src="/img/spain-flag.svg"
-                        alt='Spanish flag'
-                        width={20}
-                        height={20}
+                            src="/img/spain-flag.svg"
+                            alt='Spanish flag'
+                            width={20}
+                            height={20}
                         />
                         <p>Barcelona, SP</p>
                     </div>
                 </div>
-                <div id="footer-navbar" className="flex gap-4">
+
+
+                <section id="footer-navbar" className="flex gap-4 z-40">
                     <h1 className='text-3xl'>./m</h1>
-                    <ul className='text-xs md:hidden lg:visible lg:flex lg:flex-col gap-3'>
-                        <li><a href="/">Home</a></li>
-                        <li><a href="/events">Events</a></li>
-                        <li><a href="/signup">Sign Up</a></li>
-                    </ul>
-                </div>
+                    <div className='text-m md:hidden lg:visible lg:flex lg:flex-col gap-3 text-black '>
+                        
+                        <a onClick={() => handleNavigation('/')} style={{ cursor: 'pointer' }}>Home</a>
+                        <p onClick={() => handleNavigation('/events')} style={{ cursor: 'pointer' }}>Events</p>
+                        <p onClick={() => handleNavigation('/login')} style={{ cursor: 'pointer' }}>Sign Up</p>
+                    </div>
+                </section>
+
+                <aside className='md:invisible lg:visible absolute bottom-[-6rem] left-[10rem]'>
+                    <p className='text-[300px] text-black '>./moge</p>
+                </aside>
+
             </section>
-            <aside className='md:invisible lg:visible absolute bottom-[-8rem] left-[15rem]'>
-                <p className='text-[300px] '>./moge</p>
-            </aside>
+            
         </footer>
-)
+    );
 }

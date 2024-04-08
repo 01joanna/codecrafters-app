@@ -8,17 +8,39 @@ import { useAuthContext } from "@/contexts/AuthContext";
 import { MdOutlineManageAccounts } from "react-icons/md";
 import { IoLogOutOutline } from "react-icons/io5";
 import { GiHamburgerMenu } from "react-icons/gi";
+import { logoutApi } from "../../../services/RestApi"; 
 
 export default function Header() {
-    const { getAuthToken, getUserData } = useAuthContext();
+    const { getAuthToken, logout } = useAuthContext();
     const router = useRouter();
-    const [token, setToken] = useState('');
-    const user = getUserData();
+    const token = getAuthToken();
+    // const user = getUserData();
     const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-    useEffect(() => {
-        setToken(getAuthToken())
-    }, [getAuthToken]);
+    const handleLogout = async () => {
+        const authToken = getAuthToken(); // Obtener el token de autenticación
+
+        try {
+            // Realizar el logout utilizando la función logoutApi
+            await logoutApi(authToken);
+            // Eliminar el token de autenticación del contexto
+            logout();
+            // Redirigir al usuario a la página principal
+            router.push("/");
+            // Recargar la página
+            window.location.reload();
+        } catch (error) {
+            console.error("Error al cerrar sesión:", error);
+            // Manejar el error si es necesario
+        }
+    };
+    // useEffect(() => {
+    //     // Si el token se vuelve null (es decir, el usuario cierra sesión), redirigir a la página de inicio
+    //     if (token === null) {
+    //         router.push("/register");
+    //     }
+    // }, [token]);
+
 
     const handleNavigation = (route) => {
         router.push(route);
@@ -44,66 +66,67 @@ export default function Header() {
             <div className="flex items-center gap-4">
                 <Searchbar />
                 <nav>
-                <div 
-                onClick={toggleMenu} 
-                className="md:visible lg:hidden">
-                    <GiHamburgerMenu />
-                    {isMenuOpen && (
-                        <div className=" absolute w-[170px] top-[3.5rem] right-1 border border-gray-200 z-10">
-                            <ul className="flex flex-col gap-1 text-[11px] items-center justify-center ">
-                                <li>
-                                    <button 
-                                    className='bg-yellow text-black rounded-lg px-2 py-1 w-[170px]'
-                                    onClick={() => handleNavigation('/events')}>
-                                        Browse all events
-                                    </button>
-                                </li>
-                                <li>
-                                    <button 
-                                    className='bg-yellow text-black rounded-lg px-2 py-1 w-[170px]'
-                                            onClick={() => handleNavigation(`/auth/[id]/your-events`)}>
-                                        Your events
-                                    </button>
-                                </li>
-                                <li>
-                                    <button 
-                                    className='bg-yellow text-black rounded-lg px-2 py-1 w-[170px]'
-                                    onClick={() => handleNavigation('/auth/events/create')}>
-                                        Create an event
-                                    </button>
-                                </li>
-                                {token ? (
-                                    <>
-                                        <li>
-                                            <button 
-                                            className='bg-yellow text-black rounded-lg px-2 py-1 flex items-center justify-center gap-2 w-[170px]'
-                                                    onClick={() => handleNavigation(`/auth/[id]/profile`)}>
-                                                <MdOutlineManageAccounts /> My Account
-                                            </button>
-                                        </li>
-                                        <li>
-                                            <button 
-                                            className='bg-yellow text-black rounded-lg px-2 py-1 flex items-center justify-center gap-2 w-[170px]'
-                                            onClick={() => handleNavigation('/auth/logout')}>
-                                                <IoLogOutOutline /> Log Out
-                                            </button>
-                                        </li>
-                                    </>
-                                ) : (
+                    <div
+                        onClick={toggleMenu}
+                        className="md:visible lg:hidden">
+                        <GiHamburgerMenu />
+                        {isMenuOpen && (
+                            <div className=" absolute w-[170px] top-[3.5rem] right-1 border border-gray-200 z-10">
+                                <ul className="flex flex-col gap-1 text-[11px] items-center justify-center ">
                                     <li>
-                                        <button 
-                                        className='bg-yellow text-black rounded-lg px-2 py-1 flex items-center justify-center gap-2 w-[170px]'
-                                        onClick={() => handleNavigation('/register')}>
-                                            <MdOutlineManageAccounts /> Sign up
+                                        <button
+                                            className='bg-yellow text-black rounded-lg px-2 py-1 w-[170px]'
+                                            onClick={() => handleNavigation('/events')}>
+                                            Browse all events
                                         </button>
                                     </li>
-                                )}
-                            </ul>
-                        </div>
-                    )}
-                </div>
+                                    <li>
+                                        <button
+                                            className='bg-yellow text-black rounded-lg px-2 py-1 w-[170px]'
+                                            onClick={() => handleNavigation(`/auth/[id]/your-events`)}>
+                                            Your events
+                                        </button>
+                                    </li>
+                                    <li>
+                                        <button
+                                            className='bg-yellow text-black rounded-lg px-2 py-1 w-[170px]'
+                                            onClick={() => handleNavigation('/auth/events/create')}>
+                                            Create an event
+                                        </button>
+                                    </li>
+                                    {token ? (
+                                        <>
+                                            <li>
+                                                <button
+                                                    className='bg-yellow text-black rounded-lg px-2 py-1 flex items-center justify-center gap-2 w-[170px]'
+                                                    onClick={() => handleNavigation(`/auth/[id]/profile`)}>
+                                                    <MdOutlineManageAccounts /> My Account
+                                                </button>
+                                            </li>
+                                            <li>
+                                                <button
+                                                    className='bg-yellow text-black rounded-lg px-2 py-1 flex items-center justify-center gap-2 w-[170px]'
+                                                    onClick={handleLogout}>
+                                                    <IoLogOutOutline /> Log Out
+                                                </button>
+                                            </li>
+                                        </>
+                                    ) : (
+                                        <li>
+                                            <button
+                                                className='bg-yellow text-black rounded-lg px-2 py-1 flex items-center justify-center gap-2 w-[170px]'
+                                                onClick={() => handleNavigation('/register')}>
+                                                <MdOutlineManageAccounts /> Sign up
+                                            </button>
+                                        </li>
+                                    )}
+                                </ul>
+                            </div>
+                        )}
+                    </div>
                     <ul className="flex gap-6 text-xs md:hidden lg:flex">
                         <li>
+
                             <button onClick={() => handleNavigation(`/auth/[id]/your-events`)}>
                                 Your events
                             </button>
@@ -121,7 +144,7 @@ export default function Header() {
                                     </button>
                                 </li>
                                 <li>
-                                    <button onClick={() => handleNavigation('/auth/logout')}>
+                                    <button onClick={handleLogout}>
                                         <IoLogOutOutline /> Log Out
                                     </button>
                                 </li>

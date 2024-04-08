@@ -40,18 +40,21 @@ export const register = async (userData) => {
         };
 
     export const logoutApi = async (authToken) => {
-    try {
-        const response = await axios.post("/logout", {
-            headers: {
-                Authorization: `Bearer ${authToken}`
-            } 
-        });
-        console.log(response)
-        return response;
-    } catch (error) {
-        throw error;
-    }
-    };
+        console.log(authToken);
+
+        try {
+            const response = await axios.post("/logout", {}, {
+                headers: {
+                    Authorization: `Bearer ${authToken}`
+                }
+            });
+            return response.data;
+        } catch (error) {
+            throw error;
+        }
+};
+
+
 
     // User routes
 
@@ -78,6 +81,7 @@ export const updateUserProfile = async (userId, formData, authToken) => {
             },
             
         });
+        window.location.reload();
         return response.data; // <- ¡Importante: devuelve los datos de la respuesta!
         
     } catch (error) {
