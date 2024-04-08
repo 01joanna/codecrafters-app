@@ -35,6 +35,7 @@ body {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
+    background-color: white;
 
 }
 
@@ -89,10 +90,9 @@ body {
 
 footer {
   @apply mt-auto;
-}
-
-#footer {
-  @apply bg-white text-black ;
+  margin-top: auto;
+  padding-top: 20px;
+  background-color: white; 
 }
 
 .no-hover:hover,

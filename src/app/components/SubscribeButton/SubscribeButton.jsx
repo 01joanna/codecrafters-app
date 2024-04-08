@@ -11,7 +11,7 @@ export default function SubscribeButton({ event, onSubscribe }) {
     const userData = getUserData();
     const router = useRouter();
     const [isSubscribed, setIsSubscribed] = useState(false);
-    // const [showModal, setShowModal] = useState(false);
+    const [isRegistered, setIsRegistered] = useState(false);
 
     useEffect(() => {
         const fetchSubscribedEvents = async () => {
@@ -24,10 +24,16 @@ export default function SubscribeButton({ event, onSubscribe }) {
         };
         if (userData && authToken) {
             fetchSubscribedEvents();
+            setIsRegistered(true);
+        } else {
+            setIsRegistered(false);
         }
-    }, [userData, authToken, event.id]);
+    }, [userData, authToken, event.id])
 
     const handleSubscribe = async () => {
+        if (!isRegistered) {
+            alert('You must be registered to subscribe to this event.'); 
+        }
         try {
             await subscribeToEvent(event.id, userData, authToken);
             setIsSubscribed(true);
@@ -47,14 +53,6 @@ export default function SubscribeButton({ event, onSubscribe }) {
             console.error('Error unsubscribing from event:', error);
         }
     };
-
-    // const handleShowTicket = () => {
-    //     setShowModal(true);
-    // };
-
-    // const handleCloseModal = () => {
-    //     setShowModal(false); 
-    // };
 
     return (
         <div>

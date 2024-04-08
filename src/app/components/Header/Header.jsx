@@ -62,6 +62,7 @@ export default function Header() {
                         alt={"logo"}
                         width={150}
                         height={100}
+                        onClick={() => handleNavigation('/')}
                     />
                 </div>
                 <div className="text-xs font-bold lg:visible lg:flex md:hidden">
