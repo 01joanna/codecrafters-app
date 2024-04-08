@@ -33,8 +33,8 @@ export default function Card({ event, className, onDelete }) {
   const defaultCSS = "bg-white flex flex-col gap-4"
   return (
     <div className={`${className} ${defaultCSS}`}>
-      <img
-        src={"/storage/images/${event.image}"} //falta el trozo delantero
+      <Image
+        src={`/storage/images/${event.image}`} 
         alt={event.title}
         width={200}
         height={100}

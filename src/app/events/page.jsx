@@ -49,21 +49,22 @@ const Page = ({ searchParams }) => {
     }
 
     const filterEvents = useCallback((eventsData, query) => {
-        if (eventsData) {
-        const filtered = eventsData.data.filter(event => 
-            event.title?.toLowerCase().includes(query.toLowerCase()) ||
-            event.description?.toLowerCase().includes(query.toLowerCase()) ||
-            event.date?.toLowerCase().includes(query.toLowerCase()) ||
-            event.category_id?.toLowerCase().includes(query.toLowerCase()) ||
-            event.location?.toLowerCase().includes(query.toLowerCase())
-        );
-        setFilteredEvents(filtered)
-        console.log('Eventos filtrados:', filtered);
-    } else {
-        setFilteredEvents([]);
-        console.log('No hay eventos para filtrar');
-    }
+        if (eventsData && eventsData.data) {
+            const filtered = eventsData.data.filter(event =>
+                (event.title && event.title.toLowerCase().includes(query.toLowerCase())) ||
+                (event.description && event.description.toLowerCase().includes(query.toLowerCase())) ||
+                (event.date && event.date.toLowerCase().includes(query.toLowerCase())) ||
+                (event.category_id && event.category_id.toLowerCase().includes(query.toLowerCase())) ||
+                (event.location && event.location.toLowerCase().includes(query.toLowerCase()))
+            );
+            setFilteredEvents(filtered);
+            console.log('Eventos filtrados:', filtered);
+        } else {
+            setFilteredEvents([]);
+            console.log('No hay eventos para filtrar');
+        }
     }, []);
+
     
     useEffect(() => {
         filterEvents(events, query);
