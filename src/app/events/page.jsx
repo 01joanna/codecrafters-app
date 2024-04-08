@@ -85,10 +85,6 @@ const Page = ({ searchParams }) => {
     //     filterEvents(events, query);
     // }, [query, events, filterEvents]);
 
-
-
-
-
     return (
         <main className='bg-white'>
             {
