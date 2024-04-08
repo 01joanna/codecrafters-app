@@ -21,6 +21,7 @@ const EventsList = ({ events }) => {
                 <p>Filter by:</p>
                 <Button text={"Online"} className="px-20" onClick={() => handleFilter(1)} />
                 <Button text={"In-person"} className="px-20" onClick={() => handleFilter(2)} />
+                <Button text={"All"} className="px-20" onClick={() => handleFilter(null)} />
             </div>
             <div className="flex flex-wrap justify-center gap-4 py-8">
                 {filteredEvents.length > 0 ? (
