@@ -29,7 +29,9 @@ const EventsList = ({ events }) => {
             <h1 className='text-bold text-[80px] text-black pl-12'>All events</h1>
             <div className="flex flex-wrap justify-center gap-4 py-8">
                     {Array.isArray(events) ? events.map(event => (
-                        <Card key={event.id} event={event}/>
+                        <Card key={event.id}
+                            event={event}
+                            imageUrl={event.image}/>
                     )) : (
                         <div>No events found</div>
                     )}
