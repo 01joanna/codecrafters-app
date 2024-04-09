@@ -38,7 +38,7 @@ export default function SubscribeButton({ event, onSubscribe }) {
             await subscribeToEvent(event.id, userData, authToken);
             setIsSubscribed(true);
             alert('You have successfully subscribed to this event!')
-            router.refresh();
+            window.location.reload();
         } catch (error) {
             console.error('Error subscribing to event:', error);
         }
