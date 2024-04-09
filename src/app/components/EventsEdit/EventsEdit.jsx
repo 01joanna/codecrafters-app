@@ -61,7 +61,7 @@ export default function EventsEdit( { event, eventId }) {
             const response = await updateEvent(id, eventData, authToken);
             console.log('Evento editado:', response);
             alert('Event was edited correctly!')
-            router.refresh();
+            window.location.reload();
         } catch (error) {
             console.error('Error al crear el evento:', error);
         }
