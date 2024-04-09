@@ -13,7 +13,6 @@ export default function EventsSubscribed({ user, authToken }) {
             try {
                 const events = await getSubscribedEvents(userId, authToken);
                 setSubscribedEvents(events);
-                console.log('Eventos suscritos:', events);
             } catch (error) {
                 console.error(error);
             }

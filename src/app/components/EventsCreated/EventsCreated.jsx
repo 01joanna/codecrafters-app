@@ -17,7 +17,6 @@ export default function EventsCreated({ authToken, userId}) {
             try {
                 const events = await EventsCreatedByUser(user, authToken);
                 setCreatedEvents(events);
-                console.log('Eventos creados:', events);
             } catch (error) {
                 console.error(error);
             }

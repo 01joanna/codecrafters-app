@@ -56,14 +56,12 @@ export default function Profile() {
     const handleUpdate = async (e) => {
         e.preventDefault();
 
-        // Crear un objeto de datos JSON
         const jsonData = {
             name: formData.name,
             password: formData.password,
             password_confirmation: formData.password_confirmation,
         };
 
-        // Agregar el correo si no está vacío
         if (formData.email !== '') {
             jsonData.email = formData.email;
         }
@@ -79,7 +77,6 @@ export default function Profile() {
                     'Content-Type': 'application/json',
                 }
             });
-            console.log(response);
         } catch (error) {
             console.log(error);
         }
@@ -102,7 +99,7 @@ export default function Profile() {
         <main className="h-full flex flex-col items-center border-2 ">
             <h1 className="text-[60px] my-8">Your profile</h1>
             <div className='w-full border-5 flex lg:flex-row md:flex-col gap-4 m-8 md:items-center'>
-            <section id='prf' className="flex flex-col gap-4 lg:w-[50%] md:w-[90%] h-[470px] border border-lightmayonnaise rounded-xl items-center lg:ml-10 md:ml-0 justify-center py-10">
+            <section id='prf' className="flex flex-col gap-4 lg:w-[50%] md:w-[90%] h-[490px] border border-lightmayonnaise rounded-xl items-center lg:ml-10 md:ml-0 justify-center py-10">
                 <div className='flex gap-12 m-5 items-center justify-center'>
                 <div id='prf-image' className='items-center justify-center'>
                     <Image
@@ -134,7 +131,7 @@ export default function Profile() {
                         text={"Browse all your events"}/>
                     </div>
             </section>
-            <aside className="lg:w-[40%] md:w-[90%] lg:h-[470px] md:h-[500px] border border-lightmayonnaise items-center justify-center flex flex-col rounded-xl gap-6">
+            <aside className="lg:w-[40%] md:w-[90%] lg:h-[490px] md:h-[500px] border border-lightmayonnaise items-center justify-center flex flex-col rounded-xl gap-6">
                 <h2 className='font-light text-md'>Edit your profile</h2>
                 <div className='flex flex-col gap-3'>
                     <form onSubmit={handleUpdate} action="" className="flex flex-col gap-2 justify-center md:items-center">

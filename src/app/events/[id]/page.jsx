@@ -34,8 +34,6 @@ export default function EventPage() {
 
     }, [id]);
 
-    console.log('Evento:', event);
-
     return (
         <main className='bg-white text-black flex flex-col gap-10 pb-20'>
             {event ? (

@@ -26,14 +26,14 @@ export default function RegisterPage() {
 
     const handleFileChange = (e) => {
         setFormData({ ...formData, image: e.target.files[0] });
-        console.log("Estado actualizado:", formData);
+        // console.log("Estado actualizado:", formData);
     };
     const handleSubmit = async (e) => {
         e.preventDefault();
     
         try {
             const response = await register(formData);
-            console.log(response);
+            // console.log(response);
     
             if (typeof window !== 'undefined') {
                 localStorage.setItem('authToken', response.data.token);
@@ -41,7 +41,6 @@ export default function RegisterPage() {
     
             setSuccess(true);
             setError(null);
-            console.log('hola')
             router.push("/login");
         } catch (error) {
             setSuccess(false);
@@ -123,7 +122,7 @@ export default function RegisterPage() {
                         />
                     </div>
 
-                    {/* Image Selection */}
+                    Image Selection
                     <label htmlFor="image">IMAGE:</label>
                     <br />
                     <input

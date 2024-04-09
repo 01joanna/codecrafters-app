@@ -2,16 +2,20 @@ import Image from 'next/image'
 import Button from '../Button/Button'
 import { useRouter } from 'next/navigation';
 import '../../../app/globals.css'
+import { useAuthContext } from '@/contexts/AuthContext';
 
 export default function Footer() {
     const router = useRouter();
+    const { getAuthToken } = useAuthContext();
+    const token = getAuthToken();
+
 
     const handleNavigation = (url) => {
         router.push(url);
     };
 
     return (
-        <footer className="bg-yellow md:h-auto lg:h-[300px] p-5 relative overflow-hidden bottom-0">
+        <footer className="bg-yellow md:h-auto lg:h-[370px] p-5 relative overflow-hidden bottom-0">
             <section className="flex w-full justify-around">
                 <div id="social-terms">
                     <div className='flex gap-2'>
@@ -40,13 +44,12 @@ export default function Footer() {
                         <p onClick={() => handleNavigation('/privacy')} style={{ cursor: 'pointer' }}>Privacy Policy</p>
                     </div>
                 </div>
-                <div id="membership-flag" className='md:hidden lg:visible lg:flex lg:flex-col lg:h-[7rem] lg:gap-4 z-40 text-black'>
+                <div id="membership-flag" className='md:hidden lg:visible lg:flex lg:flex-col lg:h-[7rem] lg:gap-4 z-50 text-black'>
                     <p className='text-2xl text-center'>Are you already a member?</p>
                     <Button
-                        OnClick={() => handleNavigation('/login')}
-                        className="px-20 text-xs py-2.5 rounded-2xl text-white z-40 no-hover"
+                        onClick={() => handleNavigation('/')}
+                        className="px-20 text-xs py-2.5 rounded-2xl text-white z-50 no-hover bg-black"
                         text="Create an event"
-                        
                     />
 
 
@@ -68,11 +71,13 @@ export default function Footer() {
                         
                         <a onClick={() => handleNavigation('/')} style={{ cursor: 'pointer' }}>Home</a>
                         <p onClick={() => handleNavigation('/events')} style={{ cursor: 'pointer' }}>Events</p>
-                        <p onClick={() => handleNavigation('/login')} style={{ cursor: 'pointer' }}>Sign Up</p>
+                        <p onClick={() => handleNavigation(
+                            token ? '/' : '/signup'
+                            )} style={{ cursor: 'pointer' }}>Sign Up</p>
                     </div>
                 </section>
 
-                <aside className='md:invisible lg:visible absolute bottom-[-6rem] left-[10rem] z-1'>
+                <aside className='md:invisible lg:visible absolute bottom-[-6rem] left-[14rem] z-1'>
                     <p className='text-[300px] text-black '>./moge</p>
                 </aside>
 
