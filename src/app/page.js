@@ -48,11 +48,11 @@ export default function Home() {
       <section className="flex flex-col gap-4 items-center">
         <div>
           <Image
-            src="/img/large-image.png"
+            src="/img/earth-3537401_1280.jpg"
             alt="Landing page picture"
             width={1400}
             height={625}
-            className="px-4"
+            className="px-4 rounded-[60px] h-[520px] w-[1340px] object-cover"
           />
           <div className="lg:visible absolute lg:top-[20rem] lg:left-[4rem] bg-white lg:w-[460px] text-black px-12 py-6 rounded-3xl">
             <h1 className="text-2xl mb-1">
