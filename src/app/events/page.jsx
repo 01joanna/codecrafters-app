@@ -1,4 +1,4 @@
-"use client"
+'use client'
 import React, { useCallback, useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import EventsList from '@/app/components/EventsList/EventsList';
@@ -16,37 +16,31 @@ const Page = ({ searchParams }) => {
     const [filteredEvents, setFilteredEvents] = useState([]);
 
     useEffect(() => {
-        // console.log("Valor actual del parámetro de consulta:", query);
-    }, [query]);
+        loadEvents(currentPage);
+    }, [currentPage]);
 
-
-    const loadEvents = async () => {
+    const loadEvents = async (pageNumber) => {
         setLoading(true);
         try {
-            const events = await getAllEvents();
-            const eventsData = events.data;
+            const response = await getAllEvents(pageNumber);
+            const eventsData = response.data;
             const paginationData = {
                 currentPage: eventsData.current_page,
                 totalPages: eventsData.last_page,
                 totalItems: eventsData.total,
             };
-            if (events.length === 0) {
-                setLoadAttempts(prevAttempts => prevAttempts + 1);
-            } else {
-                setLoadAttempts(0);
-            }
-            setLoading(false);
-            setEvents(eventsData);
+            setEvents(eventsData.data);
             setTotalPages(paginationData.totalPages);
+            setLoading(false);
         } catch (error) {
             setLoading(false);
             console.error('Error al cargar los eventos:', error);
         }
-    }
+    };
 
     const filterEvents = useCallback((eventsData, query) => {
-        if (eventsData && eventsData.data) {
-            const filtered = eventsData.data.filter(event =>
+        if (eventsData && eventsData.length > 0) {
+            const filtered = eventsData.filter(event =>
                 (event.title && event.title.toLowerCase().includes(query.toLowerCase())) ||
                 (event.description && event.description.toLowerCase().includes(query.toLowerCase())) ||
                 (event.date && event.date.toLowerCase().includes(query.toLowerCase())) ||
@@ -58,15 +52,12 @@ const Page = ({ searchParams }) => {
         }
     }, []);
 
-    
     useEffect(() => {
         filterEvents(events, query);
     }, [query, events, filterEvents]);
 
-
     const handlePageUpdate = (pageNumber) => {
         setCurrentPage(pageNumber);
-        loadEvents(pageNumber);
     };
 
     useEffect(() => {
@@ -83,18 +74,18 @@ const Page = ({ searchParams }) => {
         <main className='bg-white'>
             {
                 loading ? (
-                <div>Loading...</div>
+                    <div>Loading...</div>
                 ) : (
                     <>
-                    <EventsList events={filteredEvents} query={query}/>
-                    <div>
-                        <Pagination currentPage={currentPage} totalPages={totalPages} updatePage={handlePageUpdate}/>
-                    </div>
+                        <EventsList events={filteredEvents} query={query}/>
+                        <div>
+                            <Pagination currentPage={currentPage} totalPages={totalPages} updatePage={handlePageUpdate}/>
+                        </div>
                     </>
-                )}
+                )
+            }
         </main>
     )
 }
-
 
 export default Page;

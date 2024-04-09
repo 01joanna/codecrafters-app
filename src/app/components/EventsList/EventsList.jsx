@@ -18,8 +18,8 @@ const EventsList = ({ events }) => {
         <div className='flex flex-col gap-8 items-center'>
         <h1 className='text-bold text-[80px] text-black pl-12'>All events</h1>
         </div>
-        <div className='flex flex-col gap-10 items-center'>
-            <div id="filter-btns" className='flex lg:flex-row md:flex-col gap-6 border justify-center border-lightmayonnaise py-6 lg:mx-44 md:mx-10 lg:items-start md:items-center'>
+        <div className='flex flex-col gap-10 items-center justify-center'>
+            <div id="filter-btns" className='flex lg:flex-row md:flex-col gap-6 border justify-center border-lightmayonnaise py-6 lg:mx-20 md:mx-10 lg:px-44 md:p-3 lg:items-start md:items-center'>
                 <p>Filter by:</p>
                 <Button text={"Online"} className="lg:px-20 md:px-8" onClick={() => handleFilter(1)} />
                 <Button text={"In-person"} className="lg:px-20 md:px-8" onClick={() => handleFilter(2)} />
