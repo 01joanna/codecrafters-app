@@ -1,6 +1,5 @@
 'use client'
 import React, { useCallback, useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
 import EventsList from '@/app/components/EventsList/EventsList';
 import Pagination from '@/app/components/Pagination/Pagination';
 import { getAllEvents } from '../../services/RestApi';
@@ -65,10 +64,6 @@ const Page = ({ searchParams }) => {
             loadEvents(currentPage);
         }
     }, [currentPage, loadAttempts]);
-    
-    // useEffect(() => {
-    //     filterEvents(events, query);
-    // }, [query, events, filterEvents]);
 
     return (
         <main className='bg-white'>

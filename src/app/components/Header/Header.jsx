@@ -141,6 +141,7 @@ export default function Header() {
                     </div>
                     <ul className="flex gap-6 font-bold text-xs md:hidden lg:flex">
                         <li>
+
                             <button onClick={() => handleNavigation(`/auth/[id]/your-events`)}>
                                 Your events
                             </button>

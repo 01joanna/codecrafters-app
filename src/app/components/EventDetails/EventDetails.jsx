@@ -99,7 +99,6 @@ export default function EventDetails({ event }) {
                     </aside>
 
                     {userData && event && userData == event.user_id && <EventsEdit event={event} eventId={event.id} />}
-                    {isSubscribed && <Ticket event={event} />}
                 </div>
     )
 }

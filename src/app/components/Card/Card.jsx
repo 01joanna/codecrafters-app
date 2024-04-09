@@ -38,7 +38,7 @@ export default function Card({ event, className, onDelete, imageUrl }) {
         alt={event.title}
         width={200}
         height={100}
-        className="object-cover rounded-md"
+        className="object-cover rounded-md w-[200px] h-[100px]"
       />
       <div id="card-text" className="text-black flex flex-col gap-1 w-[170px]">
         <div className="flex gap-10 items-center justify-">
@@ -61,7 +61,7 @@ export default function Card({ event, className, onDelete, imageUrl }) {
         </div>
         <span className="flex gap-2 items-center text-xs">
           <FaUsers />
-          <h6>{event.attendees_count} assistants</h6>
+          <h6>{event.max_assistants} max. assistants</h6>
         </span>
         <button
           className="bg-lightmayonnaise text-black text-[9px] py-1 px-2 rounded-md mt-4"
