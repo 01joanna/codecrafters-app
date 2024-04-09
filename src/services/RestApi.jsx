@@ -225,18 +225,23 @@ export const updateUserProfile = async (userId, formData, authToken) => {
     }
     };
 
-    export const getRegisteredUsersForEvent = async (userData, authToken) => {
+    export const getRegisteredUsersForEvent = async (eventId, authToken) => {
     try {
-        const response = await axios.get(`/events/${userData}/registered-users`, {
+        const response = await axios.get(`/events/${eventId}/registered-users`, {
             headers: {
                 "Authorization": `Bearer ${authToken}`
-                    }
-                });
+            }
+        });
         return response.data;
     } catch (error) {
-        throw error;
+        if (error.response && error.response.status === 404) {
+            return { message: "No registered users found for this event" };
+        } else {
+            throw error;
+        }
     }
-    };
+};
+
 
     // Sanctum route
     export const getUser = async () => {

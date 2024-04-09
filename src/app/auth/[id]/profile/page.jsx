@@ -53,21 +53,29 @@ export default function Profile() {
         setFormData({ ...formData, image_path: e.target.files[0] }); 
     }
 
+
+
     const handleUpdate = async (e) => {
         e.preventDefault();
 
-        const jsonData = {
-            name: formData.name,
-            password: formData.password,
-            password_confirmation: formData.password_confirmation,
-        };
+        const jsonData = {};
 
-        if (formData.email !== '') {
+        // Agregar los campos que el usuario haya completado
+        if (formData.name.trim() !== '') {
+            jsonData.name = formData.name;
+        }
+        if (formData.email.trim() !== '') {
             jsonData.email = formData.email;
+        }
+        if (formData.password.trim() !== '') {
+            jsonData.password = formData.password;
+        }
+        if (formData.password_confirmation.trim() !== '') {
+            jsonData.password_confirmation = formData.password_confirmation;
         }
 
         // Agregar la imagen si está presente
-        if (formData.image_path) {
+        if (formData.image_path !== null) {
             jsonData.image = formData.image_path;
         }
 
@@ -81,6 +89,8 @@ export default function Profile() {
             console.log(error);
         }
     }
+
+
 
 
     if (loading) {
@@ -192,13 +202,3 @@ export default function Profile() {
         
     );
 }
-
-
-{/* <main>
-        <div>
-            <h1>User Profile</h1>
-            <p>Name: {userProfile.name}</p>
-            <p>Email: {userProfile.email}</p>
-            <p>Image: <Image src={`http://127.0.0.1:8000/storage/${userProfile.image_path}`} alt={userProfile.name} width={100} height={100} /></p>
-        </div>
-        </main> */}
