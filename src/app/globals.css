@@ -80,6 +80,10 @@ body {
   .pointer  {
   cursor: pointer;
 }
+#register-label {
+  @apply text-[11px] font-semibold uppercase;
+
+}
 
 footer {
   @apply mt-auto;
@@ -93,5 +97,6 @@ footer {
   pointer-events: none;
   background-color: transparent !important;
 }
+
   
 }
