@@ -63,7 +63,7 @@ export default function Profile() {
             password_confirmation: formData.password_confirmation,
         };
 
-        // Agregar el correo electrónico si no está vacío
+        // Agregar el correo si no está vacío
         if (formData.email !== '') {
             jsonData.email = formData.email;
         }
@@ -84,8 +84,6 @@ export default function Profile() {
             console.log(error);
         }
     }
-
-
 
 
     if (loading) {

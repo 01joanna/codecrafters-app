@@ -61,7 +61,7 @@ export default function Header() {
                                 <li>
                                     <button 
                                     className='bg-yellow text-black rounded-lg px-2 py-1 w-[170px]'
-                                            onClick={() => handleNavigation(`/auth/[id]/your-events`)}>
+                                    onClick={() => handleNavigation(`/auth/[id]/your-events`)}>
                                         Your events
                                     </button>
                                 </li>
@@ -116,7 +116,7 @@ export default function Header() {
                         {token ? (
                             <>
                                 <li>
-                                    <button onClick={() => handleNavigation(`/auth/[id]/profile`)}>
+                                    <button onClick={() => handleNavigation(`auth/[id]/profile`)}>
                                         <MdOutlineManageAccounts /> My Account
                                     </button>
                                 </li>
