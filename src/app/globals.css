@@ -37,6 +37,10 @@ body {
     text-wrap: balance;
   }
 
+  #error-formcreate {
+    @apply text-xs text-red;
+  }
+
   main {
     @apply bg-white text-black ;
   
@@ -98,5 +102,4 @@ footer {
   background-color: transparent !important;
 }
 
-  
 }

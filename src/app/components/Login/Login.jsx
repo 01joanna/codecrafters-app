@@ -38,8 +38,12 @@ export default function Login() {
           })
           .catch(error => {
             console.error('Login failed:', error);
-            alert('There was an error with your login, please try again')
-          });
+            let errorMessage = "There was an error with your login, please try again";
+            if (error.response && error.response.data && error.response.data.message) {
+                errorMessage = error.response.data.message;
+            }
+            setError(errorMessage);
+        });
       })
       .catch(error => {
         console.error('Fetching CSRF cookie failed:', error);
@@ -77,7 +81,9 @@ export default function Login() {
                     value={formInput.email}
                     onChange={updateFormInput}
                   />
+                  {error && !formInput.email && <p className="text-red text-xs">Email is required.</p>}
                 </div>
+
                 <div>
                   <label id="signup-label" htmlFor="password">
                     PASSWORD:
@@ -91,6 +97,7 @@ export default function Login() {
                     value={formInput.password}
                     onChange={updateFormInput}
                   />
+                  {error && !formInput.password && <p className="text-red text-xs">Password is required.</p>}
                 </div>
               </div>
             </div>
