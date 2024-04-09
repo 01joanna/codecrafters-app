@@ -16,7 +16,7 @@ const Page = ({ searchParams }) => {
     const [filteredEvents, setFilteredEvents] = useState([]);
 
     useEffect(() => {
-        console.log("Valor actual del parámetro de consulta:", query);
+        // console.log("Valor actual del parámetro de consulta:", query);
     }, [query]);
 
 
@@ -37,11 +37,7 @@ const Page = ({ searchParams }) => {
             }
             setLoading(false);
             setEvents(eventsData);
-            console.log('Eventos cargados:', eventsData)
-            console.log('Datos de paginación:', paginationData)
-            console.log('data:', events)
             setTotalPages(paginationData.totalPages);
-            console.log(eventsData.data)
         } catch (error) {
             setLoading(false);
             console.error('Error al cargar los eventos:', error);
@@ -57,10 +53,8 @@ const Page = ({ searchParams }) => {
                 (event.location && event.location.toLowerCase().includes(query.toLowerCase()))
             );
             setFilteredEvents(filtered);
-            console.log('Eventos filtrados:', filtered);
         } else {
             setFilteredEvents([]);
-            console.log('No hay eventos para filtrar');
         }
     }, []);
 

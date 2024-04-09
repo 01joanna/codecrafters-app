@@ -30,8 +30,8 @@ export default function Login() {
       .then(() => {
         loginApi(formInput)
           .then(({ accessToken, user }) => {
-            console.log("Elementos", user);
-            console.log("Elementos de token", accessToken);
+            // console.log("Elementos", user);
+            // console.log("Elementos de token", accessToken);
             login(accessToken, user);
             Coookies.set("user", JSON.stringify(user));
             router.push('/');
