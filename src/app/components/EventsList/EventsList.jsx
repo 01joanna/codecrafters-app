@@ -25,7 +25,7 @@ const EventsList = ({ events }) => {
                 <Button text={"In-person"} className="lg:px-20 md:px-8" onClick={() => handleFilter(2)} />
                 <Button text={"All"} className="lg:px-20 md:px-8" onClick={() => handleFilter(null)} />
             </div>
-            <div className="flex flex-wrap justify-start gap-4 py-8 w-[80%] items-center">
+            <div className="flex flex-wrap justify-start gap-4 py-10 w-[80%]">
                 {filteredEvents.length > 0 ? (
                     filteredEvents.map(event => (
                         <Card key={event.id} event={event} imageUrl={event.image_url} />
