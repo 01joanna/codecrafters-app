@@ -15,19 +15,19 @@ export default function Page() {
     const router = useRouter();
 
     return (
-        <main className='flex flex-col gap-10 pl-10'>
+        <main className='flex flex-col gap-10 pl-10 w-full'>
             {authToken ? (
                 <>
                 <h1 className="pt-10">All your upcoming events</h1>
-                <section className="py-3 pl-10">
+                <section className="py-3 pl-10 flex flex-col">
                     <h2 className="text-3xl pb-7">Events created by you:</h2>
-                    <div className='w-[70%] justify-center'>
+                    <div className='w-[90%] flex flex-wrap gap-10'>
                             <EventsCreated userId={userId} authToken={authToken}/>
                     </div>
                 </section>
                 <section className="py-3 pl-10">
                 <h2 className="text-3xl pb-7 md:mr-10 lg:mr-0 ">Events you confirmed your assistance to:</h2>
-                <div className='w-[70%] justify-center '>
+                <div className='w-[90%] flex flex-wrap gap-10'>
                         <EventsSubscribed user={user} authToken={authToken} /> {/* Pasar el objeto de usuario */} 
                     </div>
                 </section>

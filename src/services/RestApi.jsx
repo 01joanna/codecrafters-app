@@ -99,13 +99,13 @@ export const updateUserProfile = async (userId, formData, authToken) => {
     };
 
 
-    export const getAllEvents = async () => {
-    try {
-        const response = await axios.get("/events");
-        return response.data;
-    } catch (error) {
-        throw error;
-    }
+    export const getAllEvents = async (pageNumber) => {
+        try {
+            const response = await axios.get(`/events?page=${pageNumber}`);
+            return response.data;
+        } catch (error) {
+            throw error;
+        }
     };
 
     export const getUserEvents = async (id) => {
