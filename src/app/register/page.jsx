@@ -28,6 +28,16 @@ export default function RegisterPage() {
     const handleSubmit = async (e) => {
         e.preventDefault();
     
+        if (!formData.name || !formData.email || !formData.password || !formData.password_confirmation) {
+            setError("All fields are required.");
+            return;
+        }
+    
+        if (formData.password !== formData.password_confirmation) {
+            setError("Passwords do not match.");
+            return;
+        }
+    
         try {
             const response = await register(formData);
     
@@ -71,6 +81,7 @@ export default function RegisterPage() {
                             onChange={handleChange}
                             placeholder="Your name"
                         />
+                        {error && !formData.name && <p className="text-red text-xs">Name is required.</p>}
                     </div>
 
                     <div>
@@ -84,6 +95,7 @@ export default function RegisterPage() {
                             onChange={handleChange}
                             placeholder="Your email"
                         />
+                        {error && !formData.email && <p className="text-red text-xs">Email is required.</p>}
                     </div>
 
                     <div>
@@ -97,6 +109,7 @@ export default function RegisterPage() {
                             onChange={handleChange}
                             placeholder="Your password"
                         />
+                        {error && !formData.password && <p className="text-red text-xs">Password is required.</p>}
                     </div>
 
                     <div>
@@ -112,6 +125,8 @@ export default function RegisterPage() {
                             onChange={handleChange}
                             placeholder="Your password again"
                         />
+                        {error && !formData.password_confirmation && <p className="text-red text-xs">Password confirmation is required.</p>}
+    {error && formData.password !== formData.password_confirmation && <p className="text-red text-xs">Passwords do not match.</p>}
                     </div><br />
 
                     <label htmlFor="image" id="register-label">IMAGE:</label>
@@ -122,6 +137,7 @@ export default function RegisterPage() {
                         onChange={handleFileChange}
                         placeholder="Upload"
                     />
+                    {error && !formData.image_path && <p className="text-red text-xs">Image is required, and it must be an .jpeg, .png, .gif</p>}
                     <div id="submit-login" className="flex flex-col gap-2 my-10">
                         <Button type="submit" text="Sign up" classname="px-20" />
                         <p className="text-xs font-light">
@@ -132,7 +148,6 @@ export default function RegisterPage() {
                         </p>
                     </div>
 
-                    {/* Error or Success Messages */}
                     {error && <p className="text-red">{error}</p>}
                     {success && (
                         <p className="text-green">User registered successfully!</p>

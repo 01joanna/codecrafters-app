@@ -18,6 +18,7 @@ export default function SubscribeButton({ event, onSubscribe }) {
             try {
                 const subscribedEvents = await getSubscribedEvents(userData, authToken);
                 setIsSubscribed(subscribedEvents.some(subscribedEvent => subscribedEvent.id === event.id));
+                router.refresh();
             } catch (error) {
                 console.error('Error fetching subscribed events:', error);
             }

@@ -61,7 +61,7 @@ export default function Card({ event, className, onDelete, imageUrl }) {
         </div>
         <span className="flex gap-2 items-center text-xs">
           <FaUsers />
-          <h6>{event.attendees_count} assistants</h6>
+          <h6>{event.max_assistants} max. assistants</h6>
         </span>
         <button
           className="bg-lightmayonnaise text-black text-[9px] py-1 px-2 rounded-md mt-4"
