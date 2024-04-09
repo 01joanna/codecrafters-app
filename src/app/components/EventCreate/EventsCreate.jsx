@@ -5,6 +5,7 @@ import { createEvent } from '../../../services/RestApi';
 import { useAuthContext } from '../../../contexts/AuthContext';
 import { useRouter } from 'next/navigation';
 import Cookies from 'js-cookie';
+import { set } from 'date-fns';
 
 export default function EventCreate() {
 
@@ -14,7 +15,6 @@ export default function EventCreate() {
 
     const authToken = getAuthToken();
     const router = useRouter();
-
     const [eventForm, setEventForm] = useState({
         title: "",
         description: "",
@@ -67,7 +67,7 @@ export default function EventCreate() {
 
             const response = await createEvent(eventData, authToken);
             console.log('Evento creado:', response);
-            alert('Evento creado con éxito')
+            alert('Event created successfully!')
             router.refresh();
             router.push('/events');
             handleEventCreationSuccess();
@@ -158,7 +158,7 @@ export default function EventCreate() {
                         </div>
                         <div id="event-form-category" className="text-xs">
                             <fieldset>
-                            <label id="event-form-label" htmlFor="category">Category</label><br/>
+                            <label id="event-form-label" htmlFor="category">Category (1 - Online, 2 - In-person)</label><br/>
                             <input 
                             type="number" 
                             id="category_id" 

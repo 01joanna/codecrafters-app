@@ -41,8 +41,8 @@ export default function Card({ event, className, onDelete, imageUrl }) {
         className="object-cover rounded-md"
       />
       <div id="card-text" className="text-black flex flex-col gap-1 w-[170px]">
-        <div className="flex gap-10 items-center">
-          <h1 className="text-lg w-2/3">{event.title}</h1>
+        <div className="flex gap-10 items-center justify-">
+          <h1 className="text-sm w-2/3">{event.title}</h1>
           <div id="category-icon" className="w-1/3" >
             {event.category_id === 1 ?  (
               <IoEarthSharp className="text-1xl"/>
