@@ -30,15 +30,15 @@ export default function Login() {
       .then(() => {
         loginApi(formInput)
           .then(({ accessToken, user }) => {
-            // console.log("Elementos", user);
-            // console.log("Elementos de token", accessToken);
             login(accessToken, user);
             Coookies.set("user", JSON.stringify(user));
+            alert('Login successful')
             router.push('/');
             router.refresh();
           })
           .catch(error => {
             console.error('Login failed:', error);
+            alert('There was an error with your login, please try again')
           });
       })
       .catch(error => {

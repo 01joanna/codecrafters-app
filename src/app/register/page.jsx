@@ -2,7 +2,6 @@
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import Button from "../components/Button/Button";
-import axios from "axios";
 import { register } from "../../services/RestApi";
 
 export default function RegisterPage() {
@@ -21,19 +20,16 @@ export default function RegisterPage() {
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
-        // console.log(formData);
     };
 
     const handleFileChange = (e) => {
         setFormData({ ...formData, image: e.target.files[0] });
-        // console.log("Estado actualizado:", formData);
     };
     const handleSubmit = async (e) => {
         e.preventDefault();
     
         try {
             const response = await register(formData);
-            // console.log(response);
     
             if (typeof window !== 'undefined') {
                 localStorage.setItem('authToken', response.data.token);
@@ -41,6 +37,7 @@ export default function RegisterPage() {
     
             setSuccess(true);
             setError(null);
+            alert('Registration successful. Remember your credentials to login.');
             router.push("/login");
         } catch (error) {
             setSuccess(false);
@@ -59,14 +56,12 @@ export default function RegisterPage() {
             </div>
             <div id="signup-form" className="shadow-xl">
                 <form method="POST" onSubmit={handleSubmit} className="flex flex-col items-center px-8">
-                    <legend className="font-light md:text-xl lg:text-4xl my-8">
+                    <legend className="font-light md:text-xl lg:text-3xl my-8">
                         Create a new account
                     </legend>
 
-                    {/* Form fields */}
-                    {/* Name */}
                     <div>
-                        <label htmlFor="name">NAME:</label>
+                        <label htmlFor="name" id="register-label">NAME:</label>
                         <br />
                         <input
                             type="text"
@@ -78,9 +73,8 @@ export default function RegisterPage() {
                         />
                     </div>
 
-                    {/* Email */}
                     <div>
-                        <label htmlFor="email">EMAIL:</label>
+                        <label htmlFor="email" id="register-label">EMAIL:</label>
                         <br />
                         <input
                             type="email"
@@ -92,9 +86,8 @@ export default function RegisterPage() {
                         />
                     </div>
 
-                    {/* Password */}
                     <div>
-                        <label htmlFor="password">PASSWORD:</label>
+                        <label htmlFor="password"id="register-label">PASSWORD:</label>
                         <br />
                         <input
                             type="password"
@@ -106,9 +99,8 @@ export default function RegisterPage() {
                         />
                     </div>
 
-                    {/* Password Confirmation */}
                     <div>
-                        <label htmlFor="password_confirmation">
+                        <label htmlFor="password_confirmation" id="register-label">
                             PASSWORD CONFIRMATION:
                         </label>
                         <br />
@@ -120,11 +112,9 @@ export default function RegisterPage() {
                             onChange={handleChange}
                             placeholder="Your password again"
                         />
-                    </div>
+                    </div><br />
 
-                    Image Selection
-                    <label htmlFor="image">IMAGE:</label>
-                    <br />
+                    <label htmlFor="image" id="register-label">IMAGE:</label>
                     <input
                         type="file"
                         id="image_path"
@@ -132,8 +122,6 @@ export default function RegisterPage() {
                         onChange={handleFileChange}
                         placeholder="Upload"
                     />
-
-                    {/* Registration Button */}
                     <div id="submit-login" className="flex flex-col gap-2 my-10">
                         <Button type="submit" text="Sign up" classname="px-20" />
                         <p className="text-xs font-light">
